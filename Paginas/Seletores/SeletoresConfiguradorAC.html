@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+
+<main id="main-content" class="sr-only">
+    <h1>
+        Configurador
+    </h1>
+
+    <div id="titulo-estrutural">
+        Configurador
+    </div>
+</main>
+
+<link rel="stylesheet" href="/Layout/Galeria/Galeria.min.css">
+
+<main class="main mb-0 pb-0">
+    <div class="pagina__titulo--bloco fw-bold mt-5 mb-4">
+    </div>
+    <div class="container">
+        <div class="galeria-produto" data-visible="1.I" data-folder="IBRI" data-title="IBR I"
+            data-description="A linha IBR I de redutores oferece alto desempenho nos ambientes mais agressivos devido a sua construção em aço inoxidável, tanto carcaça quanto as diversas opções de acessórios que possui. Seu corpo é quadrado e internamente é fabricado com engrenagens de coroa e rosca sem-fim, possui proteção IP69K, garantida pelas vedações com retentor duplo de viton e capa externa em aço inoxidável."
+            data-site="https://www.redutoresibr.com.br/pt/Produtos/ibr-i" data-catalog="">
+        </div>
+
+        <div class="galeria-produto" data-visible="1.Z" data-folder="IBRZ" data-title="IBR Z"
+            data-description="A linha Z de redutores e motorredutores se caracteriza pela tecnologia empregada, desde a concepção da transmissão por engrenagens coroa e rosca sem-fim helicoidais até o tratamento de superfície especial NTT, que garante alteração de propriedades e aumento da resistência do alumínio à corrosão."
+            data-site="https://www.redutoresibr.com.br/pt/Produtos/ibr-z" data-catalog="">
+        </div>
+    </div>
+    <div id="titulo-configurador" class="pagina__titulo--bloco mt-5 mb-5 text-center">
+        <h2 id="texto-configurador" class="fs-3 fw-bolder m-0"></h2>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        function atualizarTitulo() {
+            const visivel = Array.from(document.querySelectorAll('.galeria-produto[data-title]'))
+                .find(g => g.style.display !== 'none');
+            const titulo = visivel ? visivel.dataset.title : '';
+            const el = document.getElementById('texto-configurador');
+            if (!el) return;
+            if (!titulo) {
+                el.innerHTML = '';
+                document.title = 'Configurador de Produtos - ' + titulo;
+                return;
+            }
+            let html = 'Configure o seu ';
+            if (titulo.toUpperCase().startsWith('IBR ')) {
+                const partes = titulo.split(' ');
+                const primeiro = partes.shift();
+                const resto = partes.join(' ');
+                html += '<span class="text-dark">' + primeiro + '</span>';
+                if (resto) html += ' <span class="text-orange">' + resto + '</span>';
+            } else {
+                html += titulo;
+            }
+            el.innerHTML = html;
+            document.title = 'Configurador de Produtos - ' + titulo;
+        }
+        atualizarTitulo();
+        setTimeout(atualizarTitulo);
+        document.getElementById('ACLN')?.addEventListener('change', atualizarTitulo);
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const helpConfigs = {
+
+            GrupoACLN() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoACBR() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoACRD() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoACCM() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoACCP() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoACAF() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoACAFP() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoACBT() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoACPE() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoACAS() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoACASP() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoACCL() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoACCLP() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoACPM() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoACOPC() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoACMO() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoMOLN() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoMOTP() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoMOTT() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoMOFQ() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoMOPT() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoMOPL() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoMOCP() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoMOCPP() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoMOPC() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoMOPP() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoMOOPC() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoMOCR() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoACCR() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+        }
+
+        const buttons = document.querySelectorAll('button.help-icon[data-help-text]');
+        buttons.forEach(btn => {
+            btn.dataset.helpTextOriginal = btn.dataset.helpText;
+            btn.dataset.helpTitleOriginal = btn.dataset.helpTitle;
+        });
+
+        function updateButton(btn, data) {
+            if (!data) {
+                data = { title: btn.dataset.helpTitleOriginal, text: btn.dataset.helpTextOriginal };
+            }
+            btn.dataset.helpTitle = data.title || '';
+            btn.dataset.helpText = data.text || '';
+            btn.dataset.bsTitle = data.title || '';
+            btn.dataset.bsContent = data.text || '';
+            const pop = bootstrap.Popover.getOrCreateInstance(btn);
+            pop.setContent({ '.popover-header': data.title || '', '.popover-body': data.text || '' });
+        }
+
+        function updateHelps() {
+            buttons.forEach(btn => {
+                const section = btn.closest('section');
+                const cfgFn = section && helpConfigs[section.id];
+                const data = cfgFn && cfgFn();
+                updateButton(btn, data);
+            });
+        }
+
+        ['ACLN', 'ACBR', 'ACRD', 'ACCM', 'ACCP', 'ACAF', 'ACAFP', 'ACBT', 'ACPE', 'ACAS', 'ACASP', 'ACCL', 'ACCLP', 'ACPM', 'ACOPC',
+            'ACMO', 'MOLN', 'MOTP', 'MOTT', 'MOFQ', 'MOPT', 'MOPL', 'MOCP', 'MOCPP', 'MOPC', 'MOPP', 'MOOPC', 'MOCR', 'ACCR'].forEach(id => {
+                document.getElementById(id)?.addEventListener('change', updateHelps);
+            });
+
+        updateHelps();
+    });
+</script>
+
+<script src="/Layout/Galeria/Galeria.min.js"></script>
+<script src="/Layout/Galeria/FiltrarPorURL.min.js"></script>
+
+<section id="GrupoACLN">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACLN">Linha do Redutor:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="ACLN" name="ACLN">
+    </select>
+</section>
+
+<section id="GrupoACBR">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACBR">Tamanho do Redutor:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="ACBR" name="ACBR">
+    </select>
+</section>
+
+
+<section id="GrupoACRD">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACRD">Redução do Redutor:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="ACRD" name="ACRD">
+    </select>
+</section>
+
+
+<section id="GrupoACCM">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACCM">Tamanho da Carcaça ou Eixo de
+        Entrada do Redutor:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="ACCM" name="ACCM">
+    </select>
+</section>
+
+
+<section id="GrupoACCP">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACCP">Forma Construtiva:<button
+            class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="ACCP" name="ACCP">
+    </select>
+</section>
+
+
+<section id="GrupoACAF" class="grupo-condicional">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACAF">Acessório de Fixação do
+        Redutor:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="ACAF" name="ACAF">
+    </select>
+
+
+    <div class="subgrupo" style="display: none;">
+
+        <section id="GrupoACAFP" class="grupo-condicional">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACAFP">Posição do Acessório
+                de Fixação:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <select class="cssC" id="ACAFP" name="ACAFP">
+                <option value="A" selected>DIREITA</option>
+                <option value="B">ESQUERDA</option>
+            </select>
+        </section>
+
+
+        <section id="GrupoACBT" class="grupo-condicional" style="display: none;">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACBT">Posição do Braço de
+                Torque:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <select class="cssC" id="ACBT" name="ACBT">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </section>
+
+
+        <section id="GrupoACPE" class="grupo-condicional" style="display: none;">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACPE">Posição dos Pés do
+                Redutor:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <select class="cssC" id="ACPE" name="ACPE">
+                <option value="PB" selected>ESQUERDA</option>
+                <option value="PA">DIREITA</option>
+                <option value="PV">INFERIOR</option>
+            </select>
+        </section>
+    </div>
+</section>
+
+
+<section id="GrupoACAS" class="grupo-condicional">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACAS">Acessório de Saída do Redutor:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="ACAS" name="ACAS">
+    </select>
+
+
+    <div class="subgrupo" style="display: none;">
+
+        <section id="GrupoACASP" class="grupo-condicional">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACASP">Posição do Acessório
+                de Saída:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <select class="cssC" id="ACASP" name="ACASP">
+                <option value="A" selected>DIREITA</option>
+                <option value="B">ESQUERDA</option>
+            </select>
+        </section>
+    </div>
+</section>
+
+
+<section id="GrupoACCL" class="grupo-condicional">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACCL">Com Capa de Proteção Lateral
+        do Redutor:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="ACCL" name="ACCL">
+        <option value="N">NÃO</option>
+        <option value="CP">SIM</option>
+    </select>
+
+
+    <div class="subgrupo" style="display: none;">
+
+        <section id="GrupoACCLP" class="grupo-condicional">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACCLP">Posição da Capa
+                Lateral do Redutor:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <select class="cssC" id="ACCLP" name="ACCLP">
+            </select>
+        </section>
+    </div>
+</section>
+
+
+<section id="GrupoACPM" class="grupo-condicional" style="display: none;">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACPM">Posição de Montagem do
+        Redutor:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="ACPM" name="ACPM">
+    </select>
+</section>
+
+
+<section id="GrupoACOPC">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACOPC_NAO">Itens Opcionais do
+        Redutor:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <div id="dropdownACOPC" class="dropdown-checkbox" style="max-width:400px; margin: 0 auto;">
+        <div class="dropdown-button cssC" onclick="toggleDropdown(this)">NÃO</div>
+        <div class="dropdown-list"
+            style="display:none; border: 1px solid #ec4115; max-height: 180px; overflow-y: auto; border-radius: 6px; background: white; padding: 10px; margin-top: 4px;">
+            <div id="checklistACOPC" style="display:flex; flex-direction:column; gap:6px; text-align:left;">
+                <label><input type="checkbox" id="ACOPC_NAO" name="ACOPC" value="NÃO" checked> NÃO</label>
+            </div>
+        </div>
+        <input type="hidden" id="ACOPC" name="ACOPC" value="NÃO">
+    </div>
+</section>
+
+
+<section id="GrupoACMO" class="grupo-condicional">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACMO">Com Motor:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="ACMO" name="ACMO">
+        <option value="N">NÃO</option>
+        <option value="S">SIM</option>
+    </select>
+
+
+    <div class="subgrupo" style="display: none;">
+
+        <section id="GrupoMOLN" class="grupo-condicional">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="MOLN">Linha do Motor:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <select class="cssC" id="MOLN" name="MOLN">
+
+            </select>
+        </section>
+
+
+        <section id="GrupoMOTP" class="grupo-condicional">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="MOTP">Tipo do Motor:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <select class="cssC" id="MOTP" name="MOTP">
+
+            </select>
+        </section>
+
+
+        <section id="GrupoMOTT" class="grupo-condicional">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="MOTT">Tensão do Motor:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <select class="cssC" id="MOTT" name="MOTT">
+
+            </select>
+        </section>
+
+
+        <section id="GrupoMOFQ" class="grupo-condicional">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="MOFQ">Frequência do Motor:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <select class="cssC" id="MOFQ" name="MOFQ">
+
+            </select>
+        </section>
+
+
+        <section id="GrupoMOPT" class="grupo-condicional">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="MOPT">Potência do Motor:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <select class="cssC" id="MOPT" name="MOPT">
+
+            </select>
+        </section>
+
+
+        <section id="GrupoMOPL" class="grupo-condicional">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="MOPL">Polaridade do Motor:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <select class="cssC" id="MOPL" name="MOPL">
+
+            </select>
+        </section>
+
+
+        <section id="GrupoMOCP" class="grupo-condicional">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="MOCP">Forma Construtiva do
+                Motor:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <select class="cssC" id="MOCP" name="MOCP">
+
+            </select>
+
+
+            <div class="SubgrupoMOCP" style="display: none;">
+                <section id="GrupoMOCPP" class="subgrupo subgrupo-aninhado grupo-condicional">
+                    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="MOCPP">Posição dos
+                        Pés do Motor:
+                        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                            data-bs-title="" data-bs-content=""></button>
+                    </label>
+                    <select class="cssC" id="MOCPP" name="MOCPP">
+
+                    </select>
+                </section>
+            </div>
+        </section>
+
+
+        <section id="GrupoMOPC" class="grupo-condicional">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="MOPC">Posição da Caixa de
+                Ligação ou de Montagem do Motor:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <select class="cssC" id="MOPC" name="MOPC">
+
+            </select>
+        </section>
+
+
+        <section id="GrupoMOPP" class="grupo-condicional">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="MOPP">Posição do Prensa
+                Cabo:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <select class="cssC" id="MOPP" name="MOPP">
+
+            </select>
+        </section>
+
+
+        <section id="GrupoMOOPC" class="grupo-condicional">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="MOOPC_NAO">Itens Opcionais
+                do Motor:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <div id="dropdownMOOPC" class="dropdown-checkbox" style="max-width:400px; margin: 0 auto;">
+                <div class="dropdown-button cssC" onclick="toggleDropdown(this)">NÃO</div>
+                <div class="dropdown-list"
+                    style="display:none; border: 1px solid #ec4115; max-height: 180px; overflow-y: auto; border-radius: 6px; background: white; padding: 10px; margin-top: 4px;">
+                    <div id="checklistMOOPC" style="display:flex; flex-direction:column; gap:6px; text-align:left;">
+                        <label><input type="checkbox" id="MOOPC_NAO" name="MOOPC" value="NÃO" checked> NÃO</label>
+                        <label><input type="checkbox" name="MOOPC" value="ACOR"> PINTURA ANTICORROSIVA</label>
+                        <label><input type="checkbox" name="MOOPC" value="PINTCZ"> PINTURA CINZA</label>
+                        <label><input type="checkbox" name="MOOPC" value="VF"> VENTILAÇÃO FORÇADA</label>
+                        <label><input type="checkbox" name="MOOPC" value="CR"> CONTRA RECUO</label>
+                    </div>
+                </div>
+                <input type="hidden" id="MOOPC" name="MOOPC" value="NÃO">
+            </div>
+
+
+            <div class="SubgrupoMOOPC" style="display: none;">
+                <section id="GrupoMOCR" class="subgrupo subgrupo-aninhado grupo-condicional">
+                    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="MOCR">Sentido de
+                        Giro do Motor:
+                        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                            data-bs-title="" data-bs-content=""></button>
+                    </label>
+                    <select class="cssC" id="MOCR" name="MOCR">
+                        <option value="H">HORÁRIO</option>
+                        <option value="AH">ANTI-HORÁRIO</option>
+                    </select>
+                </section>
+
+
+                <section id="GrupoACCR" class="subgrupo subgrupo-aninhado grupo-condicional">
+                    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="ACCR">Sentido de
+                        Giro do Redutor:
+                        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                            data-bs-title="" data-bs-content=""></button>
+                    </label>
+                    <select class="cssC" id="ACCR" name="ACCR">
+
+                    </select>
+                </section>
+
+            </div>
+        </section>
+    </div>
+</section>
+
+</div>
+</section>
+
+<script>
+    async function carregarACLN() {
+        const aclnSelect = document.getElementById('ACLN');
+
+        const response = await fetch('/Paginas/Seletores/Configuradores/AC/ACLN.php');
+        const optionsHTML = await response.text();
+
+        aclnSelect.innerHTML = optionsHTML;
+
+        aclnSelect.value = ''
+        aclnSelect.disabled = false;
+
+        aclnSelect.dispatchEvent(new Event('change'));
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        carregarACLN();
+    });
+
+    async function carregarACBR() {
+        const aclnSelect = document.getElementById('ACLN');
+        const acbrSelect = document.getElementById('ACBR');
+        const grupoACBR = document.getElementById('GrupoACBR');
+
+        const acln = aclnSelect.value;
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AC/ACBR.php?ACLN=${encodeURIComponent(acln)}`);
+        const optionsHTML = await response.text();
+
+        acbrSelect.innerHTML = optionsHTML;
+        grupoACBR.style.display = 'block';
+        acbrSelect.disabled = false;
+        acbrSelect.value = '';
+
+        acbrSelect.onchange = carregarACRD;
+
+        carregarACRD();
+    }
+
+    const aclnSelect = document.getElementById('ACLN');
+    if (aclnSelect) {
+        aclnSelect.addEventListener('change', carregarACBR);
+    }
+
+    const acbrSelect = document.getElementById('ACBR');
+    if (acbrSelect) {
+        acbrSelect.addEventListener('change', carregarACRD);
+    }
+
+    async function carregarACRD() {
+        const acln = document.getElementById('ACLN')?.value;
+        const acbr = document.getElementById('ACBR')?.value;
+        const acrdSelect = document.getElementById('ACRD');
+        const grupoACRD = document.getElementById('GrupoACRD');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AC/ACRD.php?ACLN=${encodeURIComponent(acln)}&ACBR=${encodeURIComponent(acbr)}`);
+        const optionsHTML = await response.text();
+
+        acrdSelect.innerHTML = optionsHTML;
+        grupoACRD.style.display = 'block';
+        acrdSelect.disabled = false;
+        acrdSelect.value = '';
+
+        carregarACCM();
+    }
+
+    async function carregarACCM() {
+        const acln = document.getElementById('ACLN')?.value;
+        const acbr = document.getElementById('ACBR')?.value;
+        const acrd = document.getElementById('ACRD')?.value;
+        const accmSelect = document.getElementById('ACCM');
+        const grupoACCM = document.getElementById('GrupoACCM');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AC/ACCM.php?ACLN=${encodeURIComponent(acln)}&ACBR=${encodeURIComponent(acbr)}&ACRD=${encodeURIComponent(acrd)}`);
+        const optionsHTML = await response.text();
+
+        accmSelect.innerHTML = optionsHTML;
+        grupoACCM.style.display = 'block';
+        accmSelect.disabled = false;
+        accmSelect.value = '';
+
+        carregarACCP();
+        carregarACAF();
+    }
+
+    async function carregarACCP() {
+        const acln = document.getElementById('ACLN')?.value;
+        const acbr = document.getElementById('ACBR')?.value;
+        const accm = document.getElementById('ACCM')?.value;
+        const acrd = document.getElementById('ACRD')?.value;
+        const acas = document.getElementById('ACAS')?.value;
+        const acaf = document.getElementById('ACAF')?.value;
+        const accpSelect = document.getElementById('ACCP');
+        const grupoACCP = document.getElementById('GrupoACCP');
+
+        if (accm.includes('EE')) {
+            grupoACCP.style.display = 'none';
+            accpSelect.value = '';
+            return;
+        }
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AC/ACCP.php?ACLN=${encodeURIComponent(acln)}&ACBR=${encodeURIComponent(acbr)}&ACCM=${encodeURIComponent(accm)}&ACRD=${encodeURIComponent(acrd)}&ACAS=${encodeURIComponent(acas)}&ACAF=${encodeURIComponent(acaf)}`);
+        const optionsHTML = await response.text();
+
+        accpSelect.innerHTML = optionsHTML;
+        grupoACCP.style.display = 'block';
+        accpSelect.disabled = false;
+    }
+
+    const acrdSelect = document.getElementById('ACRD');
+    if (acrdSelect) {
+        acrdSelect.addEventListener('change', carregarACCM);
+    }
+
+    const accmSelect = document.getElementById('ACCM');
+    if (accmSelect) {
+        accmSelect.addEventListener('change', carregarACCP);
+    }
+
+    async function carregarACAF() {
+        const acln = document.getElementById('ACLN')?.value;
+        const acbr = document.getElementById('ACBR')?.value;
+        const accp = document.getElementById('ACCP')?.value || 'N';
+        const grupoACAF = document.getElementById('GrupoACAF');
+        const acafSelect = document.getElementById('ACAF');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AC/ACAF.php?ACLN=${encodeURIComponent(acln)}&ACBR=${encodeURIComponent(acbr)}`);
+        const optionsHTML = await response.text();
+        acafSelect.innerHTML = optionsHTML;
+
+        grupoACAF.style.display = 'block';
+        acafSelect.disabled = false;
+        acafSelect.value = 'N';
+
+        acafSelect.dispatchEvent(new Event('change'));
+
+        carregarACAS();
+    }
+
+    function carregarACAFP() {
+        const acln = document.getElementById('ACLN')?.value;
+        const acaf = document.getElementById('ACAF')?.value;
+        const grupoACAFP = document.getElementById('GrupoACAFP');
+        const acafpSelect = document.getElementById('ACAFP');
+        const subgrupoACAF = document.querySelector('#GrupoACAF .subgrupo');
+
+        const deveExibirAFP = (
+            acaf !== 'N' &&
+            acaf !== 'PE' &&
+            !(acln === '1.I' && acaf === 'BT')
+        );
+
+        grupoACAFP.style.display = deveExibirAFP ? 'block' : 'none';
+        acafpSelect.value = deveExibirAFP ? 'A' : '';
+
+        const exibeSubgrupo = deveExibirAFP || acaf === 'PE' || deveExibirACBT();
+        if (subgrupoACAF) {
+            subgrupoACAF.style.display = exibeSubgrupo ? 'block' : 'none';
+        }
+
+        carregarACBT();
+        carregarACPE();
+    }
+
+    function deveExibirACBT() {
+        const acln = document.getElementById('ACLN')?.value;
+        const acaf = document.getElementById('ACAF')?.value;
+        return acaf === 'BT' && acln !== '1.I';
+    }
+
+    function carregarACBT() {
+        const acln = document.getElementById('ACLN')?.value;
+        const acaf = document.getElementById('ACAF')?.value;
+        const grupoACBT = document.getElementById('GrupoACBT');
+        const acbtSelect = document.getElementById('ACBT');
+
+        const deveExibir = acaf === 'BT' && acln !== '1.I';
+
+        grupoACBT.style.display = deveExibir ? 'block' : 'none';
+        acbtSelect.value = deveExibir ? '1' : '';
+    }
+
+    function carregarACPE() {
+        const acaf = document.getElementById('ACAF')?.value;
+        const grupoACPE = document.getElementById('GrupoACPE');
+        const acpeSelect = document.getElementById('ACPE');
+
+        const deveExibir = acaf === 'PE';
+
+        grupoACPE.style.display = deveExibir ? 'block' : 'none';
+        acpeSelect.value = deveExibir ? 'PB' : '';
+    }
+
+    const acafSelect = document.getElementById('ACAF');
+    if (acafSelect) {
+        acafSelect.addEventListener('change', () => {
+            carregarACAFP();
+            carregarACBT();
+            carregarACPE();
+            carregarACCL();
+        });
+    }
+
+    async function carregarACAS() {
+        const acln = document.getElementById('ACLN')?.value;
+        const acbr = document.getElementById('ACBR')?.value;
+        const grupoACAS = document.getElementById('GrupoACAS');
+        const acasSelect = document.getElementById('ACAS');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AC/ACAS.php?ACLN=${encodeURIComponent(acln)}&ACBR=${encodeURIComponent(acbr)}`);
+        const optionsHTML = await response.text();
+
+        acasSelect.innerHTML = optionsHTML;
+
+        grupoACAS.style.display = 'block';
+        acasSelect.disabled = false;
+
+        const optN = acasSelect.querySelector('option[value="N"]');
+        if (optN) {
+            acasSelect.value = 'N';
+        } else if (acasSelect.options.length > 0) {
+            acasSelect.selectedIndex = 0;
+        }
+
+        acasSelect.dispatchEvent(new Event('change'));
+
+        carregarACPM();
+        carregarACOPC();
+        validarACOPC();
+    }
+
+    function carregarACASP() {
+        const acasSelect = document.getElementById('ACAS');
+        const acln = document.getElementById('ACLN')?.value;
+        const grupoACASP = document.getElementById('GrupoACASP');
+        const acaspSelect = document.getElementById('ACASP');
+        const subgrupoACAS = document.querySelector('#GrupoACAS .subgrupo');
+
+        const valor = acasSelect.value;
+        const deveExibir = valor !== 'N' && valor !== 'ED';
+
+        if (deveExibir) {
+            grupoACASP.style.display = 'block';
+            if (subgrupoACAS) subgrupoACAS.style.display = 'block';
+
+            acaspSelect.innerHTML = `
+            <option value="A" selected>DIREITA</option>
+            <option value="B">ESQUERDA</option>
+        `;
+            acaspSelect.value = 'A';
+        } else {
+            grupoACASP.style.display = 'none';
+            acaspSelect.value = '';
+            if (subgrupoACAS) subgrupoACAS.style.display = 'none';
+        }
+
+        carregarACPM();
+        carregarACOPC();
+        validarACOPC();
+    }
+
+    const acasSelect = document.getElementById('ACAS');
+    if (acasSelect) {
+        acasSelect.addEventListener('change', () => {
+            carregarACASP();
+        });
+    }
+
+    function carregarACCLVER() {
+        const acaf = document.getElementById('ACAF')?.value;
+        const acafp = document.getElementById('ACAFP')?.value || '';
+        const acas = document.getElementById('ACAS')?.value;
+        const acasp = document.getElementById('ACASP')?.value || '';
+
+        const capa1 = (acaf === "N") ? "" : acafp;
+        const capa2 = (acas === "N") ? "" : acasp;
+        const acclver = `${capa1}-${capa2}`;
+
+        const permiteA = ["-", "-B", "B-B", "B-"].includes(acclver);
+        const permiteB = ["-", "-A", "A-A", "A-"].includes(acclver);
+        const permitirCP = permiteA || permiteB;
+
+        return { acclver, permiteA, permiteB, permitirCP };
+    }
+
+    function carregarACCL() {
+        const acln = document.getElementById('ACLN')?.value;
+        const acas = document.getElementById('ACAS')?.value;
+        const acclSelect = document.getElementById('ACCL');
+        const grupoACCL = document.getElementById('GrupoACCL');
+
+        const { permiteA, permiteB } = carregarACCLVER();
+        const permitirCP = permiteA || permiteB;
+
+        const liberarCP = acln === "1.I" && permitirCP;
+
+        acclSelect.innerHTML = '';
+        acclSelect.disabled = false;
+
+        acclSelect.appendChild(new Option("NÃO", "N"));
+        if (liberarCP) {
+            acclSelect.appendChild(new Option("SIM", "CP"));
+        }
+
+        acclSelect.value = "N";
+        grupoACCL.style.display = 'block';
+        acclSelect.dispatchEvent(new Event('change'));
+
+        carregarACPM();
+    }
+
+    function carregarACCLP() {
+        const accl = document.getElementById('ACCL')?.value;
+        const grupoACCLP = document.getElementById('GrupoACCLP');
+        const acclpSelect = document.getElementById('ACCLP');
+        const subgrupoACCL = document.querySelector('#GrupoACCL .subgrupo');
+
+        if (accl !== "CP") {
+            grupoACCLP.style.display = 'none';
+            if (subgrupoACCL) subgrupoACCL.style.display = 'none';
+            return;
+        }
+
+        grupoACCLP.style.display = 'block';
+        if (subgrupoACCL) subgrupoACCL.style.display = 'block';
+
+        const { permiteA, permiteB } = carregarACCLVER();
+
+        acclpSelect.innerHTML = '';
+        if (permiteA) acclpSelect.appendChild(new Option("DIREITA", "A"));
+        if (permiteB) acclpSelect.appendChild(new Option("ESQUERDA", "B"));
+
+        if (!permiteA && !permiteB) {
+            grupoACCLP.style.display = 'none';
+            if (subgrupoACCL) subgrupoACCL.style.display = 'none';
+            return;
+        }
+
+        acclpSelect.disabled = false;
+        acclpSelect.value = '';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const acclSelect = document.getElementById('ACCL');
+        if (acclSelect) {
+            acclSelect.addEventListener('change', carregarACCLP);
+            acclSelect.addEventListener('change', carregarACPM);
+            acclSelect.addEventListener('change', carregarACOPC);
+        }
+
+        const acclpSelect = document.getElementById('ACCLP');
+        if (acclpSelect) {
+            acclpSelect.addEventListener('change', carregarACPM);
+            acclpSelect.addEventListener('change', carregarACOPC);
+        }
+
+        const acpmSelect = document.getElementById('ACPM');
+        if (acpmSelect) {
+            acpmSelect.addEventListener('change', carregarACOPC);
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const acafpSelect = document.getElementById('ACAFP');
+        const acaspSelect = document.getElementById('ACASP');
+        const acasSelect = document.getElementById('ACAS');
+        const aclnSelect = document.getElementById('ACLN');
+
+        if (acafpSelect) acafpSelect.addEventListener('change', carregarACCL);
+        if (acaspSelect) acaspSelect.addEventListener('change', carregarACCL);
+        if (acasSelect) acasSelect.addEventListener('change', carregarACCL);
+        if (aclnSelect) aclnSelect.addEventListener('change', carregarACCL);
+    });
+
+    async function carregarACPM() {
+        const acln = document.getElementById('ACLN')?.value;
+        const acbr = document.getElementById('ACBR')?.value;
+        const grupoACPM = document.getElementById('GrupoACPM');
+        const acpmSelect = document.getElementById('ACPM');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AC/ACPM.php?ACLN=${encodeURIComponent(acln)}&ACBR=${encodeURIComponent(acbr)}`);
+        const optionsHTML = await response.text();
+
+        acpmSelect.innerHTML = optionsHTML;
+        grupoACPM.style.display = 'block';
+
+        acpmSelect.dispatchEvent(new Event('change'));
+        carregarACOPC();
+        validarACOPC();
+    }
+
+    const acpmSelect = document.getElementById('ACPM');
+    if (acpmSelect) {
+        acpmSelect.addEventListener('change', carregarACOPC);
+    }
+
+    function carregarACOPC() {
+        const acln = document.getElementById('ACLN')?.value;
+        const acbr = document.getElementById('ACBR')?.value;
+        const grupoACOPC = document.getElementById('GrupoACOPC');
+
+        grupoACOPC.style.display = 'block';
+
+        validarACOPC();
+        carregarACMO();
+    }
+
+    function validarACOPC() {
+        const checkboxes = document.querySelectorAll('#checklistACOPC input[type="checkbox"]');
+        let selecionados = Array.from(checkboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+
+        if (selecionados.includes("NÃO") && selecionados.length > 1) {
+            document.querySelector('input[name="ACOPC"][value="NÃO"]').checked = false;
+            selecionados = selecionados.filter(v => v !== "NÃO");
+        }
+
+        if (selecionados.length === 0) {
+            document.querySelector('input[name="ACOPC"][value="NÃO"]').checked = true;
+            selecionados = ["NÃO"];
+        }
+
+        document.getElementById('ACOPC').value = selecionados.join(',');
+
+        const nomesVisiveis = selecionados.map(valor => {
+            const label = Array.from(document.querySelectorAll('#checklistACOPC label')).find(lbl =>
+                lbl.querySelector(`input[value="${valor}"]`)
+            );
+            return label ? label.textContent.trim() : valor;
+        });
+
+        document.querySelector('#dropdownACOPC .dropdown-button').textContent = nomesVisiveis.join(', ');
+
+        document.getElementById('ACOPC').dispatchEvent(new Event('change'));
+    }
+
+    document.querySelectorAll('#checklistACOPC input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', validarACOPC);
+    });
+
+    const acopcSelect = document.getElementById('ACOPC');
+    if (acopcSelect) {
+        acopcSelect.addEventListener('change', () => {
+            setTimeout(() => {
+                carregarACMO();
+            }, 10);
+        });
+    }
+
+    window.toggleDropdown = function (button) {
+        const list = button.nextElementSibling;
+        list.style.display = list.style.display === 'block' ? 'none' : 'block';
+    };
+
+    document.addEventListener('click', function (e) {
+        document.querySelectorAll('.dropdown-checkbox').forEach(dropdown => {
+            if (!dropdown.contains(e.target)) {
+                dropdown.querySelector('.dropdown-list').style.display = 'none';
+            }
+        });
+    });
+
+    window.addEventListener('load', () => {
+        const grupoACOPC = document.getElementById('GrupoACOPC');
+        if (grupoACOPC?.style.display === 'block') {
+            carregarACMO();
+        }
+    });
+
+    function carregarACMO() {
+        const accm = document.getElementById('ACCM')?.value;
+        const accp = document.getElementById('ACCP')?.value;
+        const grupoACMO = document.getElementById('GrupoACMO');
+        const acmoSelect = document.getElementById('ACMO');
+
+        const permitirS = !accm.includes("EE") && accp !== "B";
+
+        const valorAtual = acmoSelect.value;
+
+        acmoSelect.innerHTML = '';
+        acmoSelect.disabled = false;
+
+        if (permitirS) {
+            acmoSelect.appendChild(new Option("SIM", "S"));
+        }
+
+        acmoSelect.appendChild(new Option("NÃO", "N"));
+
+        if (Array.from(acmoSelect.options).some(opt => opt.value === valorAtual)) {
+            acmoSelect.value = valorAtual;
+        } else {
+            acmoSelect.value = "N";
+        }
+
+        grupoACMO.style.display = 'block';
+        acmoSelect.dispatchEvent(new Event('change'));
+
+        carregarMOLN();
+    }
+
+    async function carregarMOLN() {
+        const acmoSelect = document.getElementById('ACMO');
+        const accp = document.getElementById('ACCP')?.value;
+        const accm = document.getElementById('ACCM')?.value;
+        const grupoMOLN = document.getElementById('GrupoMOLN');
+        const molnSelect = document.getElementById('MOLN');
+        const subgrupoACMO = document.querySelector('#GrupoACMO .subgrupo');
+
+        if (acmoSelect.value === "S") {
+            grupoMOLN.style.display = 'block';
+            if (subgrupoACMO) subgrupoACMO.style.display = 'block';
+
+            const response = await fetch(`/Paginas/Seletores/Configuradores/AC/MOLN.php?ACCM=${encodeURIComponent(accm)}&ACCP=${encodeURIComponent(accp)}`);
+            const optionsHTML = await response.text();
+            molnSelect.innerHTML = optionsHTML;
+
+            molnSelect.style.display = 'block';
+            molnSelect.disabled = false;
+            molnSelect.dispatchEvent(new Event('change'));
+        } else {
+            grupoMOLN.style.display = 'none';
+            if (subgrupoACMO) subgrupoACMO.style.display = 'none';
+            molnSelect.style.display = 'none';
+        }
+
+        molnSelect.value = "";
+
+        carregarMOTP();
+        carregarMOOPC();
+    }
+
+    async function carregarMOTP() {
+        const moln = document.getElementById('MOLN')?.value;
+        const accm = document.getElementById('ACCM')?.value;
+        const accp = document.getElementById('ACCP')?.value;
+        const grupoMOTP = document.getElementById('GrupoMOTP');
+        const motpSelect = document.getElementById('MOTP');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AC/MOTP.php?MOLN=${encodeURIComponent(moln)}&ACCM=${encodeURIComponent(accm)}&ACCP=${encodeURIComponent(accp)}`);
+        const optionsHTML = await response.text();
+        motpSelect.innerHTML = optionsHTML;
+
+        grupoMOTP.style.display = 'block';
+        motpSelect.style.display = 'block';
+        motpSelect.disabled = false;
+        motpSelect.value = "";
+
+        carregarMOTT();
+    }
+
+    document.getElementById('ACCM')?.addEventListener('change', carregarACMO);
+    document.getElementById('ACCP')?.addEventListener('change', carregarACMO);
+
+    const acmoSelect = document.getElementById('ACMO');
+    if (acmoSelect) {
+        acmoSelect.addEventListener('change', carregarMOLN);
+    }
+
+    const molnSelect = document.getElementById('MOLN');
+    if (molnSelect) {
+        molnSelect.addEventListener('change', carregarMOTP);
+        molnSelect.addEventListener('change', carregarMOOPC);
+    }
+
+    const motpSelect = document.getElementById('MOTP');
+    if (motpSelect) {
+        motpSelect.addEventListener('change', carregarMOTT);
+    }
+
+    async function carregarMOTT() {
+        const moln = document.getElementById('MOLN')?.value;
+        const motp = document.getElementById('MOTP')?.value;
+        const accm = document.getElementById('ACCM')?.value;
+        const accp = document.getElementById('ACCP')?.value;
+        const grupoMOTT = document.getElementById('GrupoMOTT');
+        const mottSelect = document.getElementById('MOTT');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AC/MOTT.php?MOLN=${encodeURIComponent(moln)}&MOTP=${encodeURIComponent(motp)}&ACCM=${encodeURIComponent(accm)}&ACCP=${encodeURIComponent(accp)}`);
+        const optionsHTML = await response.text();
+        mottSelect.innerHTML = optionsHTML;
+
+        grupoMOTT.style.display = 'block';
+        mottSelect.style.display = 'block';
+        mottSelect.disabled = false;
+        mottSelect.value = '';
+
+        carregarMOFQ();
+    }
+
+    async function carregarMOFQ() {
+        const moln = document.getElementById('MOLN')?.value;
+        const motp = document.getElementById('MOTP')?.value;
+        const mott = document.getElementById('MOTT')?.value;
+        const accm = document.getElementById('ACCM')?.value;
+        const accp = document.getElementById('ACCP')?.value;
+        const grupoMOFQ = document.getElementById('GrupoMOFQ');
+        const mofqSelect = document.getElementById('MOFQ');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AC/MOFQ.php?MOLN=${encodeURIComponent(moln)}&MOTP=${encodeURIComponent(motp)}&MOTT=${encodeURIComponent(mott)}&ACCM=${encodeURIComponent(accm)}&ACCP=${encodeURIComponent(accp)}`);
+        const optionsHTML = await response.text();
+        mofqSelect.innerHTML = optionsHTML;
+
+        grupoMOFQ.style.display = 'block';
+        mofqSelect.style.display = 'block';
+        mofqSelect.disabled = false;
+        mofqSelect.value = '';
+
+        carregarMOPT();
+    }
+
+    async function carregarMOPT() {
+        const moln = document.getElementById('MOLN')?.value;
+        const motp = document.getElementById('MOTP')?.value;
+        const mott = document.getElementById('MOTT')?.value;
+        const mofq = document.getElementById('MOFQ')?.value;
+        const accm = document.getElementById('ACCM')?.value;
+        const accp = document.getElementById('ACCP')?.value;
+        const grupoMOPT = document.getElementById('GrupoMOPT');
+        const moptSelect = document.getElementById('MOPT');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AC/MOPT.php?MOLN=${encodeURIComponent(moln)}&MOTP=${encodeURIComponent(motp)}&MOTT=${encodeURIComponent(mott)}&MOFQ=${encodeURIComponent(mofq)}&ACCM=${encodeURIComponent(accm)}&ACCP=${encodeURIComponent(accp)}`);
+        const optionsHTML = await response.text();
+        moptSelect.innerHTML = optionsHTML;
+
+        grupoMOPT.style.display = 'block';
+        moptSelect.style.display = 'block';
+        moptSelect.disabled = false;
+        moptSelect.value = '';
+
+        carregarMOPL();
+    }
+
+    async function carregarMOPL() {
+        const moln = document.getElementById('MOLN')?.value;
+        const motp = document.getElementById('MOTP')?.value;
+        const mott = document.getElementById('MOTT')?.value;
+        const mofq = document.getElementById('MOFQ')?.value;
+        const mopt = document.getElementById('MOPT')?.value;
+        const accm = document.getElementById('ACCM')?.value;
+        const accp = document.getElementById('ACCP')?.value;
+        const grupoMOPL = document.getElementById('GrupoMOPL');
+        const moplSelect = document.getElementById('MOPL');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AC/MOPL.php?MOLN=${encodeURIComponent(moln)}&MOTP=${encodeURIComponent(motp)}&MOTT=${encodeURIComponent(mott)}&MOFQ=${encodeURIComponent(mofq)}&MOPT=${encodeURIComponent(mopt)}&ACCM=${encodeURIComponent(accm)}&ACCP=${encodeURIComponent(accp)}`);
+        const optionsHTML = await response.text();
+        moplSelect.innerHTML = optionsHTML;
+
+        grupoMOPL.style.display = 'block';
+        moplSelect.style.display = 'block';
+        moplSelect.disabled = false;
+        moplSelect.value = '';
+
+        carregarMOCP();
+    }
+
+    const mottSelect = document.getElementById('MOTT');
+    if (mottSelect) {
+        mottSelect.addEventListener('change', carregarMOFQ);
+    }
+
+    const mofqSelect = document.getElementById('MOFQ');
+    if (mofqSelect) {
+        mofqSelect.addEventListener('change', carregarMOPT);
+    }
+
+    const moptSelect = document.getElementById('MOPT');
+    if (moptSelect) {
+        moptSelect.addEventListener('change', carregarMOPL);
+    }
+
+    const moplSelect = document.getElementById('MOPL');
+    if (moplSelect) {
+        moplSelect.addEventListener('change', carregarMOCP);
+    }
+
+    async function carregarMOCP() {
+        const moln = document.getElementById('MOLN')?.value;
+        const motp = document.getElementById('MOTP')?.value;
+        const mott = document.getElementById('MOTT')?.value;
+        const mofq = document.getElementById('MOFQ')?.value;
+        const mopt = document.getElementById('MOPT')?.value;
+        const mopl = document.getElementById('MOPL')?.value;
+        const accm = document.getElementById('ACCM')?.value;
+        const accp = document.getElementById('ACCP')?.value;
+        const grupoMOCP = document.getElementById('GrupoMOCP');
+        const mocpSelect = document.getElementById('MOCP');
+
+        const response = await fetch(
+            `/Paginas/Seletores/Configuradores/AC/MOCP.php?MOLN=${encodeURIComponent(moln)}&MOTP=${encodeURIComponent(motp)}&MOTT=${encodeURIComponent(mott)}&MOFQ=${encodeURIComponent(mofq)}&MOPT=${encodeURIComponent(mopt)}&MOPL=${encodeURIComponent(mopl)}&ACCM=${encodeURIComponent(accm)}&ACCP=${encodeURIComponent(accp)}`
+        );
+
+        const optionsHTML = await response.text();
+        mocpSelect.innerHTML = optionsHTML;
+
+        grupoMOCP.style.display = 'block';
+        mocpSelect.style.display = 'block';
+        mocpSelect.disabled = false;
+        mocpSelect.value = accp;
+        mocpSelect.dispatchEvent(new Event('change'));
+
+        carregarMOCPP();
+        carregarMOPC();
+    }
+
+    const mocpSelect = document.getElementById('MOCP');
+    if (mocpSelect) {
+        mocpSelect.addEventListener('change', carregarMOCPP);
+    }
+
+    function carregarMOCPP() {
+        const moln = document.getElementById('MOLN')?.value;
+        const mocp = document.getElementById('MOCP')?.value;
+        const accm = document.getElementById('ACCM')?.value;
+        const grupoMOCPP = document.getElementById('GrupoMOCPP');
+        const divSubgrupo = document.querySelector('.SubgrupoMOCP');
+        const mocppSelect = document.getElementById('MOCPP');
+
+        const deveExibir = moln !== "3.W" && ["B3", "B34", "B35"].includes(mocp);
+
+        if (deveExibir) {
+            mocppSelect.innerHTML = '<option value="T" selected>TOPO</option>';
+
+            const bloqueado = moln === "2.I" && accm === "56";
+            if (!bloqueado) {
+                mocppSelect.innerHTML += '<option value="D">DIREITA</option>';
+                mocppSelect.innerHTML += '<option value="E">ESQUERDA</option>';
+            }
+
+            divSubgrupo.style.display = 'block';
+            grupoMOCPP.style.display = 'block';
+        } else {
+            divSubgrupo.style.display = 'none';
+            grupoMOCPP.style.display = 'none';
+        }
+
+        carregarMOPC();
+    }
+
+    function carregarMOPC() {
+        const moln = document.getElementById('MOLN')?.value;
+        const grupoMOPC = document.getElementById('GrupoMOPC');
+        const mopcSelect = document.getElementById('MOPC');
+
+        mopcSelect.innerHTML = '';
+
+        const isAPM = moln === "3.APM" || moln === "3.SPM";
+
+        const rotulos = {
+            "CX270": "270°",
+            "CX180": "180°",
+            "CX90": "90°",
+            "CX0": "0°",
+            "B3": "B3",
+            "B6": "B6",
+            "B7": "B7",
+            "B8": "B8",
+            "V5": "V5",
+            "V6": "V6"
+        };
+
+        const opcoes = isAPM
+            ? ["B3", "B6", "B7", "B8", "V5", "V6"]
+            : ["CX270", "CX180", "CX90", "CX0"];
+
+        const valorPadrao = isAPM ? "B3" : "CX270";
+
+        opcoes.forEach(valor => {
+            const selected = valor === valorPadrao ? 'selected' : '';
+            mopcSelect.innerHTML += `<option value="${valor}" ${selected}>${rotulos[valor]}</option>`;
+        });
+
+        grupoMOPC.style.display = 'block';
+        mopcSelect.disabled = false;
+
+        carregarMOPP();
+    }
+
+    function carregarMOPP() {
+        const moln = document.getElementById('MOLN')?.value;
+        const motp = document.getElementById('MOTP')?.value;
+        const mocp = document.getElementById('MOCP')?.value;
+        const grupoMOPP = document.getElementById('GrupoMOPP');
+        const moppSelect = document.getElementById('MOPP');
+
+        if (moln === "3.APM" || moln === "3.SPM") {
+            grupoMOPP.style.display = 'none';
+            return;
+        }
+
+        moppSelect.innerHTML = '';
+
+        const opcoes = [
+            { valor: "PC1", label: "1" },
+            { valor: "PC2", label: "2" },
+            { valor: "PC3", label: "3" },
+            { valor: "PC4", label: "4" }
+        ];
+
+        opcoes.forEach(op => {
+            const option = document.createElement('option');
+            option.value = op.valor;
+            option.textContent = op.label;
+            moppSelect.appendChild(option);
+        });
+
+        let valorPadrao = "PC1";
+        if (moln === "3.I" || (moln === "2.I" && motp === "T")) valorPadrao = "PC1";
+        else if (moln === "2.I" && motp === "M") valorPadrao = "PC2";
+        else if (moln === "3.W") valorPadrao = "PC3";
+
+        moppSelect.value = valorPadrao;
+
+        grupoMOPP.style.display = 'block';
+        moppSelect.disabled = false;
+
+        carregarMOOPC();
+    }
+
+    document.getElementById('MOCP')?.addEventListener('change', carregarMOCPP);
+    document.getElementById('MOCP')?.addEventListener('change', carregarMOPC);
+    document.getElementById('MOPC')?.addEventListener('change', carregarMOPP);
+    document.getElementById('MOPP')?.addEventListener('change', carregarMOOPC);
+
+    function carregarMOOPC() {
+        const moln = document.getElementById('MOLN')?.value.trim();
+        const accm = document.getElementById('ACCM')?.value;
+        const motp = document.getElementById('MOTP')?.value;
+        const grupoMOPP = document.getElementById('GrupoMOPP');
+        const grupoMOOPC = document.getElementById('GrupoMOOPC');
+        const checklist = document.querySelectorAll('#checklistMOOPC input[type="checkbox"]');
+
+        if (!grupoMOPP || grupoMOPP.style.display !== 'block' || !grupoMOOPC) {
+            grupoMOOPC.style.display = 'none';
+            return;
+        }
+
+        grupoMOOPC.style.display = 'block';
+
+        checklist.forEach(cb => {
+            const value = cb.value;
+            let mostrar = true;
+
+            if (["ACOR", "PINTCZ"].includes(value) && ["3.APM", "3.SPM"].includes(moln)) {
+                mostrar = false;
+            }
+
+            if (value === "VF") {
+                mostrar = (moln === "2.I" && ["63", "71"].includes(accm)) ||
+                    (moln === "3.I" && motp !== "F" && ["63", "71", "80", "90", "100-112", "132"].includes(accm));
+            }
+
+            if (value === "CR") {
+                mostrar = (moln === "3.W" && ["80", "90", "100-112", "132"].includes(accm)) ||
+                    (moln === "3.I" && ["80", "90", "100-112"].includes(accm));
+            }
+
+            cb.closest('label').style.display = mostrar ? 'block' : 'none';
+
+            if (!mostrar) cb.checked = false;
+        });
+
+        validarMOOPC();
+        carregarMOCR();
+    }
+
+    function validarMOOPC() {
+        const checkboxes = document.querySelectorAll('#checklistMOOPC input[type="checkbox"]');
+        let selecionados = Array.from(checkboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+
+        if (selecionados.includes("NÃO") && selecionados.length > 1) {
+            document.querySelector('input[name="MOOPC"][value="NÃO"]').checked = false;
+            selecionados = selecionados.filter(v => v !== "NÃO");
+        }
+
+        if (selecionados.length === 0) {
+            document.querySelector('input[name="MOOPC"][value="NÃO"]').checked = true;
+            selecionados = ["NÃO"];
+        }
+
+        if (selecionados.includes("ACOR") && selecionados.includes("PINTCZ")) {
+            document.querySelector('input[name="MOOPC"][value="ACOR"]').checked = false;
+            selecionados = selecionados.filter(v => v !== "ACOR");
+        }
+
+        document.getElementById('MOOPC').value = selecionados.join(',');
+
+        const nomesVisiveis = selecionados.map(valor => {
+            const label = Array.from(document.querySelectorAll('#checklistMOOPC label')).find(lbl =>
+                lbl.querySelector(`input[value="${valor}"]`)
+            );
+            return label ? label.textContent.trim() : valor;
+        });
+
+        document.querySelector('#dropdownMOOPC .dropdown-button').textContent = nomesVisiveis.join(', ');
+
+        carregarMOCR();
+    }
+
+    document.getElementById('MOOPC').dispatchEvent(new Event('change'));
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const checkboxes = document.querySelectorAll('#checklistMOOPC input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', validarMOOPC);
+        });
+    });
+
+    function carregarMOCR() {
+        const grupoMOCR = document.getElementById('GrupoMOCR');
+        const grupoACCR = document.getElementById('GrupoACCR');
+        const subgrupoMOOPC = document.querySelector('.SubgrupoMOOPC');
+        const mocrSelect = document.getElementById('MOCR');
+        const moopc = document.getElementById('MOOPC')?.value || '';
+
+        const crSelecionado = moopc.split(',').includes('CR');
+
+        if (!crSelecionado) {
+            subgrupoMOOPC.style.display = 'none';
+            grupoMOCR.style.display = 'none';
+            grupoACCR.style.display = 'none';
+            mocrSelect.value = '';
+            return;
+        }
+
+        subgrupoMOOPC.style.display = 'block';
+        grupoMOCR.style.display = 'block';
+        grupoACCR.style.display = 'none';
+
+        mocrSelect.innerHTML = `
+        <option value="H">HORÁRIO</option>
+        <option value="AH">ANTI-HORÁRIO</option>
+    `;
+
+        mocrSelect.value = '';
+        carregarACCR();
+    }
+
+    function carregarACCR() {
+        const grupoACCR = document.getElementById('GrupoACCR');
+        const accrSelect = document.getElementById('ACCR');
+        const mocr = document.getElementById('MOCR')?.value;
+
+        if (!mocr) {
+            grupoACCR.style.display = 'none';
+            accrSelect.value = '';
+            return;
+        }
+
+        if (mocr === 'H') {
+            accrSelect.innerHTML = `<option value="AH">ANTI-HORÁRIO</option>`;
+            accrSelect.value = 'AH';
+        } else {
+            accrSelect.innerHTML = `<option value="H">HORÁRIO</option>`;
+            accrSelect.value = 'H';
+        }
+
+        grupoACCR.style.display = 'block';
+        accrSelect.dispatchEvent(new Event('change'));
+    }
+
+    document.getElementById('MOOPC')?.addEventListener('change', carregarMOCR);
+    document.getElementById('MOOPC')?.addEventListener('change', validarMOOPC);
+    document.getElementById('MOCR')?.addEventListener('change', carregarACCR);
+
+
+</script>
+
+<script>
+    function exibirBotaoCompartilhar() {
+        const wrapper = document.getElementById("compartilhar-wrapper");
+        if (wrapper) wrapper.style.display = "block";
+    }
+
+    function exibirBotaoSolicitarCotacao() {
+        const wrapper = document.getElementById("cotacao-wrapper");
+        if (wrapper) wrapper.style.display = "block";
+    }
+
+    async function gerarCodigoProduto() {
+        const FORMACONSTRUTIVA = v("ACCM").includes("EE") ? "" : v("ACCP");
+
+        const FORMACONSTRUTIVAREDUTOR = (v("ACMO") === "N")
+            ? `${v("ACCM")}${FORMACONSTRUTIVA}.`
+            : "";
+
+        const POSICAOACESSORIOFIXACAO = (!["N", "PE"].includes(v("ACAF")) && !(v("ACLN") === "1.I" && v("ACAF") ===
+            "BT"))
+            ? `.${v("ACAFP")}` : "";
+
+        const POSICAOBRACOTORQUE = (v("ACAF") === "BT" && !(v("ACLN") === "1.I" && v("ACAF") === "BT"))
+            ? `.${v("ACBT")}` : "";
+
+        const PESREDUTOR = (v("ACAF") === "PE") ? `.${v("ACPE")}` : "";
+
+        const POSICAOACESSORIOSAIDA = (!["N", "ED"].includes(v("ACAS")))
+            ? `.${v("ACASP")}` : "";
+
+        const POSICAOMONTAGEM = `.${v("ACPM")}`;
+
+        const TEMOPCIONAISREDUTOR = (v("ACOPC") === "NÃO" || vazio(v("ACOPC")))
+            ? "" : `.${v("ACOPC")}`;
+
+        const VARIOSOPCIONAISREDUTOR = contem(TEMOPCIONAISREDUTOR, ",")
+            ? substituir(TEMOPCIONAISREDUTOR, ", ", ".")
+            : TEMOPCIONAISREDUTOR;
+
+        const CAPADEPROTECAO = (v("ACCL") === "N") ? "" : `.CP.${v("ACCLP")}`;
+
+        const PESMOTOR = (v("ACMO") === "S" && v("MOLN") !== "3.W" && ["B3", "B34", "B35"].includes(v("MOCP")))
+            ? v("MOCPP") : "";
+
+        const CARCACA100112 = (v("ACMO") === "S" && v("ACCM") === "100-112")
+            ? await get("CARCACA100112.php", {
+                MOLN: v("MOLN"),
+                MOTP: v("MOTP"),
+                MOTT: v("MOTT"),
+                MOFQ: v("MOFQ"),
+                MOPT: v("MOPT"),
+                MOPL: v("MOPL")
+            }) : v("ACCM");
+
+        const CARCACAINICIO = (v("ACMO") === "S")
+            ? await get("CARCACAINICIO.php", {
+                MOLN: v("MOLN"),
+                MOTP: v("MOTP"),
+                MOTT: v("MOTT"),
+                MOFQ: v("MOFQ"),
+                MOPT: v("MOPT"),
+                MOPL: v("MOPL"),
+                MOCM: CARCACA100112
+            }) : "";
+
+        const CARCACAFIM = (v("ACMO") === "S")
+            ? await get("CARCACAFIM.php", {
+                MOLN: v("MOLN"),
+                MOTP: v("MOTP"),
+                MOTT: v("MOTT"),
+                MOFQ: v("MOFQ"),
+                MOPT: v("MOPT"),
+                MOPL: v("MOPL"),
+                MOCM: CARCACA100112
+            }) : "";
+
+        const FORMACONSTRUTIVAMOTORREDUTOR = (v("ACMO") === "S")
+            ? `${CARCACAINICIO}${CARCACA100112}${CARCACAFIM}${v("MOCP")}${PESMOTOR}.`
+            : "";
+
+        const TEMOPCIONAIS = (v("ACMO") === "S" && v("MOOPC") !== "NÃO" && !vazio(v("MOOPC")))
+            ? `.${v("MOOPC")}` : "";
+
+        const VARIOSOPCIONAIS = contem(TEMOPCIONAIS, ",")
+            ? substituir(TEMOPCIONAIS, ", ", ".")
+            : TEMOPCIONAIS;
+
+        const OPCIONAISPADRAO = contem(VARIOSOPCIONAIS, "CR")
+            ? `${VARIOSOPCIONAIS}${v("MOCR")}` : VARIOSOPCIONAIS;
+
+        const CAIXADELIGACAO = (v("ACMO") === "S" && v("MOPC") !== "CX270")
+            ? `.${v("MOPC")}` : "";
+
+        const PRENSACABO = (v("ACMO") === "S" && !(
+            ["3.APM", "3.SPM"].includes(v("MOLN")) ||
+            (v("MOLN") === "3.I" && v("MOPP") === "PC1") ||
+            (v("MOLN") === "2.I" && v("MOTP") === "T" && v("MOPP") === "PC1") ||
+            (v("MOLN") === "2.I" && v("MOTP") === "M" && v("MOPP") === "PC2") ||
+            (v("MOLN") === "3.W" && v("MOPP") === "PC3") ||
+            vazio(v("MOPP"))
+        )) ? `.${v("MOPP")}` : "";
+
+        const CODIGOMOTOR = (v("ACMO") === "S")
+            ?
+            `.${v("MOLN")}.${v("MOTP")}.${v("MOTT")}.${v("MOPT")}.${v("MOPL")}.${FORMACONSTRUTIVAMOTORREDUTOR}${v("MOFQ")}${OPCIONAISPADRAO}${CAIXADELIGACAO}${PRENSACABO}`
+            : "";
+
+        const LINHAPRODUTO = v("ACMO") === "S"
+            ? substituir(v("ACLN"), "1.", "M.")
+            : v("ACLN");
+
+        const COMPOSICAOCODIGO = [
+            LINHAPRODUTO,
+            v("ACBR"),
+            v("ACRD"),
+            FORMACONSTRUTIVAREDUTOR,
+            v("ACCM").includes("EE") ? "" : (vazio(v("ACBU")) ? "N." : `${v("ACBU")}.`),
+            v("ACAF"),
+            POSICAOACESSORIOFIXACAO,
+            POSICAOBRACOTORQUE,
+            v("ACAS"),
+            POSICAOACESSORIOSAIDA,
+            PESREDUTOR,
+            CAPADEPROTECAO,
+            POSICAOMONTAGEM,
+            VARIOSOPCIONAISREDUTOR,
+            CODIGOMOTOR
+        ]
+            .map(s => s.replace(/^\.|\.$/g, ""))
+            .map(s => s.replace(/,\s*/g, ".").replace(/\s+/g, ""))
+            .map(s => s.replace(/\.{2,}/g, "."))
+            .filter(Boolean)
+            .join(".");
+
+        document.getElementById("refProduto").textContent = COMPOSICAOCODIGO;
+        mostrarDetalhesProduto({}, COMPOSICAOCODIGO);
+
+        fetch("/Paginas/Seletores/Produto/CodigoDescricaoObservacaoProduto.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: `codigo=${encodeURIComponent(COMPOSICAOCODIGO)}`
+        })
+            .then(resp => resp.text())
+            .then(text => {
+                let dados;
+                try { dados = JSON.parse(text); } catch { throw new Error(text); }
+                return dados;
+            })
+            .then(dados => {
+                mostrarDetalhesProduto(dados || {}, COMPOSICAOCODIGO);
+                if (typeof mostrarDetalhesEstoque === 'function') {
+                    mostrarDetalhesEstoque(dados?.CD_PRODUTO || "");
+                }
+            })
+            .catch(err => {
+                console.error('Erro ao obter dados do produto', err);
+                if (typeof exibirAlerta === 'function') {
+                    exibirAlerta('⚠️ Erro ao obter dados do produto.');
+                }
+                mostrarDetalhesProduto({}, COMPOSICAOCODIGO);
+                if (typeof mostrarDetalhesEstoque === 'function') {
+                    mostrarDetalhesEstoque('');
+                }
+            });
+
+
+        if (window.ultimoHistoricoProduto !== COMPOSICAOCODIGO) {
+            fetch("/Paginas/AreaCliente/Sessao/Produtos/RegistrarProduto.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `produto=${encodeURIComponent(COMPOSICAOCODIGO)}`
+            });
+            window.ultimoHistoricoProduto = COMPOSICAOCODIGO;
+        }
+
+        exibirBotaoCompartilhar();
+        exibirBotaoSolicitarCotacao();
+
+    }
+</script>
+
+<script>
+    document.addEventListener('click', e => {
+        const img = e.target.closest('.popover img');
+        if (!img) return;
+        e.preventDefault();
+        const container = img.closest('.popover-body');
+        if (!container) return;
+        const imgs = Array.from(container.querySelectorAll('img')).filter(i => i.naturalWidth);
+        const index = imgs.indexOf(img);
+        const items = imgs.map(i => ({
+            src: i.src,
+            width: i.naturalWidth || 800,
+            height: i.naturalHeight || 600
+        }));
+        const lb = new PhotoSwipeLightbox({
+            dataSource: items,
+            pswpModule: PhotoSwipe,
+            initialZoomLevel: 1,
+            secondaryZoomLevel: 2,
+            wheelToZoom: true,
+            imageClickAction: 'zoom'
+        });
+        lb.on('close', () => lb.destroy());
+        lb.init();
+        lb.loadAndOpen(index);
+    });
+</script>
+
+</body>
+
+</html>

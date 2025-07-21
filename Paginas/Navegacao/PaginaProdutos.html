@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+
+<main id="main-content" class="sr-only">
+  <h1>Configurador de Produtos</h1>
+
+  <div id="titulo-estrutural">
+    Configurador de Produtos
+  </div>
+</main>
+
+<div class="container" style="
+    padding-bottom: 50px; padding-top: 0px">
+  <div class="row">
+    <div class="col-12 text-start mb-3">
+      <button id="toggleFiltros" class="btn btn-outline-orange btn-sm w-fit">
+        Filtrar Produtos <span id="toggleArrow" class="ms-1">&#9660;</span>
+      </button>
+      <div id="areaFiltros" class="collapse-filtros">
+        <form id="form-filtros-principal" onsubmit="return false;">
+          <div class="row align-items-end mb-2 filtro-produtos">
+            <div class="col-xxl-3 col-lg-3 col-md-6 col-sm-6 col-12 mb-3 filtro-busca-wrapper">
+              <label class="form-label" for="filtroBusca">Buscar na Página</label>
+              <div class="input-group">
+                <input type="search" id="filtroBusca" class="form-control rounded-1 border p-3" placeholder="Digite..."
+                  aria-label="Digite...">
+              </div>
+              <div id="resultadoBuscaFiltro"></div>
+            </div>
+            <div class="col-xxl-3 col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
+              <label class="form-label">Produtos</label>
+              <div id="dropdownCategorias" class="dropdown-checkbox">
+                <div class="dropdown-button cssC" id="botaoCategorias" tabindex="0"
+                  onclick="toggleDropdownCategorias(this)"> Selecione...
+                </div>
+                <div class="dropdown-list"
+                  style="border: 1px solid #ec4115; max-height: 180px; overflow-y: auto; border-radius: 6px; background: white; padding: 10px; margin-top: 4px;">
+                  <label><input type="checkbox" name="categoria" value="Acoplamentos"> Acoplamentos</label>
+                  <label><input type="checkbox" name="categoria" value="Alimentícios, Anticorrosivos e IP69K">
+                    Alimentícios, Anticorrosivos e IP69K</label>
+                  <label><input type="checkbox" name="categoria" value="Inversores de Frequência"> Inversores de
+                    Frequência</label>
+                  <label><input type="checkbox" name="categoria" value="Motorredutores"> Motorredutores</label>
+                  <label><input type="checkbox" name="categoria" value="Motores"> Motores</label>
+                  <label><input type="checkbox" name="categoria" value="Redutores de Velocidade"> Redutores de
+                    Velocidade</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-3 col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
+              <label class="form-label">Linhas</label>
+              <div id="dropdownLinhas" class="dropdown-checkbox">
+                <div class="dropdown-button cssC" id="botaoLinhas" tabindex="0" onclick="toggleDropdownLinhas(this)">
+                  Selecione... </div>
+                <div class="dropdown-list"
+                  style="border: 1px solid #ec4115; max-height: 180px; overflow-y: auto; border-radius: 6px; background: white; padding: 10px; margin-top: 4px;">
+                  <label><input type="checkbox" name="linhaFiltro" value="Alto Rendimento"> Alto Rendimento</label>
+                  <label><input type="checkbox" name="linhaFiltro" value="Anticorrosivos"> Anticorrosivos</label>
+                  <label><input type="checkbox" name="linhaFiltro" value="Coroa e Sem Fim"> Coroa e Sem Fim</label>
+                  <label><input type="checkbox" name="linhaFiltro" value="Descentralizado">Descentralizado</label>
+                  <label><input type="checkbox" name="linhaFiltro" value="Dupla Redução"> Dupla Redução</label>
+                  <label><input type="checkbox" name="linhaFiltro" value="Precisão">Precisão</label>
+                  <label><input type="checkbox" name="linhaFiltro" value="Variadores">Variadores</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-3 col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
+              <label class="form-label">Desenhos Disponíveis</label>
+              <div id="dropdownDesenhos" class="dropdown-checkbox">
+                <div class="dropdown-button cssC" id="botaoDesenhos" tabindex="0"
+                  onclick="toggleDropdownDesenhos(this)"> Selecione...
+                </div>
+                <div class="dropdown-list"
+                  style="border: 1px solid #ec4115; max-height: 180px; overflow-y: auto; border-radius: 6px; background: white; padding: 10px; margin-top: 4px;">
+                  <label><input type="checkbox" name="desenhoFiltro" value="Sim"> Sim</label>
+                  <label><input type="checkbox" name="desenhoFiltro" value="Não"> Não</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="botoesFiltros" class="d-grid gap-2 d-md-flex justify-content-md-center botoes-filtros-wrapper">
+            <button id="aplicarFiltros" class="btn btn-orange rounded-1 p-3 px-5 w-100 w-md-auto">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel"
+                viewBox="0 0 16 16">
+                <path
+                  d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .39.812L10 6.586V13.5a.5.5 0 0 1-.74.439l-2-1A.5.5 0 0 1 7 12.999V6.586L1.11 1.812A.5.5 0 0 1 1.5 1.5z" />
+              </svg>
+              Aplicar Filtros
+            </button>
+            <button id="limparFiltros" class="btn btn-outline-orange rounded-1 p-3 px-5 ms-md-2 w-100 w-md-auto">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z" />
+                <path d="M8 1.5a.5.5 0 0 0-1 0v3h3a.5.5 0 0 0 0-1H8V1.5z" />
+              </svg>
+              Limpar Filtros
+            </button>
+            <button id="ordenarAlfa" class="btn btn-outline-orange rounded-1 p-3 px-5 ms-md-2 w-100 w-md-auto">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
+              </svg>
+              Ordenar A-Z
+            </button>
+
+            <div id="noResults" class="text-center my-4" style="display:none;">
+              <img src="/Layout/Imagens/BibliotecaGeral/default-skin.png" loading="lazy"
+                alt="😅 Ops... nenhum produto encontrado! Que tal limpar os filtros 🧹 e tentar outra vez? 🚀"
+                width="264" height="88">
+              <p class="mt-0">😅 Ops... nenhum produto encontrado! Que tal limpar os filtros 🧹 e tentar outra vez? 🚀
+              </p>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div id="loadingFiltros" class="text-center mt-2" style="display:none;">
+    <div class="spinner-border text-orange" role="status" aria-hidden="true"></div>
+  </div>
+
+  <div class="col-12">
+    <h2 class="titulo-pagina">
+      Configurador de <span class="text-orange">Produtos</span>
+    </h2>
+  </div>
+</div>
+</div>
+
+
+<section class="home-botoes grid" style="margin-top:0 !important;">
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRQ?QULN=1.Q" class="botao-home" title="IBR Q">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRQ/" width="593" height="421" alt="IBR Q" draggable="false"
+        fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR Q</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRQDR?QULN=1.QDR" class="botao-home" title="IBR QDR">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRQDR/" width="593" height="421" alt="IBR QDR" draggable="false"
+        fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR QDR</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRQP?QULN=1.QP" class="botao-home" title="IBR QP">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRQP/" width="593" height="421" alt="IBR QP" draggable="false"
+        fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR QP</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRC?HYLN=1.C" class="botao-home" title="IBR C">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRC/" width="593" height="421" alt="IBR C" draggable="false"
+        fetchpriority="high" />
+      <span class="botao-titulo">IBR C</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRH?HYLN=1.H" class="botao-home" title="IBR H">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRH/" width="593" height="421" alt="IBR H" draggable="false"
+        fetchpriority="high" />
+      <span class="botao-titulo">IBR H</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRM?HYLN=1.M" class="botao-home" title="IBR M">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRM/" width="593" height="421" alt="IBR M" draggable="false"
+        fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR M</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRP?HYLN=1.P" class="botao-home" title="IBR P">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRP/" width="593" height="421" alt="IBR P" draggable="false"
+        fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR P</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRR?HYLN=1.R" class="botao-home" title="IBR R">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRR/" width="593" height="421" alt="IBR R" draggable="false"
+        fetchpriority="high" />
+      <span class="botao-titulo">IBR R</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRX?HYLN=1.X" class="botao-home" title="IBR X">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRX/" width="593" height="421" alt="IBR X" draggable="false"
+        fetchpriority="high" />
+      <span class="botao-titulo">IBR X</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRPFFA?FXLN=1.FFA" class="botao-home" title="IBR P FFA">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRPFFA/" width="593" height="421" alt="IBR P FFA" draggable="false"
+        fetchpriority="high" />
+      <span class="botao-titulo">IBR P FFA</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRXFKA?FXLN=1.FKA" class="botao-home" title="IBR X FKA">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRXFKA/" width="593" height="421" alt="IBR X FKA" draggable="false"
+        fetchpriority="high" />
+      <span class="botao-titulo">IBR X FKA</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRCFR?FXLN=1.FR" class="botao-home" title="IBR C FR">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRCFR/" width="593" height="421" alt="IBR C FR" draggable="false"
+        fetchpriority="high" />
+      <span class="botao-titulo">IBR C FR</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRMSML?MOLN=2.I" class="botao-home" title="IBR MS/ML">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRMSML/" width="593" height="421" alt="IBR MS/ML" draggable="false"
+        fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR MS/ML</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRT3AT3C?MOLN=3.I" class="botao-home" title="IBR T3A/T3C">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRT3AT3C/" width="593" height="421" alt="IBR T3A/T3C" draggable="false"
+        fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR T3A/T3C</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorWEGALTORENDIMENTO?MOLN=3.W" class="botao-home" title="IBR WEG ALTO RENDIMENTO">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/WEGT3A/" width="593" height="421" alt="IBR WEG ALTO RENDIMENTO"
+        draggable="false" fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR WEG ALTO RENDIMENTO</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorANTICORROSIVOSAPM?MOLN=3.APM" class="botao-home" title="IBR ANTICORROSIVOS APM">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRAPM/" width="593" height="421" alt="IBR ANTICORROSIVOS APM"
+        draggable="false" fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR ANTICORROSIVOS APM</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorANTICORROSIVOSSPM?MOLN=3.SPM" class="botao-home" title="IBR ANTICORROSIVOS SPM">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRSPM/" width="593" height="421" alt="IBR ANTICORROSIVOS SPM"
+        draggable="false" fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR ANTICORROSIVOS SPM</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRPB?PLLN=3.PB" class="botao-home" title="IBR PB">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRPB/" width="593" height="421" alt="IBR PB" draggable="false"
+        fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR PB</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRPBL?PLLN=3.PBL" class="botao-home" title="IBR PBL">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRPBL/" width="593" height="421" alt="IBR PBL" draggable="false"
+        fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR PBL</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRSA?PLLN=3.SA" class="botao-home" title="IBR SA">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRSA/" width="593" height="421" alt="IBR SA" draggable="false"
+        fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR SA</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRSB?PLLN=3.SB" class="botao-home" title="IBR SB">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRSB/" width="593" height="421" alt="IBR SB" draggable="false"
+        fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR SB</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRSBL?PLLN=3.SBL" class="botao-home" title="IBR SBL">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRSBL/" width="593" height="421" alt="IBR SBL" draggable="false"
+        fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR SBL</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRSD?PLLN=3.SD" class="botao-home" title="IBR SD">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRSD/" width="593" height="421" alt="IBR SD" draggable="false"
+        fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR SD</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRV?VALN=1.V" class="botao-home" title="IBR V">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRV/" width="593" height="421" alt="IBR V" draggable="false"
+        fetchpriority="high" />
+      <span class="badge-novo">Desenhos Disponíveis</span>
+      <span class="botao-titulo">IBR V</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRI?ACLN=1.I" class="botao-home" title="IBR I">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRI/" width="593" height="421" alt="IBR I" draggable="false"
+        fetchpriority="high" />
+      <span class="botao-titulo">IBR I</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRZ?ACLN=1.Z" class="botao-home" title="IBR Z">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRZ/" width="593" height="421" alt="IBR Z" draggable="false"
+        fetchpriority="high" />
+      <span class="botao-titulo">IBR Z</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRVFN?ACLN=1.VFN" class="botao-home" title="IBR Z">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRVFN/" width="593" height="421" alt="IBR VFN" draggable="false"
+        fetchpriority="high" />
+      <span class="botao-titulo">IBR VFN</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRGR?AELN=3.GR" class="botao-home" title="IBR GR">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRGR/" width="593" height="421" alt="IBR GR" draggable="false"
+        fetchpriority="high" />
+      <span class="botao-titulo">IBR GR</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRGS?AELN=3.GS" class="botao-home" title="IBR GS">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRGS/" width="593" height="421" alt="IBR GS" draggable="false"
+        fetchpriority="high" />
+      <span class="botao-titulo">IBR GS</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRRIC?AELN=3.RIC" class="botao-home" title="IBR RIC">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRRIC/" width="593" height="421" alt="IBR RIC" draggable="false"
+        fetchpriority="high" />
+      <span class="botao-titulo">IBR RIC</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+
+  <div class="botao-linha">
+    <a href="/ConfiguradorIBRK?INLN=4.K" class="botao-home" title="IBR INVEOR M">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+        data-path="/Layout/Imagens/Produtos/IBRK/" width="593" height="421" alt="IBR INVEOR M" draggable="false"
+        fetchpriority="high" />
+      <span class="botao-titulo">IBR INVEOR M</span>
+      <span class="botao-config">Configure seu Produto</span>
+    </a>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.botao-linha').forEach((el, i) => {
+    el.style.animationDelay = `${i * 0.1}s`;
+  });
+  document.querySelectorAll('.botao-home').forEach(anchor => {
+    const img = anchor.querySelector('img');
+    const path = img.dataset.path || img.getAttribute('src');
+    if (path && path.endsWith('/')) {
+      const parts = path.split('/').filter(Boolean);
+      const folder = (parts[parts.length - 1] || '').replace(/\W+/g, '');
+      img.src = `${path}0${folder}.webp`;
+    }
+    const m = img.src.match(/^(.*\/)(\d+)([^/]+)\.webp$/);
+    if (!m) return;
+    const base = m[1];
+    const name = m[3];
+    const urls = [img.src];
+    let idx = 0;
+    const startIndex = parseInt(m[2], 10);
+    const addUrls = count => {
+      for (let i = startIndex + 1; i < count; i++) {
+        urls.push(`${base}${i}${name}.webp`);
+      }
+    };
+    const fallbackLoad = (max = 20) => {
+      let n = startIndex + 1;
+      const tryNext = () => {
+        if (n - startIndex - 1 >= max) return;
+        const test = new Image();
+        test.onload = () => { urls.push(test.src); n++; tryNext(); };
+        test.onerror = () => { };
+        test.src = `${base}${n}${name}.webp`;
+      };
+      tryNext();
+    };
+
+    fetch(`/Paginas/Navegacao/ContarImagens.php?folder=${encodeURIComponent(name)}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (d && d.count) addUrls(parseInt(d.count, 10));
+        else fallbackLoad();
+      })
+      .catch(() => { fallbackLoad(); });
+    const show = dir => {
+      if (!urls.length) return;
+      idx = (idx + dir + urls.length) % urls.length;
+      img.src = urls[idx];
+    };
+
+    const handleError = () => {
+      if (urls.length > 1) {
+        urls.splice(idx, 1);
+        if (idx >= urls.length) idx = 0;
+        show(0);
+      } else {
+        img.removeEventListener('error', handleError);
+      }
+    };
+    img.addEventListener('error', handleError);
+
+    const prev = document.createElement('span');
+    prev.className = 'galeria-arrow galeria-prev';
+    prev.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); show(-1); });
+    const next = document.createElement('span');
+    next.className = 'galeria-arrow galeria-next';
+    next.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); show(1); });
+    anchor.appendChild(prev);
+    anchor.appendChild(next);
+
+    let startX = 0;
+    let dragging = false;
+    let moved = false;
+    anchor.addEventListener('pointerdown', e => {
+      startX = e.clientX;
+      dragging = true;
+      moved = false;
+    });
+    anchor.addEventListener('pointermove', e => {
+      if (!dragging) return;
+      const diff = e.clientX - startX;
+      if (Math.abs(diff) > 40) {
+        show(diff > 0 ? -1 : 1);
+        dragging = false;
+        moved = true;
+      }
+    });
+    anchor.addEventListener('pointerup', () => { dragging = false; });
+    anchor.addEventListener('pointercancel', () => { dragging = false; });
+    anchor.addEventListener('click', e => {
+      if (moved) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+    anchor.addEventListener('dragstart', e => {
+      e.preventDefault();
+    });
+    img.setAttribute('draggable', 'false');
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const breadcrumbCol = document.querySelector('.pagina__titulo--bloco .row .col-12');
+    const toggleBtn = document.getElementById('toggleFiltros');
+    if (breadcrumbCol && toggleBtn) {
+      breadcrumbCol.classList.add('d-flex', 'align-items-center');
+      toggleBtn.classList.add('ms-auto');
+      breadcrumbCol.appendChild(toggleBtn);
+    }
+    const linhasPorCategoria = {
+      'Acoplamentos': ['3.RIC', '3.GR', '3.GS'],
+      'Alimentícios, Anticorrosivos e IP69K': ['3.APM', '3.SPM', '1.I', '1.Z', '1.VFN'],
+      'Motores': ['3.W', '2.I', '3.I', '3.APM', '3.SPM'],
+      'Motorredutores': ['1.Q', '1.QDR', '1.QP', '1.H', '1.X', '1.C', '1.P', '1.M', '1.FKA', '1.FFA', '1.FR', '1.I', '1.Z', '1.VFN'],
+      'Redutores de Velocidade': ['1.Q', '1.QDR', '1.QP', '1.H', '1.X', '1.C', '1.P', '1.R', '1.M', '1.FKA', '1.FFA', '1.FR', '1.I', '1.Z', '1.VFN', '3.PB', '3.PBL', '3.SB', '3.SBL', '3.SA', '3.SD'],
+      'Inversores de Frequência': ['4.K'],
+      'Variadores Mecânicos': ['1.V'],
+    };
+
+    const linhasPorGrupo = {
+      'Alto Rendimento': ['1.FFA', '1.FKA', '1.FR', '1.H', '1.X', '1.P', '1.C', '1.M', '3.I', '3.W', '3.APM', '3.SPM'],
+      'Anticorrosivos': ['3.APM', '3.SPM', '1.I', '1.Z', '1.VFN'],
+      'Coroa e Sem Fim': ['1.Q', '1.R', '1.I', '1.Z', '1.VFN'],
+      'Descentralizado': ['4.K'],
+      'Dupla Redução': ['1.QDR', '1.QP'],
+      'Precisão': ['3.PB', '3.PBL', '3.SA', '3.SB', '3.SBL', '3.SD', '3.GR', '3.GS', '3.RIC'],
+      'Variadores': ['1.V'],
+    };
+
+    const descricaoPorLinha = {};
+    const arquivosSeletores = [
+      'SeletoresConfiguradorAC.html',
+      'SeletoresConfiguradorAE.html',
+      'SeletoresConfiguradorFX.html',
+      'SeletoresConfiguradorHY.html',
+      'SeletoresConfiguradorIN.html',
+      'SeletoresConfiguradorMO.html',
+      'SeletoresConfiguradorPL.html',
+      'SeletoresConfiguradorQU.html',
+      'SeletoresConfiguradorQUDR.html',
+      'SeletoresConfiguradorVA.html'
+    ];
+
+    Promise.all(arquivosSeletores.map(arq =>
+      fetch(`/Paginas/Seletores/${arq}`)
+        .then(r => r.text())
+        .then(html => {
+          const doc = new DOMParser().parseFromString(html, 'text/html');
+          doc.querySelectorAll('.galeria-produto[data-visible][data-description]').forEach(div => {
+            descricaoPorLinha[div.getAttribute('data-visible')] = div.getAttribute('data-description');
+          });
+        })
+    )).then(() => {
+      const mapArquivos = {
+        'ConfiguradorIBRQ': 'ConfiguradorQU.html',
+        'ConfiguradorIBRQDR': 'ConfiguradorQUDR.html',
+        'ConfiguradorIBRQP': 'ConfiguradorQUDR.html',
+        'ConfiguradorIBRC': 'ConfiguradorHY.html',
+        'ConfiguradorIBRH': 'ConfiguradorHY.html',
+        'ConfiguradorIBRM': 'ConfiguradorHY.html',
+        'ConfiguradorIBRP': 'ConfiguradorHY.html',
+        'ConfiguradorIBRR': 'ConfiguradorHY.html',
+        'ConfiguradorIBRX': 'ConfiguradorHY.html',
+        'ConfiguradorIBRPFFA': 'ConfiguradorFX.html',
+        'ConfiguradorIBRXFKA': 'ConfiguradorFX.html',
+        'ConfiguradorIBRCFR': 'ConfiguradorFX.html',
+        'ConfiguradorIBRMSML': 'ConfiguradorMO.html',
+        'ConfiguradorIBRT3AT3C': 'ConfiguradorMO.html',
+        'ConfiguradorWEGALTORENDIMENTO': 'ConfiguradorMO.html',
+        'ConfiguradorANTICORROSIVOSAPM': 'ConfiguradorMO.html',
+        'ConfiguradorANTICORROSIVOSSPM': 'ConfiguradorMO.html',
+        'ConfiguradorIBRPB': 'ConfiguradorPL.html',
+        'ConfiguradorIBRPBL': 'ConfiguradorPL.html',
+        'ConfiguradorIBRSA': 'ConfiguradorPL.html',
+        'ConfiguradorIBRSB': 'ConfiguradorPL.html',
+        'ConfiguradorIBRSBL': 'ConfiguradorPL.html',
+        'ConfiguradorIBRSD': 'ConfiguradorPL.html',
+        'ConfiguradorIBRV': 'ConfiguradorVA.html',
+        'ConfiguradorIBRI': 'ConfiguradorAC.html',
+        'ConfiguradorIBRZ': 'ConfiguradorAC.html',
+        'ConfiguradorIBRGR': 'ConfiguradorAE.html',
+        'ConfiguradorIBRGS': 'ConfiguradorAE.html',
+        'ConfiguradorIBRRIC': 'ConfiguradorAE.html',
+        'ConfiguradorIBRK': 'ConfiguradorIN.html'
+      };
+
+      const anchors = Array.from(document.querySelectorAll('.botao-home'));
+      return Promise.all(anchors.map(anchor => {
+        const m = anchor.href.match(/([?&][^=]*LN)=([^&]+)/i);
+        const linha = m ? m[2] : '';
+        anchor.dataset.linha = linha;
+        anchor.dataset.descricao = descricaoPorLinha[linha] || '';
+        const cats = [];
+        for (const [cat, arr] of Object.entries(linhasPorCategoria)) {
+          if (arr.includes(linha)) cats.push(cat);
+        }
+        anchor.dataset.categorias = cats.join('|');
+
+        const grupos = [];
+        for (const [grp, arr] of Object.entries(linhasPorGrupo)) {
+          if (arr.includes(linha)) grupos.push(grp);
+        }
+        anchor.dataset.linhasGrupo = grupos.join('|');
+        anchor.dataset.desenho = anchor.querySelector(".badge-novo") ? "1" : "0";
+
+        const path = anchor.pathname.replace(/^\//, '');
+        const file = mapArquivos[path];
+        if (file) {
+          return fetch(`/Paginas/Configuradores/${file}`)
+            .then(r => r.text())
+            .then(html => {
+              const doc = new DOMParser().parseFromString(html, 'text/html');
+              anchor.dataset.tituloPagina = doc.querySelector('title')?.textContent || '';
+              anchor.dataset.conteudoPagina = doc.body ? doc.body.textContent : '';
+            })
+            .catch(() => { });
+        }
+      })).then(() => filtrar(true));
+    });
+
+    const botoesSection = document.querySelector('.home-botoes');
+    const ordemPadrao = Array.from(botoesSection.querySelectorAll('.botao-linha'));
+    let usarOrdemAlfa = false;
+    const ordenarIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/></svg>';
+    const STORAGE_KEY = 'filtros_produtos';
+
+    const obterCategoriasSelecionadas = () =>
+      Array.from(document.querySelectorAll('#dropdownCategorias input[type="checkbox"]:checked')).map(cb => cb.value);
+
+    const obterLinhasSelecionadas = () =>
+      Array.from(document.querySelectorAll('#dropdownLinhas input[type="checkbox"]:checked')).map(cb => cb.value);
+    const obterDesenhosSelecionados = () =>
+      Array.from(document.querySelectorAll('#dropdownDesenhos input[type="checkbox"]:checked')).map(cb => cb.value);
+
+    const atualizarBotaoCategorias = () => {
+      const selecionadas = obterCategoriasSelecionadas();
+      const botao = document.getElementById('botaoCategorias');
+      if (botao) botao.textContent = selecionadas.length ? selecionadas.join(', ') : 'Selecione...';
+    };
+
+    const atualizarBotaoLinhas = () => {
+      const selecionadas = obterLinhasSelecionadas();
+      const botao = document.getElementById('botaoLinhas');
+      if (botao) botao.textContent = selecionadas.length ? selecionadas.join(', ') : 'Selecione...';
+    };
+
+    const atualizarBotaoDesenhos = () => {
+      const selecionadas = obterDesenhosSelecionados();
+      const botao = document.getElementById('botaoDesenhos');
+      if (botao) botao.textContent = selecionadas.length ? selecionadas.join(', ') : 'Selecione...';
+    };
+
+    const loadState = () => {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+      } catch {
+        return {};
+      }
+    };
+    const saveState = () => {
+      try {
+        const state = {
+          termo: document.getElementById('filtroBusca').value,
+          categorias: obterCategoriasSelecionadas(),
+          linhas: obterLinhasSelecionadas(),
+          ordemAlfa: usarOrdemAlfa,
+          desenhos: obterDesenhosSelecionados(),
+          filtrosAbertos: areaFiltros ? areaFiltros.classList.contains('show') : true
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch { }
+    };
+    const stored = loadState();
+    const loading = document.getElementById('loadingFiltros');
+    const mostrarLoading = () => {
+      if (!loading) return;
+      loading.style.display = 'block';
+    };
+    const esconderLoading = () => {
+      if (!loading) return;
+      const imgs = Array.from(document.querySelectorAll('.botao-linha'))
+        .filter(div => div.style.display !== 'none')
+        .map(div => div.querySelector('img'))
+        .filter(img => img && !img.complete);
+      if (!imgs.length) {
+        loading.style.display = 'none';
+        return;
+      }
+      let loaded = 0;
+      const finalizar = () => {
+        loaded++;
+        if (loaded >= imgs.length) {
+          loading.style.display = 'none';
+        }
+      };
+      imgs.forEach(img => img.addEventListener('load', finalizar, { once: true }));
+      setTimeout(() => { loading.style.display = 'none'; }, 5000);
+    };
+    const noResults = document.getElementById('noResults');
+    const ordenar = () => {
+      const itens = Array.from(botoesSection.querySelectorAll('.botao-linha'));
+      const ordenados = usarOrdemAlfa
+        ? itens.sort((a, b) =>
+          a
+            .querySelector('.botao-titulo')
+            .textContent.localeCompare(b.querySelector('.botao-titulo').textContent)
+        )
+        : ordemPadrao.slice();
+      ordenados.forEach(el => botoesSection.appendChild(el));
+    };
+    const normalizarTexto = str =>
+      str
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/-/g, ' ')
+        .replace(/[^\w\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+    const contemPalavras = (texto, termo) => {
+      if (texto.includes(termo)) return true;
+      const palavras = termo.split(' ').filter(Boolean);
+      return palavras.every(p => {
+        if (p.length <= 2) {
+          const regex = new RegExp(`\\b${p}\\b`);
+          return regex.test(texto);
+        }
+        if (texto.includes(p)) return true;
+        if (p.length > 4 && texto.includes(p.slice(0, -1))) return true;
+        return false;
+      });
+    };
+
+    const filtrar = (skipLoading = false) => {
+      const start = performance.now();
+      if (!skipLoading) mostrarLoading();
+      const termo = normalizarTexto(document.getElementById('filtroBusca').value);
+      const scope = 'tudo';
+      const scopeProdutoOpcoes = Array.from(document.querySelectorAll('#dropdownScopeProduto input[type="checkbox"]:checked')).map(cb => cb.value);
+      const selecao = obterCategoriasSelecionadas();
+      const linhasSel = obterLinhasSelecionadas();
+
+      const desenhosSel = obterDesenhosSelecionados();
+
+      requestAnimationFrame(() => {
+        let algumVisivel = false;
+        document.querySelectorAll('.botao-linha').forEach(div => {
+          const anchor = div.querySelector('.botao-home');
+          const titulo = normalizarTexto(anchor.textContent);
+          const linha = normalizarTexto(anchor.dataset.linha || '');
+          const descricao = normalizarTexto(anchor.dataset.descricao || '');
+          const paginaTitulo = normalizarTexto(anchor.dataset.tituloPagina || '');
+          const paginaTexto = normalizarTexto(anchor.dataset.conteudoPagina || '');
+          const cats = anchor.dataset.categorias ? anchor.dataset.categorias.split('|') : [];
+          const grupos = anchor.dataset.linhasGrupo ? anchor.dataset.linhasGrupo.split('|') : [];
+          const textoCategorias = normalizarTexto(cats.join(' '));
+          const textoGrupos = normalizarTexto(grupos.join(' '));
+
+          let atendeBusca = true;
+          if (termo) {
+            if (scope === 'produto') {
+              const verifica = opt => scopeProdutoOpcoes.length === 0 || scopeProdutoOpcoes.includes(opt);
+              const emTitulo = verifica('titulo') && contemPalavras(titulo, termo);
+              const emLinha = verifica('linha') && contemPalavras(linha, termo);
+              const emCat = verifica('categoria') && contemPalavras(textoCategorias, termo);
+              const emGrupo = verifica('grupo') && contemPalavras(textoGrupos, termo);
+              atendeBusca = emTitulo || emLinha || emCat || emGrupo;
+            } else if (scope === 'informacoes') {
+              atendeBusca = contemPalavras(descricao + ' ' + paginaTexto, termo);
+            } else {
+              atendeBusca =
+                contemPalavras(titulo, termo) ||
+                contemPalavras(linha, termo) ||
+                contemPalavras(descricao, termo) ||
+                contemPalavras(paginaTitulo, termo) ||
+                contemPalavras(paginaTexto, termo) ||
+                contemPalavras(textoCategorias, termo) ||
+                contemPalavras(textoGrupos, termo);
+            }
+          }
+
+
+          const atendeCat = !selecao.length || selecao.some(s => cats.includes(s));
+
+          const atendeLinha = !linhasSel.length || linhasSel.some(s => grupos.includes(s));
+
+          const possuiDesenho = anchor.dataset.desenho === "1";
+          const atendeDesenho = desenhosSel.length === 0 ||
+            (desenhosSel.includes('Sim') && possuiDesenho) ||
+            (desenhosSel.includes('Não') && !possuiDesenho);
+          const mostrar = atendeBusca && atendeCat && atendeLinha && atendeDesenho;
+
+          div.style.display = mostrar ? '' : 'none';
+          if (mostrar) algumVisivel = true;
+        });
+        const delay = Math.max(200 - (performance.now() - start), 0);
+        setTimeout(() => {
+          esconderLoading();
+          if (noResults) noResults.style.display = algumVisivel ? 'none' : '';
+        }, delay);
+      });
+    };
+
+    const areaFiltros = document.getElementById('areaFiltros');
+    const toggleFiltros = document.getElementById('toggleFiltros');
+    const toggleArrow = document.getElementById('toggleArrow');
+    const updateToggleArrow = opened => {
+      if (toggleArrow) toggleArrow.textContent = opened ? '\u25B2' : '\u25BC';
+    };
+    const filtrosAbertosPadrao = stored.filtrosAbertos === true;
+    if (toggleFiltros && areaFiltros) {
+      if (filtrosAbertosPadrao) {
+        areaFiltros.classList.add('show', 'open');
+        toggleFiltros.classList.add('open');
+      } else {
+        areaFiltros.classList.remove('show', 'open');
+        toggleFiltros.classList.remove('open');
+      }
+      updateToggleArrow(filtrosAbertosPadrao);
+      toggleFiltros.addEventListener('click', () => {
+        const opened = areaFiltros.classList.toggle('show');
+        toggleFiltros.classList.toggle('open', opened);
+        areaFiltros.classList.toggle('open', opened);
+        updateToggleArrow(opened);
+        saveState();
+      });
+    }
+
+    const limparFiltros = document.getElementById('limparFiltros');
+    if (limparFiltros && areaFiltros) {
+      limparFiltros.addEventListener('click', () => {
+        document.getElementById('filtroBusca').value = '';
+        document.querySelectorAll('#dropdownCategorias input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.querySelectorAll('#dropdownLinhas input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.querySelectorAll('#dropdownDesenhos input[type="checkbox"]').forEach(cb => cb.checked = false);
+        atualizarBotaoCategorias();
+        atualizarBotaoLinhas();
+        atualizarBotaoDesenhos();
+
+        usarOrdemAlfa = false;
+        document.getElementById('ordenarAlfa').innerHTML = ordenarIcon + ' Ordenar A-Z';
+        try { localStorage.removeItem(STORAGE_KEY); } catch { }
+        ordenar();
+        filtrar();
+      });
+    }
+
+    const ordenarAlfaBtn = document.getElementById('ordenarAlfa');
+    if (ordenarAlfaBtn) ordenarAlfaBtn.addEventListener('click', () => {
+      mostrarLoading();
+      if (loading) loading.style.display = 'block';
+      usarOrdemAlfa = !usarOrdemAlfa;
+      ordenar();
+      filtrar();
+      document.getElementById('ordenarAlfa').innerHTML = ordenarIcon + (usarOrdemAlfa ? ' Ordem Padrão' : ' Ordenar A-Z');
+      saveState();
+    });
+    const campoBuscaGlobal = document.getElementById('filtroBusca');
+    const resultadoBusca = document.getElementById('resultadoBuscaFiltro');
+
+    const urlTermo = new URLSearchParams(window.location.search).get('busca');
+    if (urlTermo) {
+      document.getElementById('filtroBusca').value = urlTermo;
+    } else if (stored.termo) {
+      document.getElementById('filtroBusca').value = stored.termo;
+    }
+    if (Array.isArray(stored.categorias)) {
+      document.querySelectorAll('#dropdownCategorias input[type="checkbox"]').forEach(cb => {
+        cb.checked = stored.categorias.includes(cb.value);
+      });
+      atualizarBotaoCategorias();
+    }
+    if (Array.isArray(stored.linhas)) {
+      document.querySelectorAll('#dropdownLinhas input[type="checkbox"]').forEach(cb => {
+        cb.checked = stored.linhas.includes(cb.value);
+      });
+      atualizarBotaoLinhas();
+    }
+    if (Array.isArray(stored.desenhos)) {
+      document.querySelectorAll('#dropdownDesenhos input[type="checkbox"]').forEach(cb => {
+        cb.checked = stored.desenhos.includes(cb.value);
+      });
+      atualizarBotaoDesenhos();
+    }
+    if (stored.ordemAlfa) {
+      usarOrdemAlfa = true;
+      document.getElementById('ordenarAlfa').innerHTML = ordenarIcon + ' Ordem padrão';
+      ordenar();
+    }
+    filtrar(true);
+
+    const aplicarFiltros = document.getElementById('aplicarFiltros');
+    if (aplicarFiltros) aplicarFiltros.addEventListener('click', () => {
+      filtrar();
+      saveState();
+    });
+
+    document.querySelectorAll('#dropdownCategorias input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', () => {
+        atualizarBotaoCategorias();
+        saveState();
+      });
+    });
+
+    document.querySelectorAll('#dropdownLinhas input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', () => {
+        atualizarBotaoLinhas();
+        saveState();
+      });
+    });
+
+    document.querySelectorAll('#dropdownDesenhos input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', () => {
+        atualizarBotaoDesenhos();
+        saveState();
+      });
+    });
+    const btnLimparBusca = document.getElementById('limparBusca');
+    if (btnLimparBusca) {
+      btnLimparBusca.addEventListener('click', () => {
+        campoBuscaGlobal.value = '';
+        resultadoBusca.classList.remove('show');
+        saveState();
+      });
+    }
+
+    if (campoBuscaGlobal) {
+      campoBuscaGlobal.addEventListener('input', () => {
+        resultadoBusca.classList.remove('show');
+        saveState();
+      });
+      campoBuscaGlobal.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          filtrar();
+          saveState();
+        }
+      });
+    }
+
+    document.addEventListener('click', e => {
+      if (resultadoBusca && !resultadoBusca.contains(e.target) && e.target !== campoBuscaGlobal) {
+        resultadoBusca.classList.remove('show');
+      }
+      const dd = document.getElementById('dropdownCategorias');
+      if (dd && !dd.contains(e.target)) {
+        const list = dd.querySelector('.dropdown-list');
+        if (list) list.classList.remove('open');
+        const btn = dd.querySelector('.dropdown-button');
+        if (btn) btn.classList.remove('open');
+      }
+      const dl = document.getElementById('dropdownLinhas');
+      if (dl && !dl.contains(e.target)) {
+        const list = dl.querySelector('.dropdown-list');
+        if (list) list.classList.remove('open');
+        const btn = dl.querySelector('.dropdown-button');
+        if (btn) btn.classList.remove('open');
+      }
+
+      const ddw = document.getElementById('dropdownDesenhos');
+      if (ddw && !ddw.contains(e.target)) {
+        const list = ddw.querySelector('.dropdown-list');
+        if (list) list.classList.remove('open');
+        const btn = ddw.querySelector('.dropdown-button');
+        if (btn) btn.classList.remove('open');
+      }
+    });
+    window.toggleDropdownCategorias = function (button) {
+      const list = button.nextElementSibling || button.querySelector('.dropdown-list');
+      if (list) {
+        const opened = list.classList.toggle('open');
+        button.classList.toggle('open', opened);
+      }
+    };
+    window.toggleDropdownLinhas = function (button) {
+      const list = button.nextElementSibling || button.querySelector('.dropdown-list');
+      if (list) {
+        const opened = list.classList.toggle('open');
+        button.classList.toggle('open', opened);
+      }
+    };
+    window.toggleDropdownDesenhos = function (button) {
+      const list = button.nextElementSibling || button.querySelector('.dropdown-list');
+      if (list) {
+        const opened = list.classList.toggle('open');
+        button.classList.toggle('open', opened);
+      }
+    };
+  });
+</script>

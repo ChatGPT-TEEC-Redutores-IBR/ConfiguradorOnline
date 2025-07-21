@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+
+  <link href="/Layout/Imagens/Logotipos/Icone.ico" rel="shortcut icon" type="image/x-icon" />
+  <link href="/Layout/Imagens/Logotipos/Icone.ico" rel="icon" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/Layout/Imagens/Logotipos/LogotipoAplicativo192192.webp">
+
+  <style>
+    #loader {
+      position: fixed;
+      z-index: 2000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgb(var(--ibr-orange, 236, 65, 21));
+      background-color: #ec4115;
+    }
+
+    #loader .spinner {
+      width: 40px;
+      height: 40px;
+      background-color: #fff;
+      margin: 100px auto;
+      -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+      animation: sk-rotateplane 1.2s infinite ease-in-out;
+    }
+
+    @-webkit-keyframes sk-rotateplane {
+      0% {
+        -webkit-transform: perspective(120px);
+      }
+
+      50% {
+        -webkit-transform: perspective(120px) rotateY(180deg);
+      }
+
+      100% {
+        -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg);
+      }
+    }
+
+    @keyframes sk-rotateplane {
+      0% {
+        transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+      }
+
+      50% {
+        transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+      }
+
+      100% {
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+      }
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+    }
+
+    .header__logo {
+      height: 90px;
+      transform: none;
+      transition: transform 0.5s ease;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: #ec4115;
+      padding: 6px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    #install-app {
+      position: fixed;
+      bottom: 140px;
+      right: 20px;
+      background: #ec4115;
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: none;
+      z-index: 2000;
+    }
+  </style>
+
+  <!-- Fontes locais -->
+  <link rel="stylesheet" href="/Layout/Fontes/Fontes.min.css">
+
+  <!-- Estilos globais -->
+  <link rel="stylesheet" href="/Layout/Estrutura/Layout.min.css?versao=versao.2.0.43">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <!-- Bootstrap -->
+  <!-- Carrega o JavaScript apenas uma vez ao final da página -->
+  <link rel="stylesheet" href="/Layout/Estrutura/PadraoLayout.min.css">
+  <link rel="prefetch" href="/Layout/Estrutura/Layout.min.js?versao=versao.2.0.43" as="script">
+
+  <link rel="manifest" href="/Manifest.json">
+  <meta name="theme-color" content="#ec4115">
+  <meta name="color-scheme" content="light dark">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="robots" content="index, follow">
+  <title>Configurador de Produtos - Redutores IBR</title>
+  <meta name="description"
+    content="Ferramenta online para configuração de redutores, motorredutores e motores da Redutores IBR. Configure as linhas IBR C, IBR X, IBR H, IBR M, IBR P, IBR R, IBR Q, IBR QDR, IBR QP, IBR PB, IBR PBL, IBR SA, IBR SB, IBR SBL, IBR SD, IBR GR, IBR GS, IBR RIC, IBR APM, IBR SPM, IBR T3A, IBR MS/ML, IBR WEG ALTO RENDIMENTO, IBR I, IBR Z, IBR INVEOR M e IBR Variador Mecânico.">
+  <meta name="keywords"
+    content="IBR, IBR C, IBR X, IBR H, IBR M, IBR P, IBR R, IBR Q, IBR QDR, IBR QP, IBR PB, IBR PBL, IBR SA, IBR SB, IBR SBL, IBR SD, IBR GR, IBR GS, IBR RIC, IBR APM, IBR SPM, IBR T3A, IBR MS/ML, IBR WEG ALTO RENDIMENTO, IBR I, IBR Z, IBR INVEOR M, IBR Variador Mecânico, redutores, configurador, motores, variadores, planetários, desenhos, cotações, 3D Download, Download, 3D, PDF, PDF Download, Desenhos Download, Cotação, Orçamento">
+  <meta property="og:title" content="Configurador de Produtos - Redutores IBR">
+  <meta property="og:description"
+    content="Ferramenta online para configuração de redutores, motorredutores e motores das diversas linhas IBR.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/Layout/Imagens/Logotipos/Logotipo.svg">
+  <meta property="og:url" content="https://configurador.redutoresibr.com.br/">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Configurador de Produtos - Redutores IBR">
+  <link rel="canonical" href="https://configurador.redutoresibr.com.br/">
+  <script src="/CSRFSetup.min.js"></script>
+  <script id="lgpd-key" urlBase="" key="5597f342-63ef-4434-bfcd-a4dcf41c6faf" prefix="COOKIES"></script>
+  <!-- Google tag (gtag.js) -->
+  <script defer src="/Layout/Estrutura/gtag-loader.min.js?versao=versao.2.0.43"></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
+
+  <div id="loader" class="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <header class="header bg-header bg-opacity-100 shadow-sm py-2 py-lg-0 top-0">
+    <div class="container header__block">
+      <div class="header__left">
+        <a class="navbar-brand" href="https://configurador.redutoresibr.com.br/">
+          <div class="logo" id="logo"></div>
+          <span class="sr-only">Redutores IBR - Página Inicial</span>
+        </a>
+        <button class="theme-toggle desktop-only" onclick="toggleDarkMode()" aria-label="Alternar Tema">
+          <svg class="theme-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke-width="3"
+            stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
+            <circle class="icon-bg" cx="12" cy="12" r="11" />
+            <circle class="sun" cx="12" cy="12" r="5" />
+            <circle class="sun-inner" cx="12" cy="12" r="2" />
+            <g class="sun-rays">
+              <line x1="12" y1="1" x2="12" y2="4" />
+              <line x1="12" y1="20" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="4" y2="12" />
+              <line x1="20" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </g>
+            <path class="moon" d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79z" />
+          </svg>
+          <span class="tooltip"></span>
+        </button>
+      </div>
+      <nav class="menu-icons-desktop d-none d-lg-flex" aria-label="Página Home">
+        <a href="https://configurador.redutoresibr.com.br/">Home</a>
+        <a href="https://www.redutoresibr.com.br/pt/" target="_blank">Site</a>
+        <a href="/PoliticaPrivacidade">Política de Privacidade</a>
+        <a href="/AreaCliente">Área do Cliente</a>
+        <div class="header__menu__search">
+          <form id="formBusca" name="formBusca" action="/Buscar" role="form">
+            <div class="input-group border-bottom border-dark mb-2">
+              <input type="text" id="termo" name="termo" class="form-control bg-transparent border-0 rounded-0"
+                placeholder="Pesquise um Produto" maxlength="100" onkeyup="">
+              <button type="button" id="btnBuscarDesktopFiltro" name="btnBuscarDesktopFiltro"
+                aria-label="Botão procurar" onclick="" class="btn rounded-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                </svg>
+              </button>
+            </div>
+          </form>
+
+          <div id="autoCompleteDesktop" name="autoCompleteDesktop">
+
+
+          </div>
+        </div>
+      </nav>
+
+      <button
+        class="navbar-toggler btn__menu ps-3 py-2 d-flex flex-column gap-2 justify-content-between align-items-end d-lg-none"
+        onclick="toggleMenu()" onkeydown="if(event.key==='Enter'||event.key===' '){toggleMenu()}"
+        aria-label="Abrir menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div id="mobileMenu" class="menu__block--overlay">
+    <div class="menu__block pt-3 pt-lg-0 bg-header bg-opacity-100">
+      <button
+        class="navbar-toggler btn__menu ps-3 py-2 d-flex flex-column gap-2 justify-content-between align-items-end d-lg-none mb-4 me-4 ms-auto show"
+        onclick="toggleMenu()" onkeydown="if(event.key==='Enter'||event.key===' '){toggleMenu()}"
+        aria-label="Abrir menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+      <hr class="menu-divider" />
+      <nav class="navbar-nav w-100 d-flex flex-column gap-3">
+        <div class="header__menu__search px-lg-0 p-3">
+          <form id="formBusca" name="formBusca" action="/Buscar" role="form">
+            <div class="input-group border-bottom border-dark mb-2">
+              <input type="text" id="termo" name="termo" class="form-control bg-transparent border-0 rounded-0"
+                placeholder="Pesquise um Produto" maxlength="100" onkeyup="">
+              <button type="button" id="btnBuscarDesktopFiltro" name="btnBuscarDesktopFiltro"
+                aria-label="Botão procurar" onclick="" class="btn rounded-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                </svg>
+              </button>
+            </div>
+          </form>
+          <div id="autoCompleteDesktop" name="autoCompleteDesktop"></div>
+        </div>
+        <a href="https://configurador.redutoresibr.com.br/"
+          class="nivel-1__link fs-6 fw-bold px-lg-0 p-3 d-flex text-decoration-none link-opacity-50-hover">Home</a>
+        <a href="https://www.redutoresibr.com.br/pt" target="_blank"
+          class="nivel-1__link fs-6 fw-bold px-lg-0 p-3 d-flex text-decoration-none link-opacity-50-hover">Site</a>
+        <a href="/PoliticaPrivacidade"
+          class="nivel-1__link fs-6 fw-bold px-lg-0 p-3 d-flex text-decoration-none link-opacity-50-hover">Política de
+          Privacidade</a>
+        <a href="/AreaCliente"
+          class="nivel-1__link fs-6 fw-bold px-lg-0 p-3 d-flex text-decoration-none link-opacity-50-hover">Área do
+          Cliente</a>
+        <button class="theme-toggle-mobile mb-4" onclick="toggleDarkMode()" aria-label="Alternar Tema">
+          <svg class="theme-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke-width="3"
+            stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
+            <circle class="icon-bg" cx="12" cy="12" r="11" />
+            <circle class="sun" cx="12" cy="12" r="5" />
+            <circle class="sun-inner" cx="12" cy="12" r="2" />
+            <g class="sun-rays">
+              <line x1="12" y1="1" x2="12" y2="4" />
+              <line x1="12" y1="20" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="4" y2="12" />
+              <line x1="20" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </g>
+            <path class="moon" d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79z" />
+          </svg>
+          <span class="tooltip"></span>
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main-content">
+    <div class="pagina__titulo--bloco fw-bold mt-5 mb-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="alerta-validacao" class="alerta-validacao" role="alert" aria-live="assertive" tabindex="-1">
+    <span id="alerta-texto"></span>
+    <button class="fechar-alerta" onclick="fecharAlerta()" aria-label="Fechar">×</button>
+  </div>
+
+  <button id="voltar-topo" title="Voltar ao Topo" aria-label="Voltar ao Topo">
+    <svg class="seta-topo" viewBox="0 0 24 24" width="28" height="28" xmlns="http://www.w3.org/2000/svg" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5" />
+      <path d="M5 12l7-7 7 7" />
+      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -3; 0 0" dur="1s"
+        repeatCount="indefinite" />
+    </svg>
+  </button>
+  </script>
+
+  <footer class="footer bg-gray bg-opacity-100 py-5">
+    <div class="container py-5">
+      <div class="row justify-content-sm-between justify-content-center">
+        <div class="col-lg-3 col-sm-12 col-auto mb-5">
+          <div class="logo__footer">
+            <img loading="lazy" src="/Layout/Imagens/Logotipos/Logotipo.svg" alt="Redutores IBR" width="170"
+              height="115">
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-12">
+          <div class="contatos__footer mb-5 text-center text-sm-start">
+            <p class="nivel-1__footer fw-normal text-uppercase fs-5 mb-3">Redutores IBR LTDA</p>
+            <p class="nivel-1__footer fw-normal text-uppercase text-orange fs-6 mb-0">Unidade RS</p>
+            <a href="https://www.google.com/maps/place/Redutores+IBR+LTDA/@-29.1532676,-51.2103992,3a,75y,33.33h,91.85t/data=!3m6!1e1!3m4!1sctJ3rjtZ1sG7EMti6wmDcw!2e0!7i16384!8i8192!4m7!3m6!1s0x951ea2ed673b27e7:0x3ea5dadb3d16c70e!8m2!3d-29.1531464!4d-51.210516!10e5!16s%2Fg%2F1tkrmzh6?entry=ttu"
+              target="_blank" class="contato__link mb-3 fw-light text-decoration-none d-flex mx-auto ms-sm-0 link-dark">
+              <p class="fs-6">
+                R. Jacob Luchesi, 2781<br> Bairro Santa Catarina <br> Caxias do Sul - RS <br> 95032-000
+              </p>
+            </a>
+            <p class="nivel-1__footer fw-normal text-uppercase text-orange fs-6 mb-0">Unidade SP</p>
+            <a href="https://www.google.com/maps/@-23.1400662,-47.2321507,3a,75y,222.23h,94.41t/data=!3m6!1e1!3m4!1slRh6jMDktTofruVqhg_l7A!2e0!7i16384!8i8192?entry=ttu"
+              target="_blank" class="contato__link mb-3 fw-light text-decoration-none d-flex mx-auto ms-sm-0 link-dark">
+              <p class="fs-6">
+                Alameda Mercúrio, 245 <br> American Park Empresarial Nr <br> Indaiatuba - SP <br> 13347-662
+              </p>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+          <div class="menu__footer mb-5 text-center text-sm-start">
+            <p class="nivel-1__footer text-uppercase fw-normal fs-5 mb-3">Navegue</p>
+            <div
+              class="nivel-2__block--footer d-flex flex-column gap-2 justify-content-sm-between justify-content-center">
+              <a href="https://configurador.redutoresibr.com.br/"
+                class="nivel-2__footer fw-normal fs-6 text-decoration-none link-dark link-opacity-50-hover">Home</a>
+              <a href="https://www.redutoresibr.com.br/pt/"
+                class="nivel-2__footer fw-normal fs-6 text-decoration-none link-dark link-opacity-50-hover">Site</a>
+              <a href="https://www.redutoresibr.com.br/pt/"
+                class="nivel-2__footer fw-normal fs-6 text-decoration-none link-dark link-opacity-50-hover">Política de
+                Privacidade</a>
+              <a href="https://configurador.redutoresibr.com.br/AreaCliente"
+                class="nivel-2__footer fw-normal fs-6 text-decoration-none link-dark link-opacity-50-hover">Área do
+                Cliente</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="contatos__footer mb-5 text-center text-sm-start">
+            <p class="nivel-1__footer fw-normal text-uppercase fs-5 mb-3">Acesse</p>
+            <a href="tel:+55"
+              class="contato__link my-3 fw-light text-decoration-none d-flex align-items-center gap-2 mx-auto ms-sm-0">
+              <p class="fs-4 fw-semibold text-orange mb-0 lh-1">RS</p>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                class="bi bi-telephone-fill text-orange fs-5" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.516.087-2.261-.219a17.678 17.678 0 0 1-6.684-4.42 17.678 17.678 0 0 1-4.42-6.684c-.306-.745-.959-1.521-.219-2.261L3.272.674A1.745 1.745 0 0 1 5.883.511z" />
+              </svg>
+              <p class="ms-2 fs-5 mb-0 link-dark link-opacity-50-hover">(54) 3028 9200</p>
+            </a>
+            <a href="tel:+55 1930148604"
+              class="contato__link my-3 fw-light text-decoration-none d-flex align-items-center gap-2 mx-auto ms-sm-0">
+              <p class="fs-4 fw-semibold text-orange mb-0 lh-1">SP</p>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                class="bi bi-telephone-fill text-orange fs-5" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.516.087-2.261-.219a17.678 17.678 0 0 1-6.684-4.42 17.678 17.678 0 0 1-4.42-6.684c-.306-.745-.959-1.521-.219-2.261L3.272.674A1.745 1.745 0 0 1 5.883.511z" />
+              </svg>
+              <p class="ms-2 fs-5 mb-0 link-dark link-opacity-50-hover">(19) 3014-8604</p>
+            </a>
+            <a href="https://api.whatsapp.com/send?phone=5519997061326"
+              class="contato__link my-3 fw-light text-decoration-none d-flex align-items-center gap-3 mx-auto ms-sm-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                class="bi bi-whatsapp text-orange fs-5" viewBox="0 0 16 16">
+                <path
+                  d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.664-2.43-.157-.248A6.555 6.555 0 0 1 1.4 7.926a6.6 6.6 0 1 1 12.02 3.975 6.554 6.554 0 0 1-5.426 2.62zm3.419-4.509c-.047-.078-.176-.125-.37-.219-.195-.094-1.152-.568-1.33-.634-.178-.063-.308-.094-.437.094-.129.188-.503.633-.617.765-.113.129-.226.141-.42.047-.188-.094-.793-.292-1.51-.931-.557-.497-.933-1.105-1.041-1.293-.109-.188-.012-.29.082-.383.084-.083.188-.217.282-.326.094-.109.125-.188.188-.313.062-.125.031-.235-.016-.329-.047-.094-.437-1.054-.598-1.447-.157-.375-.316-.324-.437-.33l-.371-.007c-.125 0-.329.047-.502.235-.173.188-.656.641-.656 1.562s.672 1.813.765 1.938c.094.125 1.323 2.02 3.207 2.83 1.884.812 1.884.541 2.223.508.34-.031 1.094-.445 1.25-.875.156-.43.156-.797.11-.875z" />
+              </svg>
+              <p class="fs-5 mb-0 link-dark link-opacity-50-hover">(19) 9 9706-1326</p>
+            </a>
+            <div class="redes__footer mb-4">
+              <p class="nivel-1__footer fs-5 text-uppercase fw-normal mt-4">Acompanhe a IBR nas redes sociais
+              </p>
+              <div class="redes d-flex gap-3 justify-content-sm-start justify-content-center">
+                <a href="https://www.linkedin.com/company/redutoresibr/" target="_blank"
+                  class="rede__link text-decoration-none bg-orange p-2 text-white d-flex align-items-center justify-content-center"
+                  data-bs-toggle="tooltip" data-bs-title="Linkedin" aria-label="Linkedin">
+                  <img loading="lazy" src="/Layout/Imagens/Icones/linkedin.svg" alt="Linkedin" width="20" height="20">
+                </a>
+                <a href="https://www.facebook.com/RedutoresIBR/" target="_blank"
+                  class="rede__link text-decoration-none bg-orange p-2 text-white d-flex align-items-center justify-content-center"
+                  data-bs-toggle="tooltip" data-bs-title="Facebook" aria-label="Facebook">
+                  <img loading="lazy" src="/Layout/Imagens/Icones/facebook.svg" alt="Facebook" width="20" height="20">
+                </a>
+                <a href="https://www.instagram.com/redutoresibr/" target="_blank"
+                  class="rede__link text-decoration-none bg-orange p-2 text-white d-flex align-items-center justify-content-center"
+                  data-bs-toggle="tooltip" data-bs-title="Instagram" aria-label="Instagram">
+                  <img loading="lazy" src="/Layout/Imagens/Icones/instagram.svg" alt="Instagram" width="20" height="20">
+                </a>
+                <a href="https://www.youtube.com/@redutoresibr4475" target="_blank"
+                  class="rede__link text-decoration-none bg-orange p-2 text-white d-flex align-items-center justify-content-center"
+                  data-bs-toggle="tooltip" data-bs-title="Youtube" aria-label="Youtube">
+                  <img loading="lazy" src="/Layout/Imagens/Icones/youtube.svg" alt="Youtube" width="20" height="20">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <div class="row footer-copy justify-content-center justify-content-md-between">
+          <div class="col-auto mb-5">
+            <a href="https://www.redutoresibr.com.br/" target="_blank" class="assinatura__link lh-1">
+              Desenvolvido por <span class="assinatura__ibr"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+
+  <script defer src="/Layout/Estrutura/Layout.min.js?versao=versao.2.0.43"></script>
+
+</body>
+
+</html>

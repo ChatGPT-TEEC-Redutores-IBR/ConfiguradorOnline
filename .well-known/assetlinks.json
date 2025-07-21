@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.configuradordeprodutos.redutoresibr.android",
+      "sha256_cert_fingerprints": [
+        "2B:CA:A4:E6:B7:9C:A9:DA:87:2D:5D:40:83:4A:6C:9E:A6:37:52:DC:D3:3A:E5:34:3F:67:04:B0:8E:8A:04:A0"
+      ]
+    }
+  }
+]

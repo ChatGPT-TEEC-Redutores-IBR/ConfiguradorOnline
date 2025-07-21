@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+
+<main id="main-content" class="sr-only">
+    <h1>
+        Configurador
+    </h1>
+
+    <div id="titulo-estrutural">
+        Configurador
+    </div>
+</main>
+
+<link rel="stylesheet" href="/Layout/Galeria/Galeria.min.css">
+
+<main class="main mb-0 pb-0">
+    <div class="pagina__titulo--bloco fw-bold mt-5 mb-4">
+    </div>
+    <div class="container">
+        <div class="galeria-produto" data-visible="3.PB" data-folder="IBRPB" data-title="IBR PB"
+            data-description="A linha PB de redutores planetários oferece alto desempenho e precisão superior em todas as reduções. O sistema planetário é totalmente fabricado com engrenagens de dentes helicoidais, que atuam de forma extremamente suave, com baixo ruído e oferecem altos torques de saída. Os modelos disponíveis tem entre 1 a 2 estágios, com relações de transmissão que variam de 3 a 100, possibilitam a montagem de variados tipos e modelos de servomotores pela característica de projeto modular dos flanges de entrada."
+            data-site="https://www.redutoresibr.com.br/pt/Produtos/ibr-pb"
+            data-catalog="https://www.redutoresibr.com.br/_uploads/fc320ffb-3651-4d47-a80f-7f780c4951d1.pdf">
+        </div>
+
+        <div class="galeria-produto" data-visible="3.PBL" data-folder="IBRPBL" data-title="IBR PBL"
+            data-description="A linha PBL de redutores planetários oferece alto desempenho e precisão superior em todas as reduções. O sistema planetário é integrado a um sistema de engrenagens cônicas espirais, que conferem ortogonalidade ao redutor. O estágio planetário é totalmente fabricado com engrenagens de dentes helicoidais, que operam de forma extremamente suave e com baixo nível de ruído. A transmissão oferece altos torques de saída, além de eficiência e estabilidade superiores. Os modelos disponíveis tem entre 1 a 2 estágios, com relações de transmissão que variam de 3 a 200, possibilitam a montagem de variados tipos e modelos de servomotores pela característica de projeto modular dos flanges de entrada."
+            data-site="https://www.redutoresibr.com.br/pt/Produtos/ibr-pbl"
+            data-catalog="https://www.redutoresibr.com.br/_uploads/2f122fc7-2127-46db-8fba-4091ae0e1d30.pdf">
+        </div>
+
+        <div class="galeria-produto" data-visible="3.SA" data-folder="IBRSA" data-title="IBR SA"
+            data-description="A linha SA de redutores planetários oferece alto desempenho e eficiência em todas as reduções. O sistema planetário é totalmente fabricado com engrenagens de dentes helicoidais, aço liga de alta resistência e totalmente endurecidas para conferir maior durabilidade e precisão mesmo após longos períodos de funcionamento. Os modelos disponíveis tem entre 1 a 2 estágios, com relações de transmissão que variam de 3 a 100, possibilitam a montagem de variados tipos e modelos de servomotores pela característica de projeto modular dos flanges de entrada."
+            data-site="https://www.redutoresibr.com.br/pt/Produtos/ibr-sa-"
+            data-catalog="https://www.redutoresibr.com.br/_uploads/663c1894-1f6f-40cd-99be-aa682d377a4c.pdf">
+        </div>
+
+        <div class="galeria-produto" data-visible="3.SD" data-folder="IBRSD" data-title="IBR SD"
+            data-description="A linha SD de redutores planetários oferece alto desempenho e eficiência em todas as reduções. O eixo vazado de saída possui design diferenciado, podendo ser aplicado em diferentes aplicações. O sistema planetário é totalmente fabricado com engrenagens de dentes helicoidais, aço liga de alta resistência e totalmente endurecidas para conferir maior durabilidade e precisão mesmo após longos períodos de funcionamento. Os modelos disponíveis tem entre 1 a 2 estágios, com relações de transmissão que variam de 4 a 100, possibilitam a montagem de variados tipos e modelos de servomotores pela característica de projeto modular dos flanges de entrada."
+            data-site="https://www.redutoresibr.com.br/pt/Produtos/ibr-sd-"
+            data-catalog="https://www.redutoresibr.com.br/_uploads/aab52d9e-9877-49c5-8295-9e3090fc70d3.pdf">
+        </div>
+
+        <div class="galeria-produto" data-visible="3.SB" data-folder="IBRSB" data-title="IBR SB" data-description=""
+            data-site="" data-catalog="">
+        </div>
+
+        <div class="galeria-produto" data-visible="3.SBL" data-folder="IBRSBL" data-title="IBR SBL" data-description=""
+            data-site="" data-catalog="">
+        </div>
+    </div>
+    <div id="titulo-configurador" class="pagina__titulo--bloco mt-5 mb-5 text-center">
+        <h2 id="texto-configurador" class="fs-3 fw-bolder m-0"></h2>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        function atualizarTitulo() {
+            const visivel = Array.from(document.querySelectorAll('.galeria-produto[data-title]'))
+                .find(g => g.style.display !== 'none');
+            const titulo = visivel ? visivel.dataset.title : '';
+            const el = document.getElementById('texto-configurador');
+            if (!el) return;
+            if (!titulo) {
+                el.innerHTML = '';
+                document.title = 'Configurador de Produtos';
+                return;
+            }
+            let html = 'Configure o seu ';
+            if (titulo.toUpperCase().startsWith('IBR ')) {
+                const partes = titulo.split(' ');
+                const primeiro = partes.shift();
+                const resto = partes.join(' ');
+                html += '<span class="text-dark">' + primeiro + '</span>';
+                if (resto) html += ' <span class="text-orange">' + resto + '</span>';
+            } else {
+                html += titulo;
+            }
+            el.innerHTML = html;
+            document.title = 'Configurador de Produtos - ' + titulo;
+        }
+        atualizarTitulo();
+        setTimeout(atualizarTitulo);
+        document.getElementById('PLLN')?.addEventListener('change', atualizarTitulo);
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const helpConfigs = {
+
+            GrupoPLLN() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoPLBR() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoPLET() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoPLTP() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoPLRD() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoPLDE() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoPLBU() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoPLBUD() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoPLBL() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoPLGU() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoPLFU() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+        }
+
+        const buttons = document.querySelectorAll('button.help-icon[data-help-text]');
+        buttons.forEach(btn => {
+            btn.dataset.helpTextOriginal = btn.dataset.helpText;
+            btn.dataset.helpTitleOriginal = btn.dataset.helpTitle;
+        });
+
+        function updateButton(btn, data) {
+            if (!data) {
+                data = { title: btn.dataset.helpTitleOriginal, text: btn.dataset.helpTextOriginal };
+            }
+            btn.dataset.helpTitle = data.title || '';
+            btn.dataset.helpText = data.text || '';
+            btn.dataset.bsTitle = data.title || '';
+            btn.dataset.bsContent = data.text || '';
+            const pop = bootstrap.Popover.getOrCreateInstance(btn);
+            pop.setContent({ '.popover-header': data.title || '', '.popover-body': data.text || '' });
+        }
+
+        function updateHelps() {
+            buttons.forEach(btn => {
+                const section = btn.closest('section');
+                const cfgFn = section && helpConfigs[section.id];
+                const data = cfgFn && cfgFn();
+                updateButton(btn, data);
+            });
+        }
+
+        ['PLLN', 'PLBR', 'PLET', 'PLTP', 'PLRD', 'PLDE', 'PLBU', 'PLBUD', 'PLBL', 'PLGU', 'PLFU'].forEach(id => {
+            document.getElementById(id)?.addEventListener('change', updateHelps);
+        });
+
+        updateHelps();
+    });
+</script>
+
+<script src="/Layout/Galeria/Galeria.min.js"></script>
+<script src="/Layout/Galeria/FiltrarPorURL.min.js"></script>
+
+<section id="GrupoPLLN">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="PLLN">Linha do Planetário:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="PLLN" name="PLLN">
+    </select>
+</section>
+
+
+<section id="GrupoPLBR">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="PLBR">Tamanho do Planetário:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="PLBR" name="PLBR">
+    </select>
+</section>
+
+
+<section id="GrupoPLET">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="PLET">Estágio do Planetário:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="PLET" name="PLET">
+    </select>
+</section>
+
+
+<section id="GrupoPLTP">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="PLTP">Tipo do Planetário:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="PLTP" name="PLTP">
+    </select>
+</section>
+
+
+<section id="GrupoPLRD">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="PLRD">Redução do Planetário:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="PLRD" name="PLRD">
+    </select>
+</section>
+
+
+<section id="GrupoPLDE">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="PLDE">Diâmetro de Entrada do
+        Planetário:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="PLDE" name="PLDE">
+
+    </select>
+
+
+    <div class="subgrupo">
+        <section id="GrupoPLBU" style="display: none;">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="PLBU">Bucha de Redução do
+                Planetário:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <select class="cssC" id="PLBU" name="PLBU">
+
+            </select>
+        </section>
+
+        <section id="GrupoPLBUD">
+            <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="PLBUD">Bucha de Redução
+                Dupla do Planetário:
+                <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover"
+                    data-bs-title="" data-bs-content=""></button>
+            </label>
+            <select class="cssC" id="PLBUD" name="PLBUD">
+
+            </select>
+        </section>
+    </div>
+</section>
+
+
+<section id="GrupoPLBL">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="PLBL">Backlash do Planetário:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="PLBL" name="PLBL">
+
+    </select>
+</section>
+
+
+<section id="GrupoPLGU">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="PLGU">Guia da Flange do Planetário:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="PLGU" name="PLGU">
+
+    </select>
+</section>
+
+
+<section id="GrupoPLFU">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="PLFU">Furação do Guia da Flange do
+        Planetário:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="PLFU" name="PLFU">
+
+    </select>
+</section>
+</section>
+
+<script>
+    async function carregarPLLN() {
+        const grupo = document.getElementById('GrupoPLLN');
+        const select = document.getElementById('PLLN');
+        const response = await fetch(`/Paginas/Seletores/Configuradores/PL/PLLN.php`);
+        select.innerHTML = await response.text();
+        grupo.style.display = select.style.display = 'block';
+        select.value = '';
+
+        carregarPLBR();
+    }
+
+    async function carregarPLBR() {
+        const plln = document.getElementById('PLLN')?.value;
+        const grupo = document.getElementById('GrupoPLBR');
+        const select = document.getElementById('PLBR');
+        const response = await fetch(`/Paginas/Seletores/Configuradores/PL/PLBR.php?PLLN=${encodeURIComponent(plln)}`);
+        select.innerHTML = await response.text();
+        grupo.style.display = select.style.display = 'block';
+        select.value = '';
+
+        carregarPLET();
+    }
+
+    async function carregarPLET() {
+        const plln = document.getElementById('PLLN')?.value;
+        const plbr = document.getElementById('PLBR')?.value;
+        const grupo = document.getElementById('GrupoPLET');
+        const select = document.getElementById('PLET');
+        const response = await fetch(`/Paginas/Seletores/Configuradores/PL/PLET.php?PLLN=${encodeURIComponent(plln)}&PLBR=${encodeURIComponent(plbr)}`);
+        select.innerHTML = await response.text();
+        grupo.style.display = select.style.display = 'block';
+        select.value = '';
+
+        carregarPLTP();
+    }
+
+    async function carregarPLTP() {
+        const plln = document.getElementById('PLLN')?.value;
+        const plbr = document.getElementById('PLBR')?.value;
+        const plet = document.getElementById('PLET')?.value;
+        const grupo = document.getElementById('GrupoPLTP');
+        const select = document.getElementById('PLTP');
+        const response = await fetch(`/Paginas/Seletores/Configuradores/PL/PLTP.php?PLLN=${encodeURIComponent(plln)}&PLBR=${encodeURIComponent(plbr)}&PLET=${encodeURIComponent(plet)}`);
+        select.innerHTML = await response.text();
+        grupo.style.display = select.style.display = 'block';
+        select.value = '';
+
+        carregarPLRD();
+    }
+
+    async function carregarPLRD() {
+        const plln = document.getElementById('PLLN')?.value;
+        const plbr = document.getElementById('PLBR')?.value;
+        const plet = document.getElementById('PLET')?.value;
+        const pltp = document.getElementById('PLTP')?.value;
+        const grupo = document.getElementById('GrupoPLRD');
+        const select = document.getElementById('PLRD');
+        const response = await fetch(`/Paginas/Seletores/Configuradores/PL/PLRD.php?PLLN=${encodeURIComponent(plln)}&PLBR=${encodeURIComponent(plbr)}&PLET=${encodeURIComponent(plet)}&PLTP=${encodeURIComponent(pltp)}`);
+        select.innerHTML = await response.text();
+        grupo.style.display = select.style.display = 'block';
+        select.value = '';
+
+        carregarPLDE();
+    }
+
+    async function carregarPLDE() {
+        const plln = document.getElementById('PLLN')?.value;
+        const plbr = document.getElementById('PLBR')?.value;
+        const plet = document.getElementById('PLET')?.value;
+        const pltp = document.getElementById('PLTP')?.value;
+        const plrd = document.getElementById('PLRD')?.value;
+
+        const grupo = document.getElementById('GrupoPLDE');
+        const select = document.getElementById('PLDE');
+        const response = await fetch(`/Paginas/Seletores/Configuradores/PL/PLDE.php?PLLN=${encodeURIComponent(plln)}&PLBR=${encodeURIComponent(plbr)}&PLET=${encodeURIComponent(plet)}&PLTP=${encodeURIComponent(pltp)}&PLRD=${encodeURIComponent(plrd)}`);
+        select.innerHTML = await response.text();
+        grupo.style.display = select.style.display = 'block';
+        select.value = '';
+        document.querySelector('#GrupoPLDE .subgrupo').style.display = 'none';
+
+        select.dispatchEvent(new Event('change'));
+
+    }
+
+    async function carregarPLBU() {
+        const plln = document.getElementById('PLLN')?.value;
+        const plbr = document.getElementById('PLBR')?.value;
+        const plet = document.getElementById('PLET')?.value;
+        const pltp = document.getElementById('PLTP')?.value;
+        const plrd = document.getElementById('PLRD')?.value;
+        const plde = document.getElementById('PLDE')?.value;
+
+        const select = document.getElementById('PLBU');
+        const response = await fetch(`/Paginas/Seletores/Configuradores/PL/PLBU.php?PLLN=${encodeURIComponent(plln)}&PLBR=${encodeURIComponent(plbr)}&PLET=${encodeURIComponent(plet)}&PLTP=${encodeURIComponent(pltp)}&PLRD=${encodeURIComponent(plrd)}&PLDE=${encodeURIComponent(plde)}`);
+        select.innerHTML = await response.text();
+        select.style.display = 'block';
+        select.value = '';
+
+        document.getElementById('GrupoPLBU').style.display = 'block';
+    }
+
+    document.getElementById('PLBU')?.addEventListener('change', carregarPLBUD);
+
+    async function carregarPLBUD() {
+        const plln = document.getElementById('PLLN')?.value || '';
+        const plbr = document.getElementById('PLBR')?.value || '';
+        const plet = document.getElementById('PLET')?.value || '';
+        const pltp = document.getElementById('PLTP')?.value || '';
+        const plrd = document.getElementById('PLRD')?.value || '';
+        const plbu = document.getElementById('PLBU')?.value || '';
+
+        const grupo = document.getElementById('GrupoPLBUD');
+        const select = document.getElementById('PLBUD');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/PL/PLBUD.php?PLLN=${encodeURIComponent(plln)}&PLBR=${encodeURIComponent(plbr)}&PLET=${encodeURIComponent(plet)}&PLTP=${encodeURIComponent(pltp)}&PLRD=${encodeURIComponent(plrd)}&PLBU=${encodeURIComponent(plbu)}`);
+        const html = await response.text();
+
+        select.innerHTML = html.trim() || '<option value="N">NÃO</option>';
+        grupo.style.display = select.style.display = 'block';
+        select.value = '';
+
+        carregarPLBL();
+    }
+
+    async function carregarPLBL() {
+        const plln = document.getElementById('PLLN')?.value;
+        const plbr = document.getElementById('PLBR')?.value;
+        const plet = document.getElementById('PLET')?.value;
+        const pltp = document.getElementById('PLTP')?.value;
+        const plrd = document.getElementById('PLRD')?.value;
+        const plde = document.getElementById('PLDE')?.value;
+        const plbu = document.getElementById('PLBU')?.value;
+        const plbud = document.getElementById('PLBUD')?.value;
+
+        const grupo = document.getElementById('GrupoPLBL');
+        const select = document.getElementById('PLBL');
+        const response = await fetch(`/Paginas/Seletores/Configuradores/PL/PLBL.php?PLLN=${encodeURIComponent(plln)}&PLBR=${encodeURIComponent(plbr)}&PLET=${encodeURIComponent(plet)}&PLTP=${encodeURIComponent(pltp)}&PLRD=${encodeURIComponent(plrd)}&PLDE=${encodeURIComponent(plde)}&PLBU=${encodeURIComponent(plbu)}&PLBUD=${encodeURIComponent(plbud)}`);
+        select.innerHTML = await response.text();
+        select.style.display = 'block';
+
+        carregarPLGU();
+    }
+
+    async function carregarPLGU() {
+        const plln = document.getElementById('PLLN')?.value;
+        const plbr = document.getElementById('PLBR')?.value;
+        const plet = document.getElementById('PLET')?.value;
+        const pltp = document.getElementById('PLTP')?.value;
+        const plrd = document.getElementById('PLRD')?.value;
+        const plde = document.getElementById('PLDE')?.value;
+        const plbu = document.getElementById('PLBU')?.value;
+        const plbud = document.getElementById('PLBUD')?.value;
+        const plbl = document.getElementById('PLBL')?.value;
+
+        const grupo = document.getElementById('GrupoPLGU');
+        const select = document.getElementById('PLGU');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/PL/PLGU.php?PLLN=${encodeURIComponent(plln)}&PLBR=${encodeURIComponent(plbr)}&PLET=${encodeURIComponent(plet)}&PLTP=${encodeURIComponent(pltp)}&PLRD=${encodeURIComponent(plrd)}&PLDE=${encodeURIComponent(plde)}&PLBU=${encodeURIComponent(plbu)}&PLBUD=${encodeURIComponent(plbud)}&PLBL=${encodeURIComponent(plbl)}`);
+
+        select.innerHTML = await response.text();
+        grupo.style.display = select.style.display = 'block';
+        select.value = '';
+
+        carregarPLFU();
+    }
+
+    async function carregarPLFU() {
+        const plln = document.getElementById('PLLN')?.value;
+        const plbr = document.getElementById('PLBR')?.value;
+        const plet = document.getElementById('PLET')?.value;
+        const pltp = document.getElementById('PLTP')?.value;
+        const plrd = document.getElementById('PLRD')?.value;
+        const plde = document.getElementById('PLDE')?.value;
+        const plbu = document.getElementById('PLBU')?.value;
+        const plbud = document.getElementById('PLBUD')?.value;
+        const plbl = document.getElementById('PLBL')?.value;
+        const plgu = document.getElementById('PLGU')?.value;
+
+        const grupo = document.getElementById('GrupoPLFU');
+        const select = document.getElementById('PLFU');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/PL/PLFU.php?PLLN=${encodeURIComponent(plln)}&PLBR=${encodeURIComponent(plbr)}&PLET=${encodeURIComponent(plet)}&PLTP=${encodeURIComponent(pltp)}&PLRD=${encodeURIComponent(plrd)}&PLDE=${encodeURIComponent(plde)}&PLBU=${encodeURIComponent(plbu)}&PLBUD=${encodeURIComponent(plbud)}&PLBL=${encodeURIComponent(plbl)}&PLGU=${encodeURIComponent(plgu)}`);
+
+        select.innerHTML = await response.text();
+        grupo.style.display = select.style.display = 'block';
+        select.value = '';
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        carregarPLLN();
+
+        document.getElementById('PLLN')?.addEventListener('change', carregarPLBR);
+        document.getElementById('PLBR')?.addEventListener('change', carregarPLET);
+        document.getElementById('PLET')?.addEventListener('change', carregarPLTP);
+        document.getElementById('PLTP')?.addEventListener('change', carregarPLRD);
+        document.getElementById('PLRD')?.addEventListener('change', carregarPLDE);
+        document.getElementById('PLBUD')?.addEventListener('change', carregarPLBL);
+        document.getElementById('PLBL')?.addEventListener('change', carregarPLGU);
+        document.getElementById('PLGU')?.addEventListener('change', carregarPLFU);
+
+        document.getElementById('PLDE')?.addEventListener('change', () => {
+            const valor = document.getElementById('PLDE')?.value;
+            const subgrupo = document.querySelector('#GrupoPLDE .subgrupo');
+            if (valor) {
+                subgrupo.style.display = 'block';
+                carregarPLBU();
+                carregarPLBUD();
+            } else {
+                subgrupo.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+<script>
+    function exibirBotaoCompartilhar() {
+        const wrapper = document.getElementById("compartilhar-wrapper");
+        if (wrapper) wrapper.style.display = "block";
+    }
+
+    function exibirBotaoSolicitarDesenho() {
+        document.getElementById("solicitar-wrapper").style.display = "inline-flex";
+    }
+
+    function exibirBotaoSolicitarCotacao() {
+        const wrapper = document.getElementById("cotacao-wrapper");
+        if (wrapper) wrapper.style.display = "block";
+    }
+
+    async function gerarCodigoProduto() {
+        const PLLN = v("PLLN");
+        const PLBR = v("PLBR");
+        const PLET = v("PLET");
+        const PLTP = v("PLTP");
+        const PLRD = v("PLRD");
+        const PLDE = v("PLDE");
+        const PLBU = v("PLBU");
+        const PLBUD = v("PLBUD");
+        const PLGU = v("PLGU");
+        const PLFU = v("PLFU");
+        const PLBL = v("PLBL");
+
+        const TIPO = PLTP !== "PADRÃO" ? `${PLTP}.` : "";
+
+        const COMPOSICAOCODIGO = [
+            PLLN,
+            PLBR,
+            PLET,
+            TIPO + PLRD,
+            PLDE,
+            PLBU,
+            PLBUD,
+            PLGU,
+            PLFU,
+            PLBL
+        ]
+            .map(s => s.replace(/^\.|\.$/g, ""))
+            .map(s => s.replace(/,\s*/g, ".").replace(/\s+/g, ""))
+            .map(s => s.replace(/\.{2,}/g, "."))
+            .filter(Boolean)
+            .join(".");
+
+        document.getElementById("refProduto").textContent = COMPOSICAOCODIGO;
+        mostrarDetalhesProduto({}, COMPOSICAOCODIGO);
+
+        fetch("/Paginas/Seletores/Produto/CodigoDescricaoObservacaoProduto.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: `codigo=${encodeURIComponent(COMPOSICAOCODIGO)}`
+        })
+            .then(resp => resp.text())
+            .then(text => {
+                let dados;
+                try { dados = JSON.parse(text); } catch { throw new Error(text); }
+                return dados;
+            })
+            .then(dados => {
+                mostrarDetalhesProduto(dados || {}, COMPOSICAOCODIGO);
+                if (typeof mostrarDetalhesEstoque === 'function') {
+                    mostrarDetalhesEstoque(dados?.CD_PRODUTO || "");
+                }
+            })
+            .catch(err => {
+                console.error('Erro ao obter dados do produto', err);
+                if (typeof exibirAlerta === 'function') {
+                    exibirAlerta('⚠️ Erro ao obter dados do produto.');
+                }
+                mostrarDetalhesProduto({}, COMPOSICAOCODIGO);
+                if (typeof mostrarDetalhesEstoque === 'function') {
+                    mostrarDetalhesEstoque('');
+                }
+            });
+
+
+        if (window.ultimoHistoricoProduto !== COMPOSICAOCODIGO) {
+            fetch("/Paginas/AreaCliente/Sessao/Produtos/RegistrarProduto.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `produto=${encodeURIComponent(COMPOSICAOCODIGO)}`
+            });
+            window.ultimoHistoricoProduto = COMPOSICAOCODIGO;
+        }
+
+        exibirBotaoCompartilhar();
+        exibirBotaoSolicitarDesenho();
+        exibirBotaoSolicitarCotacao();
+    }
+</script>
+
+<script>
+    document.addEventListener('click', e => {
+        const img = e.target.closest('.popover img');
+        if (!img) return;
+        e.preventDefault();
+        const container = img.closest('.popover-body');
+        if (!container) return;
+        const imgs = Array.from(container.querySelectorAll('img')).filter(i => i.naturalWidth);
+        const index = imgs.indexOf(img);
+        const items = imgs.map(i => ({
+            src: i.src,
+            width: i.naturalWidth || 800,
+            height: i.naturalHeight || 600
+        }));
+        const lb = new PhotoSwipeLightbox({
+            dataSource: items,
+            pswpModule: PhotoSwipe,
+            initialZoomLevel: 1,
+            secondaryZoomLevel: 2,
+            wheelToZoom: true,
+            imageClickAction: 'zoom'
+        });
+        lb.on('close', () => lb.destroy());
+        lb.init();
+        lb.loadAndOpen(index);
+    });
+</script>
+
+</body>
+
+</html>

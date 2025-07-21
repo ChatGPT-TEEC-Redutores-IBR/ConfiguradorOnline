@@ -1,0 +1,36 @@
+{
+    "name": "configuradoronline",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "minify-css": "cleancss -o Layout/Estrutura/Layout.min.css Layout/Estrutura/Layout.css",
+        "minify-js": "terser Layout/Estrutura/Layout.js -o Layout/Estrutura/Layout.min.js --compress --mangle",
+        "minify-sw": "terser Service-Worker.js -o Service-Worker.min.js --compress --mangle",
+        "minify-cp": "terser Paginas/CarregarPagina.js -o Paginas/CarregarPagina.min.js --compress --mangle",
+        "minify-galeria-js": "terser Layout/Galeria/Galeria.js -o Layout/Galeria/Galeria.min.js --compress --mangle",
+        "minify-filtrar-js": "terser Layout/Galeria/FiltrarPorURL.js -o Layout/Galeria/FiltrarPorURL.min.js --compress --mangle",
+        "minify-galeria-css": "cleancss -o Layout/Galeria/Galeria.min.css Layout/Galeria/Galeria.css",
+        "minify-fontes-css": "cleancss -o Layout/Fontes/Fontes.min.css Layout/Fontes/Fontes.css",
+        "minify-padrao-css": "cleancss -o Layout/Estrutura/PadraoLayout.min.css Layout/Estrutura/PadraoLayout.css",
+        "minify-area-layout-css": "cleancss -o Paginas/AreaCliente/Estrutura/LayoutAreaCliente.min.css Paginas/AreaCliente/Estrutura/LayoutAreaCliente.css",
+        "minify-area-cad-css": "cleancss -o Paginas/AreaCliente/Estrutura/LayoutCadastroAreaCliente.min.css Paginas/AreaCliente/Estrutura/LayoutCadastroAreaCliente.css",
+        "minify-area-tipografia-css": "cleancss -o Paginas/AreaCliente/Estrutura/TipografiaAreaCliente.min.css Paginas/AreaCliente/Estrutura/TipografiaAreaCliente.css",
+        "minify-cookies-js": "terser Paginas/AreaCliente/Estrutura/Cookies.js -o Paginas/AreaCliente/Estrutura/Cookies.min.js --compress --mangle",
+        "minify-validacao-js": "terser Paginas/Universais/ValidacaoDocumento.js -o Paginas/Universais/ValidacaoDocumento.min.js --compress --mangle",
+        "minify-csrf-js": "terser CSRFSetup.js -o CSRFSetup.min.js --compress --mangle",
+        "minify-gtag-js": "terser Layout/Estrutura/gtag-loader.js -o Layout/Estrutura/gtag-loader.min.js --compress --mangle",
+        "build": "npm run minify-css && npm run minify-js && npm run minify-sw && npm run minify-cp && npm run minify-galeria-js && npm run minify-filtrar-js && npm run minify-galeria-css && npm run minify-fontes-css && npm run minify-padrao-css && npm run minify-area-layout-css && npm run minify-area-cad-css && npm run minify-area-tipografia-css && npm run minify-cookies-js && npm run minify-validacao-js && npm run minify-csrf-js && npm run minify-gtag-js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "devDependencies": {
+        "chokidar-cli": "^3.0.0",
+        "clean-css-cli": "^5.6.3",
+        "terser": "^5.43.1"
+    },
+    "dependencies": {
+        "sharp": "^0.34.2"
+    }
+}

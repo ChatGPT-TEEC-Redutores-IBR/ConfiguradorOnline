@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<script src="/Paginas/Universais/ValidacaoDocumento.min.js"></script>
+
+<section class="home-botoes" style="margin-top:40px !important; grid-template-columns: 1fr !important;">
+    <div class="botao-linha gerar-produto-wrapper">
+        <a href="#" class="botao-home gerar-produto" title="Gerar Produto" target="_blank">
+            <span>Gerar Produto</span>
+            <svg class="icone-gerar" width="40" height="40" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"
+                fill="#ec4115">
+                <path
+                    d="M496 293.98c9.03-.7 16-8.25 16-17.3v-41.38c0-9.06-6.97-16.59-16-17.31l-54.83-4.28c-3.48-.27-6.48-2.45-7.83-5.69l-18.03-43.52c-1.34-3.22-.78-6.91 1.5-9.55l35.75-41.81c5.88-6.89 5.5-17.14-.92-23.55l-29.25-29.25c-6.41-6.41-16.67-6.81-23.55-.92l-41.81 35.75c-2.64 2.27-6.34 2.84-9.55 1.52l-43.53-18.05c-3.22-1.33-5.42-4.37-5.7-7.83l-4.27-54.81C293.28 6.97 285.75 0 276.69 0h-41.38c-9.06 0-16.59 6.97-17.3 16.02l-4.28 54.81c-.27 3.47-2.47 6.5-5.69 7.83l-43.53 18.05c-3.22 1.33-6.91.75-9.56-1.52l-41.8-35.75c-6.88-5.89-17.13-5.48-23.55.92l-29.25 29.25c-6.41 6.41-6.8 16.66-.92 23.55l35.75 41.81c2.25 2.64 2.84 6.33 1.5 9.55l-18.03 43.52c-1.31 3.23-4.36 5.42-7.81 5.69L16 218c-9.03.72-16 8.25-16 17.31v41.36c0 9.06 6.97 16.61 16 17.31l54.84 4.27c3.45.28 6.5 2.48 7.81 5.7l18.03 43.52c1.34 3.22.75 6.92-1.5 9.56l-35.75 41.81c-5.88 6.88-5.48 17.13.92 23.55l29.25 29.25c6.42 6.41 16.67 6.8 23.55.91l41.8-35.75c2.66-2.25 6.34-2.84 9.56-1.5l43.53 18.03c3.22 1.34 5.42 4.36 5.69 7.84l4.28 54.81c.7 9.03 8.23 16.02 17.3 16.02h41.38c9.06 0 16.59-6.98 17.3-16.02l4.27-54.81c.28-3.48 2.48-6.5 5.7-7.84l43.53-18.03c3.2-1.34 6.92-.75 9.55 1.5l41.81 35.75c6.88 5.89 17.14 5.5 23.55-.91l29.25-29.25c6.42-6.42 6.8-16.67.92-23.55l-35.75-41.81c-2.25-2.64-2.84-6.34-1.5-9.56l18.03-43.52c1.35-3.22 4.34-5.42 7.83-5.7l54.83-4.27zM256 342.52c-23.11 0-44.84-9-61.19-25.33-16.34-16.36-25.34-38.08-25.34-61.2s9-44.84 25.34-61.17c16.35-16.36 38.08-25.34 61.19-25.34s44.84 8.98 61.19 25.34c16.34 16.33 25.34 38.06 25.34 61.17s-9 44.84-25.34 61.2C300.84 333.52 279.12 342.52 256 342.52z" />
+            </svg>
+        </a>
+    </div>
+</section>
+
+
+<div id="alerta-validacao" class="alerta-validacao">
+    <span id="alerta-texto"></span>
+    <button onclick="fecharAlerta()" class="fechar-alerta" aria-label="Fechar">&times;</button>
+</div>
+
+<div id="alerta-copiado" style="
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ec4115;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  z-index: 9999;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: opacity 0.3s ease;
+">
+    🔗 Link Copiado para Área de Tranferência!
+</div>
+
+
+<section class="detalhes-produto recolhido oculto" id="detalhesProduto" style="display: none;">
+    <h2 id="toggleProduto">
+        🧾 Informações do Produto
+        <span class="seta" id="setaToggleProduto">◀</span>
+    </h2>
+    <div class="conteudo-produto">
+        <p><strong style="color: #ec4115;">Referência:</strong> <span id="refProduto">---</span></p>
+        <p><strong style="color: #ec4115;">Código:</strong> <span id="cdProduto">---</span></p>
+        <p><strong style="color: #ec4115;">Descrição:</strong> <span id="descProduto">---</span></p>
+        <p><strong style="color: #ec4115;">Datasheet:</strong><br /><span id="datasheetProduto">---</span></p>
+    </div>
+</section>
+
+
+<div id="compartilhar-wrapper" style="display: none; text-align: center; margin: 40px 0;">
+    <div class="acoes-botoes">
+        <div style="position: relative;">
+            <a href="#" id="btnCompartilhar" onclick="toggleCompartilhar(); return false;" aria-expanded="false"
+                class="botao-icon botao-compartilhar-tema">
+                <svg class="icone-compartilhar-svg" width="40" height="40" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                    <path class="quadrado"
+                        d="M7 1.00391H4C2.34315 1.00391 1 2.34705 1 4.00391V20.0039C1 21.6608 2.34315 23.0039 4 23.0039H20C21.6569 23.0039 23 21.6608 23 20.0039V17.0039C23 16.4516 22.5523 16.0039 22 16.0039C21.4477 16.0039 21 16.4516 21 17.0039V20.0039C21 20.5562 20.5523 21.0039 20 21.0039H4C3.44772 21.0039 3 20.5562 3 20.0039V4.00391C3 3.45162 3.44772 3.00391 4 3.00391H7C7.55228 3.00391 8 2.55619 8 2.00391C8 1.45162 7.55228 1.00391 7 1.00391Z" />
+                    <path class="seta" fill-rule="evenodd" clip-rule="evenodd"
+                        d="M19.6495 0.799565C18.4834 -0.72981 16.0093 0.081426 16.0093 1.99313V3.91272C12.2371 3.86807 9.65665 5.16473 7.9378 6.97554C6.10034 8.9113 5.34458 11.3314 5.02788 12.9862C4.86954 13.8135 5.41223 14.4138 5.98257 14.6211C6.52743 14.8191 7.25549 14.7343 7.74136 14.1789C9.12036 12.6027 11.7995 10.4028 16.0093 10.5464V13.0069C16.0093 14.9186 18.4834 15.7298 19.6495 14.2004L23.3933 9.29034C24.2022 8.2294 24.2022 6.7706 23.3933 5.70966L19.6495 0.799565Z" />
+                </svg>
+                Compartilhar
+            </a>
+
+            <div id="submenu-compartilhar">
+                <div style="display: flex; gap: 12px; justify-content: center; align-items: center; margin-top: 10px;">
+                    <a href="#" onclick="compartilharWhatsApp(event); return false;"
+                        class="botao-icon icone-compartilhar" title="WhatsApp" aria-label="Compartilhar via WhatsApp">
+                        <svg class="icone-mensagem" width="40" height="40" viewBox="0 0 16 16"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                            <g class="balao">
+                                <path
+                                    d="M11.42 9.49c-.19-.09-1.1-.54-1.27-.61s-.29-.09-.42.1-.48.6-.59.73-.21.14-.4 0a5.13 5.13 0 0 1-1.49-.92 5.25 5.25 0 0 1-1-1.29c-.11-.18 0-.28.08-.38s.18-.21.28-.32a1.39 1.39 0 0 0 .18-.31.38.38 0 0 0 0-.33c0-.09-.42-1-.58-1.37s-.3-.32-.41-.32h-.4a.72.72 0 0 0-.5.23 2.1 2.1 0 0 0-.65 1.55A3.59 3.59 0 0 0 5 8.2 8.32 8.32 0 0 0 8.19 11c.44.19.78.3 1.05.39a2.53 2.53 0 0 0 1.17.07 1.93 1.93 0 0 0 1.26-.88 1.67 1.67 0 0 0 .11-.88c-.05-.07-.17-.12-.36-.21z" />
+                                <path
+                                    d="M13.29 2.68A7.36 7.36 0 0 0 8 .5a7.44 7.44 0 0 0-6.41 11.15l-1 3.85 3.94-1a7.4 7.4 0 0 0 3.55.9H8a7.44 7.44 0 0 0 5.29-12.72zM8 14.12a6.12 6.12 0 0 1-3.15-.87l-.22-.13-2.34.61.62-2.28-.14-.23a6.18 6.18 0 0 1 9.6-7.65 6.12 6.12 0 0 1 1.81 4.37A6.19 6.19 0 0 1 8 14.12z" />
+                            </g>
+                        </svg>
+                    </a>
+                    <a href="#" id="btnCopiarLink" class="botao-icon icone-compartilhar" title="Copiar Link"
+                        aria-label="Copiar Link">
+                        <svg class="icone-corrente-svg" width="40" height="40" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+                            style="transition: transform 0.3s ease, filter 0.3s ease;">
+                            <style>
+                                .botao-icon:hover .icone-corrente-svg {
+                                    transform: scale(1.15);
+                                }
+
+                                .elo1,
+                                .elo2 {
+                                    transition: transform 0.4s ease;
+                                    transform-origin: center;
+                                }
+
+                                .botao-icon:hover .elo1 {
+                                    transform: rotate(15deg);
+                                }
+
+                                .botao-icon:hover .elo2 {
+                                    transform: rotate(-15deg);
+                                }
+                            </style>
+
+                            <g class="elo1">
+                                <path
+                                    d="M9.16488 17.6505C8.92513 17.8743 8.73958 18.0241 8.54996 18.1336C7.62175 18.6695 6.47816 18.6695 5.54996 18.1336C5.20791 17.9361 4.87912 17.6073 4.22153 16.9498C3.56394 16.2922 3.23514 15.9634 3.03767 15.6213C2.50177 14.6931 2.50177 13.5495 3.03767 12.6213C3.23514 12.2793 3.56394 11.9505 4.22153 11.2929L7.04996 8.46448C7.70755 7.80689 8.03634 7.47809 8.37838 7.28062C9.30659 6.74472 10.4502 6.74472 11.3784 7.28061C11.7204 7.47809 12.0492 7.80689 12.7068 8.46448"
+                                    stroke-width="2" stroke-linecap="round" />
+                            </g>
+
+                            <g class="elo2">
+                                <path
+                                    d="M13.3644 9.12207C13.6932 9.45086 13.8907 9.7929 14.4266 10.7211C14.4266 11.8647 14.4266 11.8647 13.8907 12.7929C13.7812 12.9825 13.6314 13.1681 13.4075 13.4078M10.5919 10.5922C10.368 10.8319 10.2182 11.0175 10.1087 11.2071C9.57284 12.1353 9.57284 13.2789 10.1087 14.2071C10.3062 14.5492 10.635 14.878 11.2926 15.5355C11.9502 16.1931 12.279 16.5219 12.621 16.7194C13.5492 17.2553 14.6928 17.2553 15.621 16.7194C15.9631 16.5219 16.2919 16.1931 16.9495 15.5355L19.7779 12.7071C20.4355 12.0495 20.7643 11.7207 20.9617 11.3787C21.4976 10.4505 21.4976 9.30689 20.9617 8.37869C20.7643 8.03665 20.4355 7.70785 19.7779 7.05026C19.1203 6.39267 18.7915 6.06388 18.4495 5.8664C17.5212 5.3305 16.3777 5.3305 15.4495 5.8664C15.2598 5.97588 15.0743 6.12571 14.8345 6.34955"
+                                    stroke-width="2" stroke-linecap="round" />
+                            </g>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="solicitar-wrapper" style="display: none;">
+            <a href="#" id="btnSolicitarDesenho" class="botao-icon botao-compartilhar-tema">
+                <svg class="icone-desenho" width="22" height="22" viewBox="0 0 1800 1800"
+                    xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;" fill="currentColor">
+                    <g id="Layer">
+                        <g>
+                            <path class="lapis"
+                                d="M1541.606,1540.146l0.009-0.008c35.598-35.594,35.598-93.52,0-129.121c-17.24-17.236-40.178-26.745-64.569-26.745c-24.378,0-47.314,9.509-64.564,26.763c-35.588,35.584-35.588,93.51,0.009,129.104C1448.096,1575.73,1506.014,1575.73,1541.606,1540.146z M1440.885,1511.743c-9.656-9.655-14.975-22.498-14.975-36.165c0-13.659,5.318-26.511,14.975-36.167c9.665-9.655,22.512-14.979,36.175-14.979c13.659,0,26.497,5.323,36.161,14.979c19.938,19.945,19.938,52.387-0.008,72.332C1493.271,1531.689,1460.831,1531.681,1440.885,1511.743z" />
+                            <path class="regua"
+                                d="M1700.934,402.736c0.021-0.026,0.047-0.043,0.068-0.065c0.044-0.043,0.083-0.091,0.127-0.134l5.504-5.505l-0.138-0.139c81.836-87.814,80.038-225.814-5.507-311.356c-42.353-42.357-98.664-65.685-158.565-65.685c-57.228,0-111.154,21.339-152.792,60.18l-0.134-0.134l-5.511,5.507c-0.043,0.046-0.09,0.085-0.134,0.131c-0.021,0.021-0.039,0.045-0.061,0.069L66.371,1403.02l0.513,0.513c-7.364,4.749-12.699,12.548-13.98,21.907L9.578,1741.903c-1.319,9.647,1.95,19.347,8.831,26.232c5.875,5.87,13.807,9.108,22.004,9.108c1.402,0,2.813-0.095,4.224-0.286l316.451-43.338c9.365-1.276,17.163-6.617,21.912-13.98l0.512,0.513L1700.934,402.736z M1542.423,82.094c43.272,0,83.954,16.852,114.551,47.452c55.643,55.638,62.276,142.02,19.897,204.983L1451.973,109.64C1478.482,91.724,1509.717,82.094,1542.423,82.094z M1389.497,167.919l229.113,229.112L383.512,1632.129l-86.195-86.19l991.423-991.409l-59.351-59.342l-991.41,991.418l-83.585-83.586L1389.497,167.919z M76.804,1709.731l35.68-260.604l224.915,224.916L76.804,1709.731z" />
+                            <path class="regua"
+                                d="M506.941,804.479l56.789-56.789l-454.446-454.45l185.432-185.437l87.924,87.932l-63.792,63.783l50.362,50.359l63.792-63.779l51.262,51.258l-63.792,63.788l50.363,50.354l63.797-63.779l51.257,51.267l-94.375,94.353l50.376,50.363l94.362-94.362l62.502,62.498l-63.792,63.801l50.363,50.354l63.792-63.792l0.043,0.047l56.789-56.789L323.106,22.622c-15.682-15.686-41.102-15.686-56.784,0L24.102,264.845c-15.687,15.683-15.687,41.107,0,56.789L506.941,804.479z" />
+                            <path class="regua"
+                                d="M1778.944,1478.287c-0.726-0.729-1.478-1.424-2.241-2.085l-505.282-505.273l-151.159,151.159l50.259,50.26l94.371-94.37l428.79,428.782l-185.441,185.432l-479.045-479.041l-56.789,56.798l507.437,507.427c15.682,15.69,41.102,15.69,56.788,0l242.234-242.213c0.021-0.034,0.048-0.052,0.079-0.086C1794.63,1519.402,1794.63,1493.969,1778.944,1478.287z" />
+                        </g>
+                    </g>
+                </svg>
+                Solicitar Desenho
+            </a>
+        </div>
+
+        <div id="cadastro-wrapper" style="display: none;">
+            <a href="#" id="btnSolicitarCadastro" class="botao-icon botao-compartilhar-tema">
+                <svg class="icone-cadastro" width="22" height="22" viewBox="0 0 16 16" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path
+                            d="m15.66 7-.91-2.68L8.62.85a1.28 1.28 0 0 0-1.24 0L1.25 4.32.34 7a1.24 1.24 0 0 0 .58 1.5l.33.18V11a1.25 1.25 0 0 0 .63 1l5.5 3.11a1.28 1.28 0 0 0 1.24 0l5.5-3.11a1.25 1.25 0 0 0 .63-1V8.68l.33-.18a1.24 1.24 0 0 0 .58-1.5zM10 9.87l-.48-1.28L14 6.13l.44 1.28zM8 1.94 13.46 5 8 8 2.54 5zM1.52 7.41 2 6.13l4.48 2.46L6 9.87zm1 1.95 4.25 2.32.62-1.84v3.87L2.5 11zM13.5 11l-4.88 2.71V9.84l.63 1.84 4.25-2.32z">
+                        </path>
+                    </g>
+                </svg>
+                Solicitar Cadastro
+            </a>
+        </div>
+
+        <div id="cotacao-wrapper" style="display: none;">
+            <a href="#" id="btnSolicitarCotacao" class="botao-icon botao-compartilhar-tema">
+                <svg class="icone-cotacao" width="22" height="22" viewBox="0 0 425.773 425.773"
+                    style="margin-right: 8px;" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M408.932,297.012c-1.575-2.252-3.26-4.359-5.051-6.316c2.25-3.305,3.962-7.022,5.026-11.037
+                    c3.147-11.93-0.009-24.432-8.435-33.441c-5.438-5.82-11.85-10.504-19.17-14.016c-1.107-18.672-16.65-33.521-35.597-33.521
+                    c-18.665,0-34.027,14.418-35.534,32.701c-2.203,0.973-4.314,2.049-6.334,3.219l-21.687-6.572
+                    c-0.002,0.008-0.003,0.018-0.005,0.025l-40.472-12.266c-1.304-3.945-4.198-7.361-8.244-10.25
+                    c4.452-4.949,8.21-9.957,11.068-14.098c6.78-9.832,12.42-20.42,16.326-30.631c1.926-4.309,3.566-8.635,4.894-12.879
+                    c5.26-4.408,8.355-10.992,8.355-17.898v-16.918c0-4.854-1.527-9.602-4.336-13.537V75.76
+                    c0-41.777-33.987-75.76-75.759-75.76h-24.56c-41.775,0-75.763,33.982-75.763,75.76v23.818
+                    c-2.808,3.934-4.334,8.686-4.334,13.535v16.918c0,6.9,3.096,13.482,8.354,17.896c1.326,4.238,2.968,8.564,4.893,12.885
+                    c3.909,10.213,9.552,20.797,16.327,30.621c2.859,4.143,6.618,9.152,11.07,14.104c-4.048,2.889-6.941,6.305-8.246,10.25
+                    l-54.016,16.371C29.676,243.088,6.886,407.402,6.886,407.402H6.89c-0.113,0.73-0.192,1.471-0.192,2.236
+                    c0,7.916,6.419,14.336,14.339,14.336h313.507c3.514,1.162,7.265,1.799,11.163,1.799c19.662,0,35.659-15.994,35.659-35.656
+                    v-3.006c7.149-3.205,13.469-7.408,18.906-12.574c12.302-11.684,18.805-26.932,18.805-44.092
+                    C419.076,317.892,415.662,306.647,408.932,297.012z M167.162,274.697c-0.205,1.984-1.604,3.643-3.528,4.178
+                    c-0.431,0.119-0.869,0.178-1.303,0.178c-1.499,0-2.943-0.695-3.877-1.932l-13.646-18.1c-0.636-0.844-0.979-1.871-0.979-2.928
+                    l0.018-29.019c0.001-1.699,0.893-3.279,2.352-4.156c1.458-0.879,3.27-0.928,4.773-0.133c3.974,2.1,7.939,3.512,11.789,4.197
+                    c2.318,0.41,4.008,2.426,4.008,4.781v12.105c0.691,0.271,1.32,0.701,1.829,1.266c0.92,1.021,1.364,2.385,1.225,3.752
+                    L167.162,274.697z M218.568,259.022l-13.626,18.088c-0.932,1.234-2.379,1.934-3.881,1.934c-0.431,0-0.869-0.059-1.299-0.176
+                    c-1.922-0.537-3.322-2.197-3.527-4.184l-2.661-25.797c-0.142-1.367,0.305-2.73,1.226-3.752c0.507-0.564,1.135-0.994,1.825-1.266
+                    v-12.105c0-2.355,1.691-4.371,4.01-4.781c3.847-0.686,7.812-2.098,11.784-4.195c1.507-0.795,3.318-0.744,4.775,0.135
+                    c1.458,0.879,2.352,2.457,2.352,4.16l0.002,29.02C219.548,257.152,219.205,258.178,218.568,259.022z M194.741,201.289h-26.087
+                    c-5.764,0-16.893-7.711-28.77-24.936c-9.375-13.586-15.889-28.625-17.422-40.23l-0.262-2.008l-4.714-3.064
+                    c-1.378-0.895-2.209-2.426-2.209-4.07v-7.994c0-2.68,2.174-4.855,4.855-4.855h1.983v-8.658c0-1.842,1.041-3.523,2.688-4.348
+                    c6.686-3.336,19.951-8.936,33.688-8.936c10.961,0,20.048,3.646,27.012,10.836c8.676,8.965,18.673,13.512,29.722,13.512
+                    c6.252,0,12.717-1.475,19.211-4.385c1.502-0.674,3.243-0.541,4.626,0.354c0.645,0.42,1.174,0.979,1.553,1.625h2.647
+                    c2.682,0,4.857,2.176,4.857,4.855v7.994c0,1.645-0.834,3.176-2.212,4.072l-4.712,3.063l-0.262,2
+                    c-1.536,11.611-8.049,26.652-17.425,40.244C211.635,193.58,200.507,201.289,194.741,201.289z M384.285,357.705
+                    c-6.555,6.23-15.328,10.387-26.134,12.393v20.02c0,6.873-5.564,12.441-12.445,12.441c-6.877,0-12.443-5.568-12.443-12.441v-19.354
+                    c-15.767-2.135-27.564-8.967-35.056-20.34c-2.293-3.482-2.693-7.879-1.064-11.717c1.634-3.836,5.08-6.604,9.181-7.357l9.395-1.748
+                    c4.797-0.897,9.684,1.115,12.479,5.123c3.528,5.08,9.515,7.654,17.777,7.654c12.708,0,12.708-5.057,12.708-6.719
+                    c0-2.41-0.898-4.16-2.843-5.516c-1.974-1.379-5.584-2.611-10.729-3.656c-20.656-4.215-33.974-9.68-39.565-16.254
+                    c-5.687-6.66-8.441-14.107-8.441-22.77c0-9.406,3.105-17.867,9.228-25.164c5.927-7.057,14.998-11.641,26.931-13.637v-14.328
+                    c0-6.871,5.566-12.441,12.443-12.441c6.881,0,12.445,5.57,12.445,12.441v14.596c10.686,2.037,19.03,6.357,25.36,13.133
+                    c2.924,3.127,4.041,7.533,2.95,11.674c-1.099,4.139-4.233,7.424-8.318,8.695l-6.44,2.02c-4.674,1.469-9.781,0.047-13.03-3.617
+                    c-3.239-3.654-8.056-5.51-14.298-5.51c-5.029,0-11.032,1.199-11.032,6.906c0,1.615,0.619,3.074,1.786,4.217
+                    c1.232,1.191,4.814,2.461,10.647,3.766c13.455,2.941,23.289,5.633,29.168,7.975c5.972,2.375,11,6.451,14.959,12.117
+                    c3.95,5.654,5.959,12.432,5.959,20.139C395.862,341.238,391.969,350.406,384.285,357.705z" />
+                </svg>
+                Solicitar Cotação
+            </a>
+        </div>
+    </div>
+</div>
+
+<div id="formulario-desenho" style="display: none;" onclick="fecharAoClicarFora(event)">
+    <div class="form-desenho-container" onclick="event.stopPropagation()">
+        <h2 style="color: #ec4115;">Solicitar Desenho</h2>
+        <p style="font-size: 14px; color: #555; margin-top: -12px; margin-bottom: 20px;">
+            Preencha os dados abaixo para receber o desenho. Ele será enviado ao seu email dentro de 10 minutos após
+            a
+            solicitação.
+        </p>
+
+        <input id="nomeDesenho" class="cssC campo-form" placeholder="Nome*" maxlength="100" required />
+        <input id="cnpjDesenho" class="cssC campo-form" placeholder="CNPJ ou CPF*" maxlength="18" required />
+        <input id="empresaDesenho" class="cssC campo-form" placeholder="Empresa*" maxlength="100" required />
+        <span id="spinnerEmpresaDes" class="loading-spinner" style="display:none;margin:-16px 0 16px 8px;"></span>
+        <input id="emailDesenho" class="cssC campo-form" type="email" placeholder="Email*" maxlength="100"
+            autocomplete="email" required />
+
+        <div class="campo">
+            <div id="dropdownFORMATO_DESENHO" class="dropdown-checkbox">
+                <div class="dropdown-button cssC campo-form" id="botaoFormatoDesenho" onclick="toggleDropdown(this)"
+                    style="cursor: pointer;">
+                    Formato do Desenho*
+                </div>
+
+                <div class="dropdown-list">
+                    <div id="checklistFORMATO_DESENHO">
+                        <label><input type="checkbox" name="FORMATO_DESENHO" value="3D (PARASOLID)"> 3D
+                            (PARASOLID)</label>
+                        <label><input type="checkbox" name="FORMATO_DESENHO" value=" (BINÁRIO)"> 3D (PARASOLID
+                            BINÁRIO)</label>
+                        <label><input type="checkbox" name="FORMATO_DESENHO" value="PDF"> PDF</label>
+                        <label><input type="checkbox" name="FORMATO_DESENHO" value="STEP"> STEP</label>
+                        <label><input type="checkbox" name="FORMATO_DESENHO" value="DWG"> DWG</label>
+                        <label><input type="checkbox" name="FORMATO_DESENHO" value="IGES"> IGES</label>
+                        <label><input type="checkbox" name="FORMATO_DESENHO" value="DXF"> DXF</label>
+                        <label><input type="checkbox" name="FORMATO_DESENHO" value="SAT"> SAT</label>
+                    </div>
+                </div>
+
+                <input type="hidden" id="FORMATO_DESENHO" name="FORMATO_DESENHO" value="">
+            </div>
+        </div>
+
+        <div class="botoes-form">
+            <button id="botaoEnviarDesenho" onclick="enviarSolicitacaoDesenho()" class="botao-ibr botao-primario">Enviar
+                <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="M13 6l6 6-6 6"></path>
+                </svg>
+            </button>
+            <button class="botao-ibr botao-primario" onclick="window.location.href='/AreaCliente/Sessao'">Área do
+                Cliente
+                <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="M13 6l6 6-6 6"></path>
+                </svg>
+            </button>
+            <button type="button" onclick="fecharFormularioDesenho()"
+                class="botao-ibr botao-secundario">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<div id="formulario-cotacao" style="display: none;" onclick="fecharAoClicarFora(event)">
+    <div class="form-desenho-container" onclick="event.stopPropagation()">
+        <h2 style="color: #ec4115;">Solicitar Cotação</h2>
+        <p style="font-size: 14px; color: #555; margin-top: -12px; margin-bottom: 20px;">
+            Solicite sua cotação preenchendo os dados abaixo. Um de nossos Consultores Comerciais irá te contatar o
+            quanto antes!
+        </p>
+        <input id="nomeCotacao" class="cssC campo-form" placeholder="Nome*" maxlength="100" required />
+        <input id="cnpjCotacao" class="cssC campo-form" placeholder="CNPJ ou CPF*" maxlength="18" required />
+        <input id="empresaCotacao" class="cssC campo-form" placeholder="Empresa*" maxlength="100" required />
+        <span id="spinnerEmpresaCot" class="loading-spinner" style="display:none;margin:-16px 0 16px 8px;"></span>
+        <input id="emailCotacao" type="email" class="cssC campo-form" placeholder="Email*" maxlength="100"
+            autocomplete="email" required /> <input id="telefoneCotacao" type="tel" class="cssC campo-form"
+            placeholder="Telefone/Celular*" maxlength="20" required />
+        <input id="quantidadeCotacao" type="number" class="cssC campo-form" placeholder="Quantidade*" min="0" step="1"
+            required />
+        <textarea id="observacaoCotacao" class="cssC campo-form" placeholder="Observação (máx. 250 caracteres)"
+            maxlength="250"></textarea>
+        <div class="botoes-form">
+            <button id="botaoEnviarCotacao" onclick="enviarSolicitacaoCotacao()" class="botao-ibr botao-primario">Enviar
+                <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="M13 6l6 6-6 6"></path>
+                </svg>
+            </button>
+            <button class="botao-ibr botao-primario" onclick="window.location.href='/AreaCliente/Sessao'">Área do
+                Cliente
+                <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="M13 6l6 6-6 6"></path>
+                </svg>
+            </button>
+            <button type="button" onclick="fecharFormularioCotacao()"
+                class="botao-ibr botao-secundario">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<div id="formulario-cadastro" style="display: none;" onclick="fecharAoClicarFora(event)">
+    <div class="form-desenho-container" onclick="event.stopPropagation()">
+        <h2 style="color: #ec4115;">Solicitar Cadastro do Produto</h2>
+        <p style="font-size: 14px; color: #555; margin-top: -12px; margin-bottom: 20px;">
+            Informe seu nome e e-mail para solicitar o cadastro deste produto. Em breve, um de nossos
+            consultores comerciais entrará em contato com você para informar a finalização. Agradecemos pela sua
+            confiança e paciência! 😊</p>
+        <input id="nomeCadastro" class="cssC campo-form" placeholder="Nome*" maxlength="100" required />
+        <input id="emailCadastro" type="email" class="cssC campo-form" placeholder="Email*" maxlength="100"
+            autocomplete="email" required />
+        <div class="botoes-form">
+            <button id="botaoEnviarCadastro" onclick="enviarSolicitacaoCadastro()"
+                class="botao-ibr botao-primario">Enviar
+                <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="M13 6l6 6-6 6"></path>
+                </svg>
+            </button>
+            <button class="botao-ibr botao-primario" onclick="window.location.href='/AreaCliente/Sessao'">Área do
+                Cliente
+                <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="M13 6l6 6-6 6"></path>
+                </svg>
+            </button>
+            <button type="button" onclick="fecharFormularioCadastro()"
+                class="botao-ibr botao-secundario">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        ["Produto", "Estoque"].forEach(grupo => {
+            const toggle = document.getElementById(`toggle${grupo}`);
+            const detalhes = document.getElementById(`detalhes${grupo}`);
+            const seta = document.getElementById(`setaToggle${grupo}`);
+
+            toggle?.addEventListener("click", () => {
+                detalhes.classList.toggle("expandido");
+                detalhes.classList.toggle("recolhido");
+                seta?.classList.toggle("aberta");
+
+                if (detalhes.classList.contains("expandido")) {
+                    scrollParaCabecalho(detalhes);
+                }
+            });
+        });
+    });
+
+    window.v = window.v || (id => document.getElementById(id)?.value || "");
+    window.contem = window.contem || ((str, val) => str.includes(val));
+    window.vazio = window.vazio || (val => !val || val.trim() === "");
+    window.substituir = window.substituir || ((str, de, para) => str.replaceAll(de, para));
+    window.seAlgum = window.seAlgum || ((...args) => args.find((_, i) => i % 2 === 0 && args[i]) ? args[args.findIndex((_, i) => i % 2 === 0 && args[i]) + 1] : "");
+
+    function mostrarDetalhesGrupo({ grupoId, referencia, codigo = "", descricao = "", detalhe = "", existe = true }, { scroll = false } = {}) {
+        const grupo = document.getElementById(`detalhes${grupoId}`);
+        if (!grupo) return;
+        const campoRef = document.getElementById(`ref${grupoId}`);
+        const campoCodigo = document.getElementById(`cd${grupoId}`);
+        const campoDescricao = document.getElementById(`desc${grupoId}`);
+        const campoDetalhe = document.getElementById(`datasheet${grupoId}`);
+        const seta = document.getElementById(`setaToggle${grupoId}`);
+
+        const paragrafoCodigo = campoCodigo?.closest("p");
+        const paragrafoDetalhe = campoDetalhe?.closest("p");
+
+        grupo.style.display = "block";
+        grupo.classList.remove("oculto");
+        grupo.classList.add("recolhido");
+        grupo.classList.remove("expandido");
+        seta?.classList.remove("aberta");
+
+        if (campoRef) campoRef.textContent = referencia;
+
+        const strongDesc = campoDescricao?.closest("p")?.querySelector("strong");
+
+        if (existe) {
+            if (campoCodigo) campoCodigo.textContent = codigo;
+            if (campoDescricao) campoDescricao.textContent = descricao || "-";
+            if (campoDetalhe) {
+                campoDetalhe.innerHTML =
+                    `<pre style="margin: 0; font-family: inherit; line-height: 1.4; white-space: pre-line;">${(detalhe || "Nenhum").trim()}</pre>`;
+            }
+
+            paragrafoCodigo && (paragrafoCodigo.style.display = "block");
+            paragrafoDetalhe && (paragrafoDetalhe.style.display = "block");
+            if (strongDesc) strongDesc.style.display = "inline";
+
+        } else {
+            if (campoDescricao) {
+                campoDescricao.innerHTML = `
+            <span style="color:#888;">
+              😕 Ops! Este produto ainda não está cadastrado em nossa base.<br>
+              📞 Fale com um de nossos representantes comerciais para realizar o cadastro e obter mais informações.<br>
+              💬 Estamos à disposição para te ajudar!
+            </span>`;
+            }
+
+            paragrafoCodigo && (paragrafoCodigo.style.display = "none");
+            paragrafoDetalhe && (paragrafoDetalhe.style.display = "none");
+            if (strongDesc) strongDesc.style.display = "none";
+
+            grupo.classList.add("expandido");
+            grupo.classList.remove("recolhido");
+            seta?.classList.add("aberta");
+        }
+
+        if (scroll) {
+            if (["Produto", "Estoque"].includes(grupoId)) {
+                const botao = document.querySelector('.gerar-produto-wrapper');
+                if (botao) {
+                    scrollParaCentro(botao);
+                }
+            } else {
+                scrollParaCabecalho(grupo);
+            }
+        }
+    }
+
+
+    function mostrarDetalhesProduto(dados, referenciaGerada) {
+        const CD_PRODUTO = dados?.CD_PRODUTO || "";
+        const DS_PRODUTO = dados?.DS_PRODUTO || "";
+        const DS_OBSNOTA = dados?.DS_OBSNOTA || "";
+        const CD_EMPRESA = dados?.CD_EMPRESA || "001";
+
+        document.getElementById("cdEmpresaProduto")?.remove();
+        const hiddenEmpresa = document.createElement("input");
+        hiddenEmpresa.type = "hidden";
+        hiddenEmpresa.id = "cdEmpresaProduto";
+        hiddenEmpresa.value = CD_EMPRESA;
+        document.body.appendChild(hiddenEmpresa);
+
+        const produtoExiste = !!CD_PRODUTO.trim();
+
+        const btnDesenho = document.getElementById("btnSolicitarDesenho");
+
+
+        if (btnDesenho) {
+            btnDesenho.style.display = produtoExiste ? "flex" : "none";
+        }
+
+        if (!produtoExiste) {
+            exibirBotaoSolicitarCadastro();
+        } else {
+            const cad = document.getElementById("cadastro-wrapper");
+            if (cad) cad.style.display = "none";
+        }
+
+        mostrarDetalhesGrupo({
+            grupoId: "Produto",
+            referencia: referenciaGerada,
+            codigo: CD_PRODUTO,
+            descricao: DS_PRODUTO,
+            detalhe: DS_OBSNOTA,
+            existe: produtoExiste
+        }, { scroll: false });
+
+        const grupoEstoque = document.getElementById("detalhesEstoque");
+
+        if (produtoExiste) {
+            if (grupoEstoque) {
+                grupoEstoque.style.display = "block";
+
+                const grupoProduto = document.getElementById("detalhesProduto");
+                if (grupoProduto && grupoProduto.parentNode) {
+                    grupoProduto.parentNode.insertBefore(grupoEstoque, grupoProduto.nextSibling);
+                }
+            }
+            mostrarDetalhesGrupo({
+                grupoId: "Estoque",
+                codigo: CD_PRODUTO,
+                existe: true
+            }, { scroll: false });
+
+            const compartilhar = document.getElementById("compartilhar-wrapper");
+            if (compartilhar && grupoEstoque && grupoEstoque.parentNode) {
+                grupoEstoque.parentNode.insertBefore(compartilhar, grupoEstoque.nextSibling);
+            }
+
+        } else {
+            if (grupoEstoque) {
+                grupoEstoque.style.display = "none";
+            }
+        }
+    }
+
+    async function get(url, params) {
+        const queryString = new URLSearchParams(params).toString();
+        const response = await fetch(`/Paginas/Seletores/Produto/${url}?${queryString}`);
+        if (!response.ok) throw new Error(`Erro ao consultar ${url}`);
+        return await response.text();
+    }
+
+    document.addEventListener("todosCamposPreenchidos", e => {
+        const manual = e.detail && e.detail.manual;
+        if (veioDeLink || manual) {
+            const resultado = gerarCodigoProduto();
+            if (manual && !veioDeLink) {
+                Promise.resolve(resultado).then(() => {
+                    const alvo = document.querySelector('.gerar-produto-wrapper');
+                    if (alvo) scrollParaCentro(alvo);
+                });
+            }
+        }
+    });
+
+</script>
+
+<script>
+    var veioDeLink = window.location.search.length > 0;
+
+    function codigoAmigavel(codigo) {
+        const map = {
+            '1.Q': 'IBRQ',
+            '1.QDR': 'IBRQDR',
+            '1.QP': 'IBRQP',
+            '1.C': 'IBRC',
+            '1.H': 'IBRH',
+            '1.M': 'IBRM',
+            '1.P': 'IBRP',
+            '1.R': 'IBRR',
+            '1.X': 'IBRX',
+            '1.FFA': 'IBRPFFA',
+            '1.FKA': 'IBRXFKA',
+            '1.FR': 'IBRCFR',
+            '2.I': 'IBRSTANDARD',
+            '3.I': 'IBRALTORENDIMENTO',
+            '3.W': 'WEGALTORENDIMENTO',
+            '3.APM': 'ANTICORROSIVOSAPM',
+            '3.SPM': 'ANTICORROSIVOSSPM',
+            '3.PB': 'IBRPB',
+            '3.PBL': 'IBRPBL',
+            '3.SA': 'IBRSA',
+            '3.SB': 'IBRSB',
+            '3.SBL': 'IBRSBL',
+            '3.SD': 'IBRSD',
+            '1.V': 'IBRV',
+            '1.I': 'IBRI',
+            '1.Z': 'IBRZ',
+            '3.GR': 'IBRGR',
+            '3.GS': 'IBRGS',
+            '3.RIC': 'IBRRIC',
+            '4.K': 'IBRK',
+            'QU': 'IBRQ',
+            'QUDR': 'IBRQDR',
+            'HY': 'IBRC',
+            'FX': 'IBRPFFA',
+            'MO': 'IBRSTANDARD',
+            'PL': 'IBRPB',
+            'VA': 'IBRV',
+            'AC': 'IBRI',
+            'AE': 'IBRGR',
+            'IN': 'IBRK'
+        };
+        return map[codigo] || '';
+    }
+
+    function validarAntesDeGerar() {
+        document.querySelector('.gerar-produto')?.dispatchEvent(new Event('click'));
+    }
+
+    function gerarLinkAtual() {
+        const selects = Array.from(document.querySelectorAll("select")).filter(select => {
+            const style = window.getComputedStyle(select);
+            return style.display !== "none" && select.offsetParent !== null && select.value.trim() !== "";
+        });
+
+        const hiddenInputs = Array.from(document.querySelectorAll("input[type='hidden']"))
+            .filter(input => {
+                if (!input.id.includes("OPC") || !input.value.trim()) return false;
+                const dropdown = document.getElementById("dropdown" + input.id);
+                return dropdown && dropdown.offsetParent !== null;
+            });
+
+        const params = [
+            ...selects.map(select => `${select.id}=${encodeURIComponent(select.value)}`),
+            ...hiddenInputs.map(input => `${input.id}=${encodeURIComponent(input.value)}`)
+        ].join("&");
+
+        const search = new URLSearchParams(params);
+        const cod = search.get('QULN') || search.get('HYLN') || search.get('FXLN') ||
+            search.get('MOLN') || search.get('PLLN') || search.get('VALN') ||
+            search.get('ACLN') || search.get('AELN') || search.get('INLN');
+
+        let pathname = window.location.pathname;
+
+        const amigavel = cod ? codigoAmigavel(cod) : '';
+        if (amigavel) {
+            pathname = `/Configurador${amigavel}`;
+        } else {
+            const ld = document.querySelector('script[type="application/ld+json"]');
+            if (ld) {
+                try {
+                    const data = JSON.parse(ld.textContent);
+                    const url = (data.offers && data.offers.url) || data.url;
+                    if (url) pathname = new URL(url, window.location.origin).pathname;
+                } catch { }
+            } else {
+                const canonical = document.querySelector("link[rel='canonical']");
+                if (canonical) pathname = new URL(canonical.href).pathname;
+            }
+        }
+
+        return `${window.location.origin}${pathname}?${params}`;
+    }
+
+    function compartilharWhatsApp(e) {
+        e.stopPropagation();
+        const link = gerarLinkAtual();
+        const mensagem = `Olá, gerei esse produto no site e preciso de ajuda:\n${link}`;
+        const url = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
+        window.open(url, "_blank");
+    }
+
+    function toggleCompartilhar() {
+        const menu = document.getElementById("submenu-compartilhar");
+        const botao = document.getElementById("btnCompartilhar");
+
+        const ativo = menu.classList.contains("ativo");
+        botao.setAttribute("aria-expanded", !ativo);
+
+        if (ativo) {
+            fecharMenuCompartilhar();
+        } else {
+            menu.classList.add("ativo");
+            document.addEventListener("click", cliqueForaCompartilhar);
+        }
+    }
+
+    function fecharMenuCompartilhar() {
+        const menu = document.getElementById("submenu-compartilhar");
+        menu.style.animation = "submenuFadeOut 200ms ease-out forwards";
+        setTimeout(() => {
+            menu.classList.remove("ativo");
+            menu.style.animation = "";
+        }, 200);
+        document.removeEventListener("click", cliqueForaCompartilhar);
+    }
+
+    document.addEventListener("keydown", e => {
+        if (e.key === "Escape") {
+            fecharMenuCompartilhar();
+        }
+    });
+
+    function cliqueForaCompartilhar(e) {
+        const menu = document.getElementById("submenu-compartilhar");
+        const botao = document.getElementById("btnCompartilhar");
+        if (!menu.contains(e.target) && !botao.contains(e.target)) {
+            fecharMenuCompartilhar();
+        }
+    }
+
+    function exibirBotaoCompartilhar() {
+        document.getElementById("compartilhar-wrapper").style.display = "block";
+    }
+
+    if (veioDeLink) {
+
+        const aguardaCampos = setInterval(() => {
+            const params = new URLSearchParams(window.location.search);
+            if (!params.toString()) {
+                clearInterval(aguardaCampos);
+                return;
+            }
+
+            const ids = [...params.keys()];
+            const algumExiste = ids.some(id => document.getElementById(id));
+            if (!algumExiste) return;
+
+            clearInterval(aguardaCampos);
+
+            params.forEach((valor, id) => {
+                const select = document.getElementById(id);
+                if (select && select.tagName === "SELECT") {
+                    const aplicarValor = () => {
+                        if ([...select.options].some(opt => opt.value === valor)) {
+                            select.value = valor;
+                            select.dispatchEvent(new Event("change"));
+                        } else {
+                            let tentativas = 0;
+                            const timer = setInterval(() => {
+                                if ([...select.options].some(opt => opt.value === valor)) {
+                                    select.value = valor;
+                                    select.dispatchEvent(new Event("change"));
+                                    clearInterval(timer);
+                                } else if (++tentativas > 10) {
+                                    clearInterval(timer);
+                                }
+                            }, 200);
+                        }
+                    };
+                    aplicarValor();
+                }
+            });
+
+            params.forEach((valor, id) => {
+                if (!id.includes("OPC")) return;
+
+                const aplicarCheckboxOPC = () => {
+                    const hidden = document.getElementById(id);
+                    const dropdown = document.getElementById("dropdown" + id);
+                    const checklist = document.querySelectorAll(`#checklist${id} input[type="checkbox"]`);
+
+                    if (!hidden || !dropdown || checklist.length === 0 || dropdown.offsetParent === null) return false;
+
+                    const valores = valor.split(",").map(v => v.trim());
+                    hidden.value = valores.join(",");
+
+                    checklist.forEach(cb => {
+                        cb.checked = valores.includes(cb.value);
+                        cb.disabled = true;
+                    });
+
+                    const botao = dropdown.querySelector(".dropdown-button");
+                    if (botao) {
+                        const nomesVisiveis = valores.map(v => {
+                            const label = Array.from(document.querySelectorAll(`#checklist${id} label`))
+                                .find(lbl => lbl.querySelector(`input[value="${v}"]`));
+                            return label ? label.textContent.trim() : v;
+                        });
+
+                        botao.textContent = nomesVisiveis.join(', ');
+                        botao.style.pointerEvents = "none";
+                        botao.style.opacity = "0.6";
+                        botao.style.cursor = "not-allowed";
+                        botao.title = "Campo bloqueado (via link)";
+                    }
+
+                    hidden.dispatchEvent(new Event("change"));
+                    return true;
+                };
+
+                if (!aplicarCheckboxOPC()) {
+                    let tentativas = 0;
+                    const espera = setInterval(() => {
+                        if (aplicarCheckboxOPC() || ++tentativas > 40) {
+                            clearInterval(espera);
+                        }
+                    }, 300);
+                }
+            });
+
+            (async () => {
+                const params = new URLSearchParams(window.location.search);
+                for (const [id, valor] of params.entries()) {
+                    const select = document.getElementById(id);
+                    if (!select || select.tagName !== "SELECT") continue;
+
+                    await new Promise(resolve => {
+                        let tentativas = 0;
+                        const timer = setInterval(() => {
+                            const opcoes = [...select.options].map(opt => opt.value);
+                            const visivel = select.offsetParent !== null;
+                            if (opcoes.includes(valor) && visivel) {
+                                select.value = valor;
+                                select.dispatchEvent(new Event("change"));
+                                select.disabled = true;
+                                clearInterval(timer);
+                                resolve();
+                            } else if (++tentativas > 40) {
+                                clearInterval(timer);
+                                resolve();
+                            }
+                        }, 200);
+                    });
+                }
+
+                const paramCount = params.size;
+                const scrollFinal = setInterval(() => {
+                    const selectsPendentes = Array.from(document.querySelectorAll("select")).some(sel =>
+                        sel.offsetParent !== null && sel.value.trim() === ""
+                    );
+
+                    const opcPendentes = Array.from(document.querySelectorAll("input[type='hidden']"))
+                        .filter(inp => inp.id.includes("OPC") && inp.offsetParent !== null)
+                        .some(inp => inp.value.trim() === "");
+
+                    if (!selectsPendentes && !opcPendentes) {
+                        clearInterval(scrollFinal);
+
+                        if (paramCount > 1) {
+                            const alvo = document.querySelector('.gerar-produto-wrapper');
+                            if (alvo) {
+                                scrollParaCentro(alvo);
+
+                                if (paramCount > 1) {
+                                    setTimeout(() => {
+                                        validarAntesDeGerar();
+
+                                    }, 1000);
+                                }
+                            }
+                        }
+                    }
+                }, 500);
+            })();
+
+        });
+    }
+    document.addEventListener("click", function (e) {
+        const alvo = e.target.closest("#btnCopiarLink");
+        if (!alvo) return;
+
+        e.preventDefault();
+        const link = gerarLinkAtual();
+
+        const temp = document.createElement("textarea");
+        temp.value = link;
+        temp.setAttribute("readonly", "");
+        temp.style.position = "absolute";
+        temp.style.left = "-9999px";
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand("copy");
+        document.body.removeChild(temp);
+
+        const alerta = document.getElementById("alerta-copiado");
+        if (alerta) {
+            alerta.textContent = "🔗 Link Copiado para Área de Transferência!";
+            alerta.style.display = "block";
+            alerta.style.opacity = "1";
+
+            setTimeout(() => {
+                alerta.style.opacity = "0";
+                setTimeout(() => alerta.style.display = "none", 300);
+            }, 4000);
+        }
+    }, true);
+
+</script>
+
+<script>
+    async function preencherCamposSessao() {
+        try {
+            const resp = await fetch("/Paginas/AreaCliente/AcessoCadastro/Acesso/ValidarSessao.php");
+            const dados = await resp.json();
+            if (dados.sucesso) {
+                const nomeDes = document.getElementById("nomeDesenho");
+                if (nomeDes && !nomeDes.value) nomeDes.value = dados.nome;
+                const docDes = document.getElementById("cnpjDesenho");
+                if (docDes && !docDes.value) {
+                    docDes.value = formatarDocumento(dados.cpfcnpj || '');
+                }
+                const empresaDes = document.getElementById("empresaDesenho");
+                if (empresaDes && !empresaDes.value) empresaDes.value = dados.empresa;
+                const emailDes = document.getElementById("emailDesenho");
+                if (emailDes && !emailDes.value) emailDes.value = dados.email;
+                const nomeCot = document.getElementById("nomeCotacao");
+                if (nomeCot && !nomeCot.value) {
+                    nomeCot.value = dados.nome;
+                    localStorage.setItem("cotacao_nome", nomeCot.value);
+                }
+                const emailCot = document.getElementById("emailCotacao");
+                if (emailCot && !emailCot.value) {
+                    emailCot.value = dados.email;
+                    localStorage.setItem("cotacao_email", emailCot.value);
+                }
+                const empresaCot = document.getElementById("empresaCotacao");
+                if (empresaCot && !empresaCot.value) {
+                    empresaCot.value = dados.empresa;
+                    localStorage.setItem("cotacao_empresa", empresaCot.value);
+                }
+                const docCot = document.getElementById("cnpjCotacao");
+                if (docCot && !docCot.value) {
+                    docCot.value = formatarDocumento(dados.cpfcnpj || '');
+                    localStorage.setItem("cotacao_cnpj", docCot.value);
+                }
+                const nomeCad = document.getElementById("nomeCadastro");
+                if (nomeCad && !nomeCad.value) {
+                    nomeCad.value = dados.nome;
+                    localStorage.setItem("cadastro_nome", nomeCad.value);
+                }
+                const emailCad = document.getElementById("emailCadastro");
+                if (emailCad && !emailCad.value) {
+                    emailCad.value = dados.email;
+                    localStorage.setItem("cadastro_email", emailCad.value);
+                }
+            }
+        } catch (e) {
+        }
+    }
+
+    let scrollPos = 0;
+    function freezeScroll() {
+        scrollPos = window.scrollY || document.documentElement.scrollTop;
+        document.body.style.top = `-${scrollPos}px`;
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function restoreScroll() {
+        const html = document.documentElement;
+        const prevBehavior = html.style.scrollBehavior;
+        html.style.scrollBehavior = 'auto';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, scrollPos);
+        html.style.scrollBehavior = prevBehavior;
+    }
+
+
+    function exibirBotaoSolicitarDesenho() {
+        const botao = document.getElementById("solicitar-wrapper");
+        const link = document.getElementById("btnSolicitarDesenho");
+
+        botao.style.display = "inline-flex";
+
+        if (link) {
+            link.onclick = function (e) {
+                e.preventDefault();
+
+                const hyln = (document.getElementById("HYLN")?.value || "").toUpperCase();
+
+                const bloqueados = ["1.C", "1.H", "1.X", "1.R"];
+
+                if (bloqueados.includes(hyln)) {
+                    exibirAlerta("🚧 Esta linha ainda está em desenvolvimento. Para os modelos Hydromec, a Solicitação de Desenhos está disponível apenas nas linhas IBR M e IBR P.");
+                    return;
+                }
+
+                const form = document.getElementById("formulario-desenho");
+                form.style.display = "flex";
+                form.style.animation = "fadeInBackdrop 0.3s ease";
+                freezeScroll();
+                document.body.style.overflow = "hidden";
+                document.addEventListener("keydown", escFechaFormulario);
+                ["nomeDesenho", "cnpjDesenho", "empresaDesenho", "emailDesenho"].forEach(id => {
+                    const campo = document.getElementById(id);
+                    if (campo && !campo.value) animarPlaceholder(campo, campo.getAttribute('placeholder'));
+                });
+            };
+        }
+    }
+
+    function exibirBotaoSolicitarCotacao() {
+        const botao = document.getElementById("cotacao-wrapper");
+        const link = document.getElementById("btnSolicitarCotacao");
+
+        botao.style.display = "inline-flex";
+
+        if (link) {
+            link.onclick = function (e) {
+                e.preventDefault();
+                const form = document.getElementById("formulario-cotacao");
+                form.style.display = "flex";
+                form.style.animation = "fadeInBackdrop 0.3s ease";
+                freezeScroll();
+                document.body.style.overflow = "hidden";
+                document.addEventListener("keydown", escFechaFormularioCotacao);
+                [
+                    "nomeCotacao",
+                    "cnpjCotacao",
+                    "empresaCotacao",
+                    "emailCotacao",
+                    "telefoneCotacao",
+                    "quantidadeCotacao",
+                    "observacaoCotacao"
+                ].forEach(id => {
+                    const campo = document.getElementById(id);
+                    if (campo && !campo.value) animarPlaceholder(campo, campo.getAttribute('placeholder'));
+                });
+            };
+        }
+
+    }
+
+    function exibirBotaoSolicitarCadastro() {
+        const botao = document.getElementById("cadastro-wrapper");
+        const link = document.getElementById("btnSolicitarCadastro");
+        if (botao) botao.style.display = "inline-flex";
+        if (link) {
+            link.onclick = function (e) {
+                e.preventDefault();
+                const form = document.getElementById("formulario-cadastro");
+                form.style.display = "flex";
+                form.style.animation = "fadeInBackdrop 0.3s ease";
+                freezeScroll();
+                document.body.style.overflow = "hidden";
+                document.addEventListener("keydown", escFechaFormularioCadastro);
+                ["nomeCadastro", "emailCadastro"].forEach(id => {
+                    const campo = document.getElementById(id);
+                    if (campo && !campo.value) animarPlaceholder(campo, campo.getAttribute('placeholder'));
+                });
+            };
+        }
+    }
+
+    function fecharFormularioDesenho() {
+        const form = document.getElementById("formulario-desenho");
+        form.style.animation = "fadeOutBackdrop 0.3s ease";
+        setTimeout(() => {
+            form.style.display = "none";
+            form.style.animation = "";
+        }, 300);
+        restoreScroll();
+        document.body.style.overflow = "";
+        document.removeEventListener("keydown", escFechaFormulario);
+    }
+
+    function fecharFormularioCotacao() {
+        const form = document.getElementById("formulario-cotacao");
+        form.style.animation = "fadeOutBackdrop 0.3s ease";
+        setTimeout(() => {
+            form.style.display = "none";
+            form.style.animation = "";
+        }, 300);
+        restoreScroll();
+        document.body.style.overflow = "";
+        document.removeEventListener("keydown", escFechaFormularioCotacao);
+    }
+
+    function fecharFormularioCadastro() {
+        const form = document.getElementById("formulario-cadastro");
+        form.style.animation = "fadeOutBackdrop 0.3s ease";
+        setTimeout(() => {
+            form.style.display = "none";
+            form.style.animation = "";
+        }, 300);
+        restoreScroll();
+        document.body.style.overflow = "";
+        document.removeEventListener("keydown", escFechaFormularioCadastro);
+    }
+
+    function escFechaFormularioCadastro(e) {
+        if (e.key === "Escape") {
+            fecharFormularioCadastro();
+        }
+    }
+
+    function fecharAoClicarFora(event) {
+        if (event.target.id === "formulario-desenho") {
+            fecharFormularioDesenho();
+        }
+        if (event.target.id === "formulario-cotacao") {
+            fecharFormularioCotacao();
+        }
+        if (event.target.id === "formulario-cadastro") {
+            fecharFormularioCadastro();
+        }
+    }
+
+    function escFechaFormulario(e) {
+        if (e.key === "Escape") {
+            fecharFormularioDesenho();
+        }
+    }
+
+    function escFechaFormularioCotacao(e) {
+        if (e.key === "Escape") {
+            fecharFormularioCotacao();
+        }
+    }
+
+    function animarErroCampo(campo) {
+        campo.classList.add("campo-invalido");
+        campo.addEventListener("input", function limparErro() {
+            if (campo.value.trim()) {
+                campo.classList.remove("campo-invalido");
+                campo.removeEventListener("input", limparErro);
+            }
+        });
+    }
+
+    function toggleDropdown(button) {
+        const list = button.nextElementSibling;
+        const aberto = list.style.display === 'block';
+        list.style.display = aberto ? 'none' : 'block';
+    }
+
+    function validarFormatoDesenho() {
+        const checkboxes = document.querySelectorAll('#checklistFORMATO_DESENHO input[type="checkbox"]');
+        const selecionados = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+
+        const resultado = selecionados.join(', ');
+        const botao = document.getElementById('botaoFormatoDesenho');
+        document.getElementById('FORMATO_DESENHO').value = resultado;
+
+        botao.textContent = resultado || 'Formato do Desenho*';
+        botao.classList.toggle('placeholder-style', !resultado);
+    }
+
+    function formatarTelefone(valor) {
+        valor = valor.replace(/\D/g, '').slice(0, 11);
+        if (valor.length > 10) {
+            return valor.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+        }
+        if (valor.length > 6) {
+            return valor.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+        }
+        if (valor.length > 2) {
+            return valor.replace(/^(\d{2})(\d+)/, '($1) $2');
+        }
+        return valor.replace(/^(\d*)/, '($1');
+    }
+
+    function formatarCNPJ(valor) {
+        valor = valor.replace(/\D/g, '').slice(0, 14);
+        valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
+        valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+        valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
+        valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
+        return valor;
+    }
+
+    function formatarCPF(valor) {
+        valor = valor.replace(/\D/g, '').slice(0, 11);
+        valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+        valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+        valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        return valor;
+    }
+
+    function formatarDocumento(valor) {
+        const numeros = valor.replace(/\D/g, '');
+        return numeros.length > 11 ? formatarCNPJ(numeros) : formatarCPF(numeros);
+    }
+
+    function atualizarCampoEmpresa(docCampo, empresaCampo) {
+        if (!docCampo || !empresaCampo) return;
+        const digitos = docCampo.value.replace(/\D/g, '');
+        const ehCPF = digitos.length === 11;
+        empresaCampo.style.display = ehCPF ? 'none' : '';
+        empresaCampo.required = !ehCPF;
+    }
+
+    function animarPlaceholder(campo, texto) {
+        if (!campo) return;
+        campo.placeholder = '';
+        let index = 0;
+        function digitar() {
+            campo.placeholder = texto.substring(0, index);
+            index++;
+            if (index <= texto.length) {
+                setTimeout(digitar, 80);
+            }
+        }
+        digitar();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        preencherCamposSessao();
+
+        document.querySelectorAll('#checklistFORMATO_DESENHO input[type="checkbox"]').forEach(cb => {
+            cb.addEventListener('change', validarFormatoDesenho);
+        });
+
+        document.addEventListener('click', function (e) {
+            const botao = document.getElementById('botaoFormatoDesenho');
+            const lista = document.querySelector('#dropdownFORMATO_DESENHO .dropdown-list');
+            if (!botao.contains(e.target) && !lista.contains(e.target)) {
+                lista.style.display = 'none';
+            }
+        });
+
+        document.getElementById('botaoFormatoDesenho').classList.add('placeholder-style');
+
+        document.getElementById("nomeDesenho").value = localStorage.getItem("solicitacao_nome") || "";
+        const docDesenhoCache = localStorage.getItem("solicitacao_cnpj") || "";
+        document.getElementById("cnpjDesenho").value = formatarDocumento(docDesenhoCache);
+        document.getElementById("empresaDesenho").value = localStorage.getItem("solicitacao_empresa") || "";
+        document.getElementById("emailDesenho").value = localStorage.getItem("solicitacao_email") || "";
+        document.getElementById("FORMATO_DESENHO").value = localStorage.getItem("solicitacao_formato") || "";
+
+        const docDesenho = document.getElementById('cnpjDesenho');
+        const empresaDesenho = document.getElementById('empresaDesenho');
+        const spinnerDes = document.getElementById('spinnerEmpresaDes');
+        if (docDesenho) {
+            let ultimoCNPJDes = '';
+
+            async function buscarEmpresaDesenho() {
+                const num = docDesenho.value.replace(/\D/g, '');
+                if (num.length === 14 && num !== ultimoCNPJDes) {
+                    ultimoCNPJDes = num;
+                    spinnerDes.style.display = 'inline-block';
+                    empresaDesenho.readOnly = true;
+                    try {
+                        const r = await fetch('/Paginas/Universais/BuscarEmpresa.php?cnpj=' + num);
+                        const j = await r.json();
+                        if (j.sucesso) {
+                            empresaDesenho.value = j.nome;
+                            empresaDesenho.readOnly = true;
+                            localStorage.setItem('solicitacao_empresa', empresaDesenho.value);
+                        } else {
+                            empresaDesenho.readOnly = false;
+                        }
+                    } catch {
+                        empresaDesenho.readOnly = false;
+                    } finally {
+                        spinnerDes.style.display = 'none';
+                    }
+                } else if (num.length !== 14) {
+                    empresaDesenho.readOnly = false;
+                    ultimoCNPJDes = '';
+                }
+            }
+
+            const onDocInputDes = e => {
+                e.target.value = formatarDocumento(e.target.value);
+                buscarEmpresaDesenho();
+                atualizarCampoEmpresa(docDesenho, empresaDesenho);
+                localStorage.setItem('solicitacao_cnpj', docDesenho.value);
+            };
+            docDesenho.addEventListener('input', onDocInputDes);
+            docDesenho.addEventListener('blur', () => { buscarEmpresaDesenho(); atualizarCampoEmpresa(docDesenho, empresaDesenho); });
+            atualizarCampoEmpresa(docDesenho, empresaDesenho);
+            [300, 800, 1500, 2500].forEach(t =>
+                setTimeout(() => { buscarEmpresaDesenho(); atualizarCampoEmpresa(docDesenho, empresaDesenho); }, t)
+            );
+        }
+
+        const camposCotacaoCache = {
+            nomeCotacao: 'cotacao_nome',
+            emailCotacao: 'cotacao_email',
+            telefoneCotacao: 'cotacao_telefone',
+            quantidadeCotacao: 'cotacao_quantidade',
+            observacaoCotacao: 'cotacao_observacao',
+            empresaCotacao: 'cotacao_empresa',
+            cnpjCotacao: 'cotacao_cnpj'
+        };
+
+        Object.entries(camposCotacaoCache).forEach(([id, key]) => {
+            const campo = document.getElementById(id);
+            if (!campo) return;
+            const valor = localStorage.getItem(key);
+            if (valor) campo.value = id === 'cnpjCotacao' ? formatarDocumento(valor) : valor;
+            campo.addEventListener('input', () => localStorage.setItem(key, campo.value));
+        });
+
+        const camposCadastroCache = {
+            nomeCadastro: 'cadastro_nome',
+            emailCadastro: 'cadastro_email'
+        };
+
+        Object.entries(camposCadastroCache).forEach(([id, key]) => {
+            const campo = document.getElementById(id);
+            if (!campo) return;
+            const valor = localStorage.getItem(key);
+            if (valor) campo.value = valor;
+            campo.addEventListener('input', () => localStorage.setItem(key, campo.value));
+        });
+
+
+        validarFormatoDesenho();
+
+        const tel = document.getElementById('telefoneCotacao');
+        const cnpj = document.getElementById('cnpjCotacao');
+        const spinnerCot = document.getElementById('spinnerEmpresaCot');
+
+        const aplicarTel = e => e.target.value = formatarTelefone(e.target.value);
+        const aplicarDoc = e => e.target.value = formatarDocumento(e.target.value);
+
+        tel?.addEventListener('input', aplicarTel);
+
+        if (cnpj) {
+            const empresa = document.getElementById('empresaCotacao');
+            const onDocInput = e => {
+                aplicarDoc(e);
+                atualizarCampoEmpresa(cnpj, empresa);
+            };
+            async function buscarEmpresaCotacao() {
+                const num = cnpj.value.replace(/\D/g, '');
+                if (num.length === 14) {
+                    spinnerCot.style.display = 'inline-block';
+                    empresa.readOnly = true;
+                    try {
+                        const r = await fetch('/Paginas/Universais/BuscarEmpresa.php?cnpj=' + num);
+                        const j = await r.json();
+                        if (j.sucesso) {
+                            empresa.value = j.nome;
+                            empresa.readOnly = true;
+                        } else {
+                            empresa.readOnly = false;
+                        }
+                    } catch {
+                        empresa.readOnly = false;
+                    } finally {
+                        spinnerCot.style.display = 'none';
+                    }
+                } else {
+                    empresa.readOnly = false;
+                }
+            }
+            cnpj.addEventListener('input', onDocInput);
+            cnpj.addEventListener('blur', buscarEmpresaCotacao);
+            atualizarCampoEmpresa(cnpj, empresa);
+            [300, 800, 1500, 2500].forEach(t =>
+                setTimeout(() => { buscarEmpresaCotacao(); atualizarCampoEmpresa(cnpj, empresa); }, t)
+            );
+        }
+
+        const mapEnvio = {
+            'formulario-desenho': enviarSolicitacaoDesenho,
+            'formulario-cotacao': enviarSolicitacaoCotacao,
+            'formulario-cadastro': enviarSolicitacaoCadastro
+        };
+        Object.entries(mapEnvio).forEach(([id, fn]) => {
+            const form = document.getElementById(id);
+            form?.querySelectorAll('input, textarea').forEach(campo => {
+                campo.addEventListener('keydown', e => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        fn();
+                    }
+                });
+            });
+        });
+    });
+
+    async function enviarSolicitacaoDesenho() {
+        const nome = document.getElementById("nomeDesenho");
+        const cnpj = document.getElementById("cnpjDesenho");
+        const empresa = document.getElementById("empresaDesenho");
+        const email = document.getElementById("emailDesenho");
+
+        const nomeVal = nome.value.trim();
+        const cnpjVal = cnpj.value.trim();
+        const empresaVal = empresa.value.trim();
+        const emailVal = email.value.trim();
+
+        [nome, cnpj, empresa, email].forEach(el => el.classList.remove("campo-invalido"));
+
+        if (!nomeVal || !emailVal || (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11) || !cnpjVal) {
+            if (!nomeVal) animarErroCampo(nome);
+            else if (!emailVal) animarErroCampo(email);
+            else if (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11) animarErroCampo(empresa);
+            else animarErroCampo(cnpj);
+
+            exibirAlerta("⚠️ Por favor, preencha todos os campos antes de continuar.");
+            (!nomeVal && nome.focus()) || (!emailVal && email.focus()) ||
+                (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11 && empresa.focus()) || cnpj.focus();
+            return;
+        }
+
+        if (!emailVal.includes("@") || !emailVal.includes(".com") || emailVal.includes(" ")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ O email informado parece incorreto. Verifique o formato.");
+            email.focus();
+            return;
+        }
+
+        if (emailVal.includes(";")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ Aceitamos apenas um email por vez.");
+            email.focus();
+            return;
+        }
+
+        if (emailVal.includes("redutoresibr")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ Este recurso é destinado a solicitações externas. Para uso interno, acesse o ERP.");
+            email.focus();
+            return;
+        }
+
+        const docDigits = cnpjVal.replace(/\D/g, "");
+        let docValido = false;
+        if (docDigits.length === 11) docValido = validarCPF(docDigits);
+        else if (docDigits.length === 14) docValido = validarCNPJ(docDigits);
+        if (!docValido) {
+            animarErroCampo(cnpj);
+            exibirAlerta("⚠️O CPF ou CNPJ parece incorreto. Informe um CPF Válido com 11 Dígitos ou um CNPJ Válido com 14 Dígitos.");
+            cnpj.focus();
+            return;
+        }
+
+        const formatosSelecionados = document.getElementById("FORMATO_DESENHO").value;
+        const botao = document.getElementById("botaoFormatoDesenho");
+        const botaoEnviar = document.getElementById("botaoEnviarDesenho");
+
+        if (botaoEnviar.dataset.enviando === "true") {
+            return;
+        }
+
+        if (!formatosSelecionados) {
+            botao.classList.add("campo-invalido");
+            exibirAlerta("⚠️ Selecione ao menos um formato de arquivo para o desenho.");
+            return;
+        }
+
+        botao.classList.remove("campo-invalido");
+        botaoEnviar.disabled = true;
+        botaoEnviar.dataset.enviando = "true";
+        const spinner = document.createElement('span');
+        spinner.className = 'loading-spinner';
+        botaoEnviar.appendChild(spinner);
+
+        try {
+            const cdProduto = document.getElementById("cdProduto")?.textContent.trim().toUpperCase() || "";
+            const cdEmpresa = document.getElementById("cdEmpresaProduto")?.value.trim().toUpperCase() || "001";
+
+            const resp = await fetch("/Paginas/SolicitacaoDesenho/SolicitacaoDesenho.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({
+                    nome: nomeVal.toUpperCase(),
+                    empresa: empresaVal.toUpperCase(),
+                    email: emailVal.toUpperCase(),
+                    cpfcnpj: docDigits,
+                    formato: formatosSelecionados.toUpperCase(),
+                    cd_produto: cdProduto,
+                    cd_empresa: cdEmpresa
+                })
+            });
+            const respTexto = await resp.text();
+            const drvwIdField = respTexto.trim();
+
+            if (resp.ok) {
+                const referenciaHistorico = document.getElementById("refProduto")?.textContent.trim().toUpperCase() || cdProduto || "";
+                fetch("/Paginas/AreaCliente/Sessao/Desenhos/RegistrarDesenho.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        produto: referenciaHistorico,
+                        formato: formatosSelecionados.toUpperCase(),
+                        drvw_idfield: drvwIdField
+                    })
+                }).catch(() => { });
+                fetch("/Paginas/AreaCliente/Sessao/Desenhos/HistoricoDesenho.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        email: emailVal.toUpperCase(),
+                        produto: referenciaHistorico,
+                        formato: formatosSelecionados.toUpperCase(),
+                        drvw_idfield: drvwIdField
+                    })
+                }).catch(() => { });
+                fecharFormularioDesenho();
+                exibirAlerta("✅ Sua solicitação foi enviada com sucesso! Em torno de 10min você receberá o desenho por email.");
+            } else {
+                exibirAlerta(respTexto || "⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
+            }
+        } catch {
+            exibirAlerta("⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
+        } finally {
+            botaoEnviar.disabled = false;
+            botaoEnviar.dataset.enviando = "false";
+            spinner.remove();
+        }
+    }
+
+    async function enviarSolicitacaoCotacao() {
+        const nome = document.getElementById("nomeCotacao");
+        const email = document.getElementById("emailCotacao");
+        const telefone = document.getElementById("telefoneCotacao");
+        const quantidade = document.getElementById("quantidadeCotacao");
+        const observacao = document.getElementById("observacaoCotacao");
+        const empresa = document.getElementById("empresaCotacao");
+        const cnpj = document.getElementById("cnpjCotacao");
+        const botaoEnviar = document.getElementById("botaoEnviarCotacao");
+
+        const nomeVal = nome.value.trim();
+        const emailVal = email.value.trim();
+        const telefoneVal = telefone.value.trim();
+        const quantidadeVal = quantidade.value.trim();
+        const observacaoVal = observacao.value.trim();
+        const empresaVal = empresa.value.trim();
+        const cnpjVal = cnpj.value.trim();
+
+        [nome, email, telefone, empresa, cnpj, quantidade].forEach(el => el.classList.remove("campo-invalido"));
+
+        if (!nomeVal || !emailVal || (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11) || !cnpjVal || !quantidadeVal) {
+            if (!nomeVal) animarErroCampo(nome);
+            else if (!emailVal) animarErroCampo(email);
+            else if (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11) animarErroCampo(empresa);
+            else if (!quantidadeVal) animarErroCampo(quantidade);
+            else animarErroCampo(cnpj);
+
+            exibirAlerta("⚠️ Por favor, preencha todos os campos obrigatórios antes de continuar.");
+            (!nomeVal && nome.focus()) || (!emailVal && email.focus()) || (!telefoneVal && telefone.focus()) ||
+                (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11 && empresa.focus()) ||
+                (!quantidadeVal && quantidade.focus()) || cnpj.focus();
+            return;
+        }
+
+        if (!emailVal.includes("@") || !emailVal.includes(".com") || emailVal.includes(" ")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ O email informado parece incorreto. Verifique o formato.");
+            email.focus();
+            return;
+        }
+
+        if (emailVal.includes(";")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ Aceitamos apenas um email por vez.");
+            email.focus();
+            return;
+        }
+
+        if (emailVal.includes("redutoresibr")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ Este recurso é destinado a solicitações externas. Para uso interno, acesse o ERP.");
+            email.focus();
+            return;
+        }
+
+        const docDigits = cnpjVal.replace(/\D/g, "");
+        let docValido = false;
+        if (docDigits.length === 11) docValido = validarCPF(docDigits);
+        else if (docDigits.length === 14) docValido = validarCNPJ(docDigits);
+        if (!docValido) {
+            animarErroCampo(cnpj);
+            exibirAlerta("⚠️ O CPF ou CNPJ parece incorreto. Informe um CPF Válido com 11 Dígitos ou um CNPJ Válido com 14 Dígitos.");
+            cnpj.focus();
+            return;
+        }
+
+        botaoEnviar.disabled = true;
+        const spinner = document.createElement('span');
+        spinner.className = 'loading-spinner';
+        botaoEnviar.appendChild(spinner);
+
+        try {
+            const cdProdNota = document.getElementById("cdProduto")?.textContent.trim().toUpperCase() || "";
+            const referenciaProdNota = document.getElementById("refProduto")?.textContent.trim().toUpperCase() || "";
+
+            const resp = await fetch("/Paginas/SolicitacaoCotacao/SolicitacaoCotacao.php", {
+
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({
+                    nome: nomeVal.toUpperCase(),
+                    empresa: empresaVal.toUpperCase(),
+                    email: emailVal.toUpperCase(),
+                    telefone: telefoneVal,
+                    quantidade: quantidadeVal,
+                    observacao: observacaoVal.toUpperCase(),
+                    cnpj: cnpjVal,
+                    cd_produto: cdProdNota,
+                    referencia_produto: referenciaProdNota
+                })
+            });
+            const respTexto = await resp.text();
+
+            if (resp.ok) {
+                fecharFormularioCotacao();
+                exibirAlerta(respTexto);
+                await fetch("/Paginas/AreaCliente/Sessao/Cotacoes/RegistrarCotacao.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        produto: referenciaProdNota,
+                        oportunidade: (respTexto.match(/\d+/) || [])[0] || ''
+                    })
+                });
+                fetch("/Paginas/AreaCliente/Sessao/Cotacoes/HistoricoCotacao.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        email: emailVal.toUpperCase(),
+                        produto: referenciaProdNota,
+                        oportunidade: (respTexto.match(/\d+/) || [])[0] || ''
+                    })
+                }).catch(() => { });
+            } else {
+                exibirAlerta(respTexto || "⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
+            }
+        } catch {
+            exibirAlerta("⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
+        } finally {
+            botaoEnviar.disabled = false;
+            spinner.remove();
+        }
+    }
+
+    async function enviarSolicitacaoCadastro() {
+        const nome = document.getElementById("nomeCadastro");
+        const email = document.getElementById("emailCadastro");
+        const botaoEnviar = document.getElementById("botaoEnviarCadastro");
+
+        const nomeVal = nome.value.trim();
+        const emailVal = email.value.trim();
+
+        [nome, email].forEach(el => el.classList.remove("campo-invalido"));
+
+        if (!nomeVal || !emailVal) {
+            (!nomeVal && animarErroCampo(nome)) || animarErroCampo(email);
+            exibirAlerta("⚠️ Por favor, preencha todos os campos antes de continuar.");
+            (!nomeVal && nome.focus()) || email.focus();
+            return;
+        }
+
+        if (!emailVal.includes("@") || !emailVal.includes(".com") || emailVal.includes(" ")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ O email informado parece incorreto. Verifique o formato.");
+            email.focus();
+            return;
+        }
+
+        if (emailVal.includes(";")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ Aceitamos apenas um email por vez.");
+            email.focus();
+            return;
+        }
+
+        if (emailVal.includes("redutoresibr")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ Este recurso é destinado a solicitações externas. Para uso interno, acesse o ERP.");
+            email.focus();
+            return;
+        }
+
+        botaoEnviar.disabled = true;
+        const spinner = document.createElement('span');
+        spinner.className = 'loading-spinner';
+        botaoEnviar.appendChild(spinner);
+
+        try {
+            const referenciaProdNota = document.getElementById("refProduto")?.textContent.trim().toUpperCase() || "";
+            const linkAtual = gerarLinkAtual();
+
+            const resp = await fetch("/Paginas/SolicitacaoCadastroProduto/SolicitacaoCadastroProduto.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({
+                    nome: nomeVal.toUpperCase(),
+                    email: emailVal.toUpperCase(),
+                    referencia_produto: referenciaProdNota,
+                    link: linkAtual
+                })
+            });
+            const respTexto = await resp.text();
+
+            if (resp.ok) {
+                fecharFormularioCadastro();
+                exibirAlerta(respTexto);
+                await fetch("/Paginas/AreaCliente/Sessao/CadastrosProduto/RegistrarCadastroProduto.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        produto: referenciaProdNota,
+                        oportunidade: (respTexto.match(/\d+/) || [])[0] || ''
+                    })
+                });
+                fetch("/Paginas/AreaCliente/Sessao/CadastrosProduto/HistoricoCadastroProduto.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        email: emailVal.toUpperCase(),
+                        produto: referenciaProdNota,
+                        oportunidade: (respTexto.match(/\d+/) || [])[0] || ''
+                    })
+                }).catch(() => { });
+            } else {
+                exibirAlerta(respTexto || "⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
+            }
+        } catch {
+            exibirAlerta("⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
+        } finally {
+            botaoEnviar.disabled = false;
+            spinner.remove();
+        }
+    }
+</script>
+<div style="height:120px;"></div>

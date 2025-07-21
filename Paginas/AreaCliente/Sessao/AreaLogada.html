@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+    <link href="/Layout/Imagens/Logotipos/Icone.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="/Layout/Imagens/Logotipos/Icone.ico" rel="icon" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/Layout/Imagens/Logotipos/LogotipoAplicativo192192.webp">
+    <link rel="manifest" href="/Manifest.json">
+    <meta name="theme-color" content="#ec4115">
+    <meta name="color-scheme" content="light dark">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Área do Cliente - Redutores IBR</title>
+    <meta name="description" content="Acesse a área do cliente para o Configurador Online da Redutores IBR" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:title" content="Área do Cliente - Redutores IBR" />
+    <meta property="og:description" content="Acesse a área do cliente para o Configurador Online da Redutores IBR" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/Layout/Imagens/Logotipos/Logotipo.svg" />
+
+    <script>
+        (function () {
+            function getPref() {
+                try {
+                    if (window.LGPDCOOKIES && typeof LGPDCOOKIES.getValueCookie === 'function') {
+                        var c = LGPDCOOKIES.getValueCookie('modoEscuro');
+                        if (c !== null && c !== '') return c;
+                    }
+                } catch (e) { }
+                try {
+                    var v = localStorage.getItem('modoEscuro');
+                    if (v !== null) return v;
+                } catch (e) { }
+                return null;
+            }
+            var tema = getPref();
+            var meta = document.querySelector('meta[name="color-scheme"]');
+            if (tema === '1') {
+                document.documentElement.classList.add('dark-mode');
+                if (meta) meta.setAttribute('content', 'dark');
+                document.addEventListener('DOMContentLoaded', function () {
+                    document.body.classList.add('dark-mode');
+                });
+            } else if (tema === '0') {
+                if (meta) meta.setAttribute('content', 'light');
+            }
+        })();
+    </script>
+
+    <script>
+        (function () {
+            function getThemePreference() {
+                try {
+                    if (window.LGPDCOOKIES && typeof LGPDCOOKIES.getValueCookie === 'function') {
+                        const c = LGPDCOOKIES.getValueCookie('modoEscuro');
+                        if (c !== null && c !== '') return c;
+                    }
+                } catch (e) { }
+                try {
+                    const stored = localStorage.getItem('modoEscuro');
+                    if (stored !== null) return stored;
+                } catch (e) { }
+                return '0';
+            }
+
+            function applySavedTheme() {
+                const tema = getThemePreference();
+                const meta = document.querySelector('meta[name="color-scheme"]');
+                const isDark = tema === '1';
+                document.documentElement.classList.toggle('dark-mode', isDark);
+                if (document.body) document.body.classList.toggle('dark-mode', isDark);
+                if (meta) meta.setAttribute('content', isDark ? 'dark' : 'light');
+            }
+
+            document.addEventListener('DOMContentLoaded', applySavedTheme);
+            window.addEventListener('pageshow', applySavedTheme);
+        })();
+    </script>
+
+    <link href="/Paginas/AreaCliente/Estrutura/TipografiaAreaCliente.min.css" rel="stylesheet">
+    <link href="/Paginas/AreaCliente/Estrutura/LayoutCadastroAreaCliente.min.css" rel="stylesheet" as="style"
+        onload="this.onload=null;">
+    <link href="/Paginas/AreaCliente/Estrutura/LayoutAreaCliente.min.css" rel="stylesheet" as="style"
+        onload="this.onload=null;">
+    <link href="/Layout/Estrutura/Layout.min.css" rel="stylesheet">
+
+    <script src="/CSRFSetup.min.js"></script>
+    <script id="lgpd-key" urlBase="" prefix="COOKIES"></script>
+    <script src="/Paginas/Universais/ValidacaoDocumento.min.js"></script>
+    <script>window.keepLoading = true;</script>
+</head>
+
+<body>
+    <div id="loader" class="loader">
+        <div class="spinner"></div>
+    </div>
+    <script>
+        (async function () {
+            try {
+                const resp = await fetch('/Paginas/AreaCliente/AcessoCadastro/Acesso/ValidarSessao.php');
+                const dados = await resp.json();
+                if (!dados.sucesso) {
+                    location.href = '/AreaCliente';
+                }
+            } catch (e) {
+                location.href = '/AreaCliente';
+            }
+        })();
+    </script>
+    <main>
+
+        <div class="vertical-nav bg-body bg-opacity-100" id="sidebar">
+            <div class="py-4 ps-5 pe-3 mb-4 d-flex align-items-start">
+                <div class="media">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="87.22" height="59.095" viewBox="0 0 87.22 59.095">
+                        <g id="logo" transform="translate(-189.856 -139.634)">
+                            <path id="Caminho_1" data-name="Caminho 1"
+                                d="M206.519,139.634l-16.663,16.315v42.78h87.22v-59.1Z" transform="translate(0 0)"
+                                fill="#ec4115" fill-rule="evenodd"></path>
+                            <path id="Caminho_2" data-name="Caminho 2"
+                                d="M314.023,236.475a11.131,11.131,0,0,1,7.588,2.459q2.816,2.459,2.816,7.378a9.668,9.668,0,0,1-1.7,5.693,9.864,9.864,0,0,1,1.7,6.029,9.52,9.52,0,0,1-2.792,7.009,9.956,9.956,0,0,1-7.374,2.8h-6.348v-7.875h6.157a2.051,2.051,0,0,0,2.1-2.078,1.819,1.819,0,0,0-.477-1.257,2.027,2.027,0,0,0-1.575-.532h-6.2v-7.636l6.109-.048a2.069,2.069,0,0,0,1.572-.582,1.983,1.983,0,0,0,.576-1.454,1.789,1.789,0,0,0-.527-1.309,2.133,2.133,0,0,0-1.583-.533h-8.342v23.3h-8.591V245.1l8.591-8.62Zm-27.228,8.62,8.591-8.62v7.865l-8.591,8.535Z"
+                                transform="translate(-86.617 -86.53)" fill="#fff" fill-rule="evenodd"></path>
+                            <path id="Caminho_3" data-name="Caminho 3"
+                                d="M340.337,274.907v-5.024h5.55v.5H341.3v1.715h4.389v.469H341.3v1.849h4.583v.5Zm-3.6-5.024a4.05,4.05,0,0,1,2.028.368,1.215,1.215,0,0,1,.506,1.125,1.156,1.156,0,0,1-.335.939,2.216,2.216,0,0,1-1.161.342,3.013,3.013,0,0,1,.727.16,1.234,1.234,0,0,1,.492.314.629.629,0,0,1,.173.43v1.346h-.99v-1.1a.759.759,0,0,0-.323-.7,2.289,2.289,0,0,0-1.184-.208h-3.11v2h-.968v-5.024Zm.023.5h-3.178v2.016h3.062a5.306,5.306,0,0,0,.789-.049,1.43,1.43,0,0,0,.536-.185.787.787,0,0,0,.323-.725v-.167a.767.767,0,0,0-.231-.658,2.549,2.549,0,0,0-1.3-.234Zm-8.837-.536q.7,0,1.215.024a6.094,6.094,0,0,1,.991.126,1.722,1.722,0,0,1,.744.32.98.98,0,0,1,.28.358,2.075,2.075,0,0,1,.167.968v1.728a1.311,1.311,0,0,1-.447,1.1,1.475,1.475,0,0,1-.64.316,4.638,4.638,0,0,1-.862.137q-.447.03-.976.03h-.99a9.86,9.86,0,0,1-1.319-.078,2.552,2.552,0,0,1-.973-.318,1.313,1.313,0,0,1-.565-1.2v-1.782a4.091,4.091,0,0,1,.024-.477,1.291,1.291,0,0,1,.118-.4,1.157,1.157,0,0,1,.283-.368,1.681,1.681,0,0,1,.672-.321,4.69,4.69,0,0,1,.869-.134q.453-.028,1.1-.028Zm-.022.5h-.357q-.475,0-.806.022a2.791,2.791,0,0,0-.588.1.912.912,0,0,0-.4.222.8.8,0,0,0-.2.458l-.035.353v1.836a1.146,1.146,0,0,0,.287.824.965.965,0,0,0,.559.236,9.075,9.075,0,0,0,1.021.065h.562q.928,0,1.385-.042a1.361,1.361,0,0,0,.69-.218.984.984,0,0,0,.332-.825v-1.931a.924.924,0,0,0-.38-.857,1.8,1.8,0,0,0-.841-.215q-.216-.014-.657-.018l-.575-.008Zm-7.642,4.569v-4.529h-2.788v-.5h6.567v.5H321.25v4.529Zm-7.047-.457a1.723,1.723,0,0,1,.256.015q.765-.016,1.182-.056a1.54,1.54,0,0,0,.637-.172.532.532,0,0,0,.3-.329,2.079,2.079,0,0,0,.06-.555v-3.47h.991v3.6a1.192,1.192,0,0,1-.7,1.152,3.612,3.612,0,0,1-1.17.262q-.692.053-1.743.053-.821,0-1.351-.037a4.278,4.278,0,0,1-1-.185,1.279,1.279,0,0,1-.5-.28,1.112,1.112,0,0,1-.284-.417,1.341,1.341,0,0,1-.089-.48v-3.665h.967v3.65a.7.7,0,0,0,.4.744,2.455,2.455,0,0,0,.682.136q.415.033,1.126.052a1.474,1.474,0,0,1,.242-.015Zm-7.49.457h-4.468v-5.024h4.226a5.4,5.4,0,0,1,1.59.191,2.253,2.253,0,0,1,.943.539,1.753,1.753,0,0,1,.416,1.233v1.071a1.728,1.728,0,0,1-1.313,1.8,4.1,4.1,0,0,1-1.395.195Zm-.331-.5a5.192,5.192,0,0,0,1-.08,1.421,1.421,0,0,0,.631-.275.983.983,0,0,0,.357-.542,3.04,3.04,0,0,0,.081-.739v-1.11a1.153,1.153,0,0,0-.732-1.095,2.538,2.538,0,0,0-1.075-.192h-3.421v4.033Zm-10.851.5v-5.024h5.55v.5h-4.583v1.715H299.9v.469h-4.389v1.849h4.583v.5Zm-3.6-5.024a4.053,4.053,0,0,1,2.028.368,1.215,1.215,0,0,1,.506,1.125,1.156,1.156,0,0,1-.335.939,2.216,2.216,0,0,1-1.161.342,3.011,3.011,0,0,1,.727.16,1.233,1.233,0,0,1,.492.314.629.629,0,0,1,.173.43v1.346h-.99v-1.1a.759.759,0,0,0-.323-.7,2.289,2.289,0,0,0-1.184-.208h-3.11v2h-.968v-5.024Zm.023.5h-3.178v2.016h3.063a5.3,5.3,0,0,0,.789-.049,1.43,1.43,0,0,0,.536-.185.787.787,0,0,0,.323-.725v-.167a.767.767,0,0,0-.231-.658,2.548,2.548,0,0,0-1.3-.234Zm4.422-23.532v21h-8.591V255.382l8.591-8.535Zm47.663-10.372a11.131,11.131,0,0,1,7.589,2.459q2.816,2.459,2.816,7.378a9.493,9.493,0,0,1-2.792,7,9.246,9.246,0,0,1-1.091.936l3.645,3.733v10.044l-16.609-16.645h4.152a3.923,3.923,0,0,0,2.912-1.011,3.475,3.475,0,0,0,1-2.552,3.218,3.218,0,0,0-.883-2.407,4.26,4.26,0,0,0-3.031-.867h-6.014v23.254h-8.591V245.082l8.591-8.607Zm6.894,33.367q.908,0,1.532.063a3.087,3.087,0,0,1,.945.211,1.031,1.031,0,0,1,.61,1v.14h-.968a3.236,3.236,0,0,0-.066-.451.421.421,0,0,0-.2-.253.939.939,0,0,0-.383-.142,4.234,4.234,0,0,0-.585-.059q-.335-.013-.889-.013H349.7a4.63,4.63,0,0,0-1.693.2.425.425,0,0,0-.226.236,1.184,1.184,0,0,0-.06.415.707.707,0,0,0,.5.764,2.515,2.515,0,0,0,.571.1q.335.027.707.03l.772.007q1.133.047,1.536.08a2.5,2.5,0,0,1,.734.167.87.87,0,0,1,.536.454,2.41,2.41,0,0,1,.142.686,1.484,1.484,0,0,1-.184.752,1.125,1.125,0,0,1-.564.479,3.874,3.874,0,0,1-1.073.195q-.648.04-1.621.04h-.357a11.172,11.172,0,0,1-1.207-.058,2.765,2.765,0,0,1-.891-.231.96.96,0,0,1-.477-.4,1.446,1.446,0,0,1-.156-.612,1.54,1.54,0,0,0,.022-.3h.989a.294.294,0,0,1-.022.113,2.276,2.276,0,0,0,.087.536.507.507,0,0,0,.27.3,1.9,1.9,0,0,0,.748.147q.312.013.945.013.428,0,.658.015a4.808,4.808,0,0,0,1.44-.175.537.537,0,0,0,.322-.285,1.256,1.256,0,0,0,.08-.486v-.08a.663.663,0,0,0-.3-.636,1.219,1.219,0,0,0-.508-.141q-.33-.033-1-.061l-.824-.016q-.405-.008-.847-.035a7.749,7.749,0,0,1-.8-.087,2.8,2.8,0,0,1-.606-.163.929.929,0,0,1-.454-.384,1.444,1.444,0,0,1-.156-.595,1.185,1.185,0,0,1,.635-1.178,2.906,2.906,0,0,1,1.007-.247q.61-.055,1.572-.055Z"
+                                transform="translate(-86.617 -86.53)" fill="#fff" fill-rule="evenodd"></path>
+                        </g>
+                    </svg>
+                    <a href="https://configurador.redutoresibr.com.br/" target="_self"
+                        class="fs-6 fw-normal link-dark link-opacity-50-hover d-flex gap-2 align-items-center mt-3">
+                        Voltar para o configurador de produtos
+                        <svg id="voltarSiteIcon" xmlns="http://www.w3.org/2000/svg" width="14.115" height="14.202"
+                            viewBox="0 0 14.115 14.202">
+                            <line id="Linha_17" data-name="Linha 17" x1="8.233" y2="8.33"
+                                transform="translate(0.711 5.169)" fill="none" stroke="#000" stroke-width="0.25"></line>
+                            <path id="Caminho_938" data-name="Caminho 938" d="M0,0,5.074,5.072,0,10.145"
+                                transform="translate(1.854 5.088) rotate(-45)" fill="none" stroke="#000"
+                                stroke-width="0.25">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+                <button id="sidebarClose" type="button"
+                    class="navbar-toggler btn__menu ps-3 py-2 d-flex flex-column gap-2 justify-content-between align-items-end d-lg-none mb-4 me-4 ms-auto show"
+                    aria-label="Fechar menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+
+            <p class="fs-2 text-dark fw-normal ps-5 pe-3 my-5 lh-1" id="saudacao"></p>
+
+            <ul class="nav flex-column mb-0">
+                <li class="nav-item mb-3 position-relative">
+                    <a id="linkDados" href="https://configurador.redutoresibr.com.br/AreaCliente/Sessao"
+                        class="nav-link link-dark link-opacity-50-hover ps-5 d-flex gap-3 align-items-center fs-6 lh-1 active">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-person fs-5 text-orange" viewBox="0 0 14 14">
+                            <path
+                                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"
+                                stroke="currentColor" stroke-width="0.25" />
+                        </svg>
+                        Dados Cadastrais
+                    </a>
+                </li>
+
+                <li class="nav-item mb-3 position-relative">
+                    <a id="linkConfigurador" href="https://configurador.redutoresibr.com.br/"
+                        class="nav-link link-dark link-opacity-50-hover ps-5 d-flex gap-3 align-items-center fs-6 lh-1">
+                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="20"
+                            height="20" class="fs-5 text-orange">
+                            <path
+                                d="M4 10L3.29289 10.7071L2.58579 10L3.29289 9.29289L4 10ZM21 18C21 18.5523 20.5523 19 20 19C19.4477 19 19 18.5523 19 18L21 18ZM8.29289 15.7071L3.29289 10.7071L4.70711 9.29289L9.70711 14.2929L8.29289 15.7071ZM3.29289 9.29289L8.29289 4.29289L9.70711 5.70711L4.70711 10.7071L3.29289 9.29289ZM4 9L14 9L14 11L4 11L4 9ZM21 16L21 18L19 18L19 16L21 16ZM14 9C17.866 9 21 12.134 21 16L19 16C19 13.2386 16.7614 11 14 11L14 9Z"
+                                stroke-width="0.25" />
+                        </svg>
+                        Configurador de Produtos
+                    </a>
+                </li>
+
+                <li class="nav-item mb-3 position-relative">
+                    <a id="linkSite" target=”_blank” href="https://redutoresibr.com.br/"
+                        class="nav-link link-dark link-opacity-50-hover ps-5 d-flex gap-3 align-items-center fs-6 lh-1">
+                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="20"
+                            height="20" class="fs-5 text-orange" style="transform: scaleX(-1);">
+                            <path
+                                d="M4 10L3.29289 10.7071L2.58579 10L3.29289 9.29289L4 10ZM21 18C21 18.5523 20.5523 19 20 19C19.4477 19 19 18.5523 19 18L21 18ZM8.29289 15.7071L3.29289 10.7071L4.70711 9.29289L9.70711 14.2929L8.29289 15.7071ZM3.29289 9.29289L8.29289 4.29289L9.70711 5.70711L4.70711 10.7071L3.29289 9.29289ZM4 9L14 9L14 11L4 11L4 9ZM21 16L21 18L19 18L19 16L21 16ZM14 9C17.866 9 21 12.134 21 16L19 16C19 13.2386 16.7614 11 14 11L14 9Z"
+                                stroke-width="0.25" />
+                        </svg>
+                        Site IBR
+                    </a>
+                </li>
+
+                <li class="nav-item mb-3 position-relative">
+                    <a id="linkSite" target=”_blank” href="https://www.redutoresibr.com.br/AreaRestrita/Login"
+                        class="nav-link link-dark link-opacity-50-hover ps-5 d-flex gap-3 align-items-center fs-6 lh-1">
+                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="20"
+                            height="20" class="fs-5 text-orange" style="transform: scaleX(-1);">
+                            <path
+                                d="M4 10L3.29289 10.7071L2.58579 10L3.29289 9.29289L4 10ZM21 18C21 18.5523 20.5523 19 20 19C19.4477 19 19 18.5523 19 18L21 18ZM8.29289 15.7071L3.29289 10.7071L4.70711 9.29289L9.70711 14.2929L8.29289 15.7071ZM3.29289 9.29289L8.29289 4.29289L9.70711 5.70711L4.70711 10.7071L3.29289 9.29289ZM4 9L14 9L14 11L4 11L4 9ZM21 16L21 18L19 18L19 16L21 16ZM14 9C17.866 9 21 12.134 21 16L19 16C19 13.2386 16.7614 11 14 11L14 9Z"
+                                stroke-width="0.25" />
+                        </svg>
+                        Área do Cliente IBR
+                    </a>
+                </li>
+
+                <li class="nav-item mb-3 position-relative">
+                    <a id="linkProdutos" href="#"
+                        class="nav-link link-dark link-opacity-50-hover ps-5 d-flex gap-3 align-items-center fs-6 lh-1"
+                        onclick="event.preventDefault(); mostrarProdutos();">
+                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                            transform="matrix(-1, 0, 0, 1, 0, 0)" width="20" height="20" stroke="currentColor"
+                            stroke-width="0.25" class="text-orange">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M12.4856 1.12584C12.1836 0.958052 11.8164 0.958052 11.5144 1.12584L2.51436 6.12584L2.5073 6.13784L2.49287 6.13802C2.18749 6.3177 2 6.64568 2 7V16.9999C2 17.3631 2.19689 17.6977 2.51436 17.874L11.5022 22.8673C11.8059 23.0416 12.1791 23.0445 12.4856 22.8742L21.4856 17.8742C21.8031 17.6978 22 17.3632 22 17V7C22 6.64568 21.8125 6.31781 21.5071 6.13813C21.4996 6.13372 21.4921 6.12942 21.4845 6.12522L12.4856 1.12584ZM5.05923 6.99995L12.0001 10.856L14.4855 9.47519L7.74296 5.50898L5.05923 6.99995ZM16.5142 8.34816L18.9409 7L12 3.14396L9.77162 4.38195L16.5142 8.34816ZM4 16.4115V8.69951L11 12.5884V20.3004L4 16.4115ZM13 20.3005V12.5884L20 8.69951V16.4116L13 20.3005Z" />
+                        </svg>
+                        Meus Produtos Gerados
+                    </a>
+                </li>
+                <li class="nav-item mb-3 position-relative">
+                    <a id="linkDesenhos" href="https://configurador.redutoresibr.com.br/AreaCliente/Desenhos"
+                        class="nav-link link-dark link-opacity-50-hover ps-5 d-flex gap-3 align-items-center fs-6 lh-1">
+                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="20"
+                            height="20" stroke="currentColor" stroke-width="0.25" class="text-orange">
+                            <path
+                                d="M12.5535 16.5061C12.4114 16.6615 12.2106 16.75 12 16.75C11.7894 16.75 11.5886 16.6615 11.4465 16.5061L7.44648 12.1311C7.16698 11.8254 7.18822 11.351 7.49392 11.0715C7.79963 10.792 8.27402 10.8132 8.55352 11.1189L11.25 14.0682V3C11.25 2.58579 11.5858 2.25 12 2.25C12.4142 2.25 12.75 2.58579 12.75 3V14.0682L15.4465 11.1189C15.726 10.8132 16.2004 10.792 16.5061 11.0715C16.8118 11.351 16.833 11.8254 16.5535 12.1311L12.5535 16.5061Z" />
+                            <path
+                                d="M3.75 15C3.75 14.5858 3.41422 14.25 3 14.25C2.58579 14.25 2.25 14.5858 2.25 15V15.0549C2.24998 16.4225 2.24996 17.5248 2.36652 18.3918C2.48754 19.2919 2.74643 20.0497 3.34835 20.6516C3.95027 21.2536 4.70814 21.5125 5.60825 21.6335C6.47522 21.75 7.57754 21.75 8.94513 21.75H15.0549C16.4225 21.75 17.5248 21.75 18.3918 21.6335C19.2919 21.5125 20.0497 21.2536 20.6517 20.6516C21.2536 20.0497 21.5125 19.2919 21.6335 18.3918C21.75 17.5248 21.75 16.4225 21.75 15.0549V15C21.75 14.5858 21.4142 14.25 21 14.25C20.5858 14.25 20.25 14.5858 20.25 15C20.25 16.4354 20.2484 17.4365 20.1469 18.1919C20.0482 18.9257 19.8678 19.3142 19.591 19.591C19.3142 19.8678 18.9257 20.0482 18.1919 20.1469C17.4365 20.2484 16.4354 20.25 15 20.25H9C7.56459 20.25 6.56347 20.2484 5.80812 20.1469C5.07435 20.0482 4.68577 19.8678 4.40901 19.591C4.13225 19.3142 3.9518 18.9257 3.85315 18.1919C3.75159 17.4365 3.75 16.4354 3.75 15Z" />
+                        </svg>
+                        Meus Desenhos Solicitados
+                    </a>
+                </li>
+                <li class="nav-item mb-3 position-relative">
+                    <a id="linkCotacoes" href="https://configurador.redutoresibr.com.br/AreaCliente/Cotacoes"
+                        class="nav-link link-dark link-opacity-50-hover ps-5 d-flex gap-3 align-items-center fs-6 lh-1">
+                        <svg fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="20"
+                            height="20" stroke="currentColor" stroke-width="0.25" class="text-orange">
+                            <path
+                                d="M-12.179,3.178A6.972,6.972,0,0,0-18.022,0,6.985,6.985,0,0,0-25,6.977a6.972,6.972,0,0,0,3.179,5.845A6.972,6.972,0,0,0-15.978,16,6.985,6.985,0,0,0-9,9.023,6.972,6.972,0,0,0-12.179,3.178Zm.133,3.8a5.984,5.984,0,0,1-5.976,5.978A5.985,5.985,0,0,1-24,6.977,5.984,5.984,0,0,1-18.022,1,5.983,5.983,0,0,1-12.046,6.977ZM-15.978,15A5.938,5.938,0,0,1-19.6,13.769a6.983,6.983,0,0,0,1.574.186,6.985,6.985,0,0,0,6.976-6.978A6.967,6.967,0,0,0-11.231,5.4,5.939,5.939,0,0,1-10,9.023,5.984,5.984,0,0,1-15.978,15ZM-18.522,2.5V3H-19a2,2,0,0,0-2,2,2,2,0,0,0,2,2h.478V9.5h-.228A1.252,1.252,0,0,1-20,8.25a.5.5,0,0,0-.5-.5.5.5,0,0,0-.5.5,2.253,2.253,0,0,0,2.25,2.25h.228v1a.5.5,0,0,0,.5.5.5.5,0,0,0,.5-.5v-1h.272A2.253,2.253,0,0,0-15,8.25,2.253,2.253,0,0,0-17.25,6h-.272V4H-17a1,1,0,0,1,1,1v.5a.5.5,0,0,0,.5.5.5.5,0,0,0,.5-.5V5a2,2,0,0,0-2-2h-.522V2.5a.5.5,0,0,0-.5-.5A.5.5,0,0,0-18.522,2.5ZM-16,8.25A1.252,1.252,0,0,1-17.25,9.5h-.272V7h.272A1.252,1.252,0,0,1-16,8.25ZM-18.522,6H-19a1,1,0,0,1-1-1,1,1,0,0,1,1-1h.478Z"
+                                transform="translate(25)" />
+                        </svg>
+                        Minhas Cotações Solicitadas
+                    </a>
+                </li>
+
+                <li class="nav-item mb-3 position-relative">
+                    <a id="linkCadastros" href="https://configurador.redutoresibr.com.br/AreaCliente/Cadastros"
+                        class="nav-link link-dark link-opacity-50-hover ps-5 d-flex gap-3 align-items-center fs-6 lh-1">
+                        <svg fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="20"
+                            height="20" stroke="currentColor" stroke-width="0.25" class="text-orange">
+                            <path
+                                d="m15.66 7-.91-2.68L8.62.85a1.28 1.28 0 0 0-1.24 0L1.25 4.32.34 7a1.24 1.24 0 0 0 .58 1.5l.33.18V11a1.25 1.25 0 0 0 .63 1l5.5 3.11a1.28 1.28 0 0 0 1.24 0l5.5-3.11a1.25 1.25 0 0 0 .63-1V8.68l.33-.18a1.24 1.24 0 0 0 .58-1.5zM10 9.87l-.48-1.28L14 6.13l.44 1.28zM8 1.94 13.46 5 8 8 2.54 5zM1.52 7.41 2 6.13l4.48 2.46L6 9.87zm1 1.95 4.25 2.32.62-1.84v3.87L2.5 11zM13.5 11l-4.88 2.71V9.84l.63 1.84 4.25-2.32z" />
+                        </svg>
+                        Meus Cadastros de<br>Produtos Solicitados
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="page-content" id="content">
+            <div
+                class="top-container p-3 px-lg-5 py-lg-4 bg-white border-bottom shadow-sm d-flex align-items-center justify-content-between gap-3 position-sticky top-0 z-3">
+                <button id="sidebarCollapse" type="button" class="btn btn-light shadow-sm d-lg-none">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#4a4a4a">
+                        <path d="M4 6H20M4 12H20M4 18H20" stroke-width="0.25" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+
+                <nav style="--bs-breadcrumb-divider: '\\F231';" aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li id="breadcrumbItem" class="breadcrumb-item active" aria-current="page">Dados Cadastrais</li>
+                    </ol>
+                </nav>
+                <a id="btnSair" href="/Paginas/AreaCliente/Sessao/Sair/Sair.php" class="btn btn-light shadow-sm">
+                    Sair
+                </a>
+            </div>
+
+            <div id="dadosSection" class="container py-5 px-lg-4">
+
+                <div class="mx-lg-5">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 id="tituloPagina" class="fs-2 text-dark fw-normal mb-5">Dados Cadastrais</h2>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body px-lg-5">
+                                    <div class="row align-items-center justify-content-between">
+                                        <div class="col-md-6 col-12 my-3">
+                                            <p class="text-secondary small mb-2">Nome</p>
+                                            <p class="fs-6 fw-normal text-dark mb-0" id="nomeCliente"></p>
+                                        </div>
+                                        <div class="col-md-6 col-12 my-3 pessoaJuridica">
+                                            <p class="text-secondary small mb-2">Nome da Empresa</p>
+                                            <p class="fs-6 fw-normal text-dark mb-0" id="nomeEmpresa"></p>
+                                        </div>
+                                        <div class="col-md-6 col-12 my-3">
+                                            <p class="text-secondary small mb-2">CPF/CNPJ</p>
+                                            <p class="fs-6 fw-normal text-dark mb-0" id="cpfcnpj"></p>
+                                        </div>
+                                        <div class="col-md-6 col-12 my-3">
+                                            <p class="text-secondary small mb-2">E-mail</p>
+                                            <p class="fs-6 fw-normal text-dark mb-0" id="emailP"></p>
+                                        </div>
+
+                                        <div class="col-md-6 col-12 my-3">
+                                            <p class="text-secondary small mb-2">Código de Cliente IBR</p>
+                                            <p class="fs-6 fw-normal text-dark mb-0" id="codigoIBR"></p>
+                                        </div>
+                                        <div class="col-md-6 col-12 my-3">
+                                            <p class="text-secondary small mb-2 d-flex align-items-center gap-1">
+                                                Grupo de Permissões
+                                                <button class="help-icon" data-help-title="Grupo de Permissões"
+                                                    data-help-class="perm-popover"
+                                                    data-help-text="🥉 Bronze<br>Você já se cadastrou no site, mas ainda não entrou em contato com nossa equipe comercial para finalizar seu cadastro interno. Nesse nível, você tem acesso básico ao sistema, similar ao que está disponível sem login, com o benefício de ter as informações salvas na sua conta.<br><br>🥈 Prata<br>Além do cadastro no site, você já possui um registro interno conosco. Com isso, mantém os acessos básicos do sistema e suas atividades são registradas na conta para maior praticidade.<br><br>🥇 Ouro<br>Você completou seu cadastro no site, já está registrado internamente e entrou em contato com nossos consultores. Com esse nível, além dos acessos anteriores, você pode consultar estoques, preços e aproveitar funcionalidades exclusivas do site.<br><br>💎 Diamante<br>Cadastro completo, registro interno ativo e solicitação feita aos nossos consultores. Esse nível oferece tudo dos níveis anteriores, além de recursos especiais como conversões de redutores.<br>Obs: este nível está em fase de desenvolvimento e em breve trará ainda mais novidades!"></button>
+                                            </p>
+                                            <p class="fs-6 fw-normal text-dark mb-0" id="grupoPermissao"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 my-3 d-flex justify-content-end gap-2">
+                                        <button type="button" class="btn btn-orange px-3 rounded-0"
+                                            style="min-width: 140px;" data-bs-toggle="modal"
+                                            data-bs-target="#modalDados">
+                                            Editar Dados
+                                        </button>
+                                        <button type="button" class="btn btn-outline-orange px-3 rounded-0"
+                                            style="min-width: 140px;" data-bs-toggle="modal"
+                                            data-bs-target="#modalExcluir">
+                                            Excluir Conta
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="modal fade" id="modalDados" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Alterar Dados</h1>
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="modal__alterarDados">
+                                <form id="alterarDados" novalidate="novalidate">
+                                    <input name="__RequestVerificationToken" type="hidden"
+                                        value="rRE7sa46PdeV5XXKv1xaesYB5UQ8iZzYaro-ESAg4YsfeM-Z-EjYHfILl5bRI6a4d7Lbg_5HS-vFWyntBoW4XHEdM5Ei9rfORK2KvBckTnWw-tlZUygu-gBciwS8bA4jkA_ypD7SyWEgSpfJKZT9YA2">
+                                    <div class="input-group mb-3 bg-white border rounded py-2 input-form">
+                                        <span
+                                            class="input-group-text bg-transparent px-4 border-top-0 border-bottom-0 border-start-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                fill="currentColor" class="bi bi-person" viewBox="0 0 14 14">
+                                                <path
+                                                    d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
+                                            </svg>
+                                        </span>
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control bg-transparent border-0" id="Nome"
+                                                name="Nome" placeholder="Nome">
+                                            <label for="Nome">Nome</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex column-gap-3 flex-wrap bg-white border rounded py-2 px-3 mb-3">
+                                        <p class="fs-6 fw-normal text-dark w-100 mb-1">Tipo:</p>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="Tipo" value="2"
+                                                id="tipoPF" checked>
+                                            <label class="form-check-label" for="tipoPF">Pessoa Física</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="Tipo" value="1"
+                                                id="tipoPJ">
+                                            <label class="form-check-label" for="tipoPJ">Pessoa Jurídica</label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group mb-3 bg-white border rounded py-2 pessoaFisica input-form">
+                                        <span
+                                            class="input-group-text bg-transparent px-4 border-top-0 border-bottom-0 border-start-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                fill="currentColor" class="bi bi-file-binary" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.526 13.09c.976 0 1.524-.79 1.524-2.205 0-1.412-.548-2.203-1.524-2.203-.978 0-1.526.79-1.526 2.203 0 1.415.548 2.206 1.526 2.206zm-.832-2.205c0-1.05.29-1.612.832-1.612.358 0 .607.247.733.721L4.7 11.137a6.749 6.749 0 0 1-.006-.252zm.832 1.614c-.36 0-.606-.246-.732-.718l1.556-1.145c.003.079.005.164.005.249 0 1.052-.29 1.614-.829 1.614zm5.329.501v-.595H9.73V8.772h-.69l-1.19.786v.688L8.986 9.5h.05v2.906h-1.18V13h3z" />
+                                                <path
+                                                    d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
+                                            </svg>
+                                        </span>
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control bg-transparent border-0" id="Cpf"
+                                                name="Cpf" placeholder="CPF" maxlength="14" autocomplete="off">
+                                            <label for="Cpf">CPF</label>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="input-group mb-3 bg-white border rounded py-2 pessoaJuridica d-none input-form">
+                                        <span
+                                            class="input-group-text bg-transparent px-4 border-top-0 border-bottom-0 border-start-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                fill="currentColor" class="bi bi-file-binary" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.526 13.09c.976 0 1.524-.79 1.524-2.205 0-1.412-.548-2.203-1.524-2.203-.978 0-1.526.79-1.526 2.203 0 1.415.548 2.206 1.526 2.206zm-.832-2.205c0-1.05.29-1.612.832-1.612.358 0 .607.247.733.721L4.7 11.137a6.749 6.749 0 0 1-.006-.252zm.832 1.614c-.36 0-.606-.246-.732-.718l1.556-1.145c.003.079.005.164.005.249 0 1.052-.29 1.614-.829 1.614zm5.329.501v-.595H9.73V8.772h-.69l-1.19.786v.688L8.986 9.5h.05v2.906h-1.18V13h3z" />
+                                                <path
+                                                    d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
+                                            </svg>
+                                        </span>
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control bg-transparent border-0" id="Cnpj"
+                                                name="Cnpj" placeholder="CNPJ" maxlength="18" autocomplete="off">
+                                            <label for="Cnpj">CNPJ</label>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="input-group mb-3 bg-white border rounded py-2 pessoaJuridica d-none input-form position-relative">
+                                        <span
+                                            class="input-group-text bg-transparent px-4 border-top-0 border-bottom-0 border-start-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z" />
+                                            </svg>
+                                        </span>
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control bg-transparent border-0" readonly
+                                                id="NomeEmpresa" name="NomeEmpresa" placeholder="Nome da empresa">
+                                            <label for="NomeEmpresa">Nome da Empresa</label>
+                                        </div>
+                                        <span id="spinnerEmpresa"
+                                            class="loading-spinner pessoaJuridica position-absolute top-50 start-50 translate-middle"
+                                            style="display:none;"></span>
+                                    </div>
+                                    <div class="input-group mb-3 bg-white border rounded py-2 input-form">
+                                        <span
+                                            class="input-group-text bg-transparent px-4 border-top-0 border-bottom-0 border-start-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16"
+                                                viewBox="0 0 20.769 15.544">
+                                                <g id="noun-envelope-1071784" transform="translate(-8 -21.1)">
+                                                    <g id="Grupo_168" data-name="Grupo 168"
+                                                        transform="translate(8 21.1)">
+                                                        <path id="Caminho_930" data-name="Caminho 930"
+                                                            d="M27.088,21.1H9.681A1.762,1.762,0,0,0,8,22.929V34.816a1.761,1.761,0,0,0,1.681,1.829H27.088a1.762,1.762,0,0,0,1.681-1.829V22.929A1.761,1.761,0,0,0,27.088,21.1Zm-.321,1.076-7.216,5.189a1.486,1.486,0,0,1-1.113.484,1.591,1.591,0,0,1-1.113-.484L10,22.176Zm1.014,12.64a.723.723,0,0,1-.692.753H9.681a.724.724,0,0,1-.692-.753V22.929a1.234,1.234,0,0,1,.049-.3l.025.027,7.57,5.458a2.442,2.442,0,0,0,1.8.807,2.483,2.483,0,0,0,1.8-.807l7.463-5.458.025-.027a1.043,1.043,0,0,1,.049.3V34.816Z"
+                                                            transform="translate(-8 -21.1)"></path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control bg-transparent border-0" id="Email"
+                                                name="Email" placeholder="E-mail" autocomplete="email">
+                                            <label for="Email">E-mail</label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="input-group bg-white border rounded py-2 input-form">
+                                            <span
+                                                class="input-group-text bg-transparent px-4 border-top-0 border-bottom-0 border-start-0">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    fill="currentColor" class="bi bi-lock" viewBox="0 0 13.216 15.419">
+                                                    <g id="noun-lock-6031914" transform="translate(-4 -2)">
+                                                        <g id="Layer_2" data-name="Layer 2" transform="translate(4 2)">
+                                                            <path id="Caminho_932" data-name="Caminho 932"
+                                                                d="M15.564,6.956h-1.1V5.3a3.3,3.3,0,0,0-3.3-3.3h-1.1a3.3,3.3,0,0,0-3.3,3.3V6.956h-1.1A1.652,1.652,0,0,0,4,8.608v7.159a1.652,1.652,0,0,0,1.652,1.652h9.912a1.652,1.652,0,0,0,1.652-1.652V8.608a1.652,1.652,0,0,0-1.652-1.652ZM7.855,5.3a2.2,2.2,0,0,1,2.2-2.2h1.1a2.2,2.2,0,0,1,2.2,2.2V6.956H7.855Zm8.26,10.463a.551.551,0,0,1-.551.551H5.652a.551.551,0,0,1-.551-.551V8.608a.551.551,0,0,1,.551-.551h9.912a.551.551,0,0,1,.551.551Zm-4.956-2.2v1.1a.551.551,0,1,1-1.1,0v-1.1a.551.551,0,0,1,1.1,0Z"
+                                                                transform="translate(-4 -2)"></path>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            <div class="form-floating flex-grow-1">
+                                                <input type="password" class="form-control bg-transparent border-0"
+                                                    id="NovaSenha" name="NovaSenha" placeholder="Senha"
+                                                    autocomplete="new-password">
+                                                <label for="NovaSenha">Senha</label>
+                                            </div>
+                                            <button type="button"
+                                                class="btn btn-outline-secondary border-0 toggle-password"
+                                                data-target="#NovaSenha">Exibir</button>
+                                        </div>
+                                    </div>
+                                    <ul id="passwordCriteriaEdit" class="password-popover list-unstyled small d-none">
+                                        <li id="edit-criterion-length" class="text-danger">Mínimo 8 caracteres</li>
+                                        <li id="edit-criterion-upper" class="text-danger">Uma letra maiúscula</li>
+                                        <li id="edit-criterion-lower" class="text-danger">Uma letra minúscula</li>
+                                        <li id="edit-criterion-digit" class="text-danger">Um número</li>
+                                        <li id="edit-criterion-special" class="text-danger">Um caractere especial</li>
+                                    </ul>
+                                    <div class="mb-3">
+                                        <div class="input-group bg-white border rounded py-2 input-form">
+                                            <span
+                                                class="input-group-text bg-transparent px-4 border-top-0 border-bottom-0 border-start-0">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    viewBox="0 0 13.216 15.419">
+                                                    <g id="noun-lock-6031914" transform="translate(-4 -2)">
+                                                        <g id="Layer_2" data-name="Layer 2" transform="translate(4 2)">
+                                                            <path id="Caminho_932" data-name="Caminho 932"
+                                                                d="M15.564,6.956h-1.1V5.3a3.3,3.3,0,0,0-3.3-3.3h-1.1a3.3,3.3,0,0,0-3.3,3.3V6.956h-1.1A1.652,1.652,0,0,0,4,8.608v7.159a1.652,1.652,0,0,0,1.652,1.652h9.912a1.652,1.652,0,0,0,1.652-1.652V8.608a1.652,1.652,0,0,0-1.652-1.652ZM7.855,5.3a2.2,2.2,0,0,1,2.2-2.2h1.1a2.2,2.2,0,0,1,2.2,2.2V6.956H7.855Zm8.26,10.463a.551.551,0,0,1-.551.551H5.652a.551.551,0,0,1-.551-.551V8.608a.551.551,0,0,1,.551-.551h9.912a.551.551,0,0,1,.551.551Zm-4.956-2.2v1.1a.551.551,0,1,1-1.1,0v-1.1a.551.551,0,0,1,1.1,0Z"
+                                                                transform="translate(-4 -2)"></path>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            <div class="form-floating flex-grow-1">
+                                                <input type="password" class="form-control bg-transparent border-0"
+                                                    id="SenhaNovaRep" name="SenhaRepetida" placeholder="Repita a Senha"
+                                                    autocomplete="new-password">
+                                                <label for="SenhaNovaRep">Repita a Senha</label>
+                                            </div>
+                                            <button type="button"
+                                                class="btn btn-outline-secondary border-0 toggle-password"
+                                                data-target="#SenhaNovaRep">Exibir</button>
+                                        </div>
+                                    </div>
+                                    <div id="passwordMatchEdit" class="mt-2"></div>
+                                    <div id="mensagemEditar" aria-live="assertive"
+                                        style="margin-top:16px;font-weight:bold;color:#ec4115;min-height:20px;"></div>
+
+                                    <button id="btnSalvarDados" type="submit"
+                                        class="btn btn-orange w-100 mt-4 py-3 rounded-0"
+                                        style="display:none;">Salvar</button>
+
+                                    <button type="button" data-bs-dismiss="modal"
+                                        class="btn btn-outline-secondary w-100 mt-4 py-3 rounded-0">Cancelar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="produtosSection" class="container py-5 px-lg-4 d-none">
+                <div class="mx-lg-5">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="fs-2 text-dark fw-normal mb-4">Meus Produtos Gerados</h2>
+                            <form id="filtrosProdutos" onsubmit="return false;" class="mb-4">
+                                <div class="row align-items-end justify-content-center">
+                                    <div class="col-xxl col-lg-4 col-md-6 col-12 mb-3">
+                                        <label class="form-label" for="filtroProduto">Código, Referência ou
+                                            Descrição</label>
+                                        <input type="search" id="filtroProduto"
+                                            class="form-control rounded-1 border p-3" placeholder="Digite...">
+                                    </div>
+                                    <div class="col-xxl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3">
+                                        <label class="form-label" for="dataIniProduto">Data de</label>
+                                        <input type="date" id="dataIniProduto"
+                                            class="form-control rounded-1 border p-3">
+                                    </div>
+                                    <div class="col-xxl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3">
+                                        <label class="form-label" for="dataFimProduto">Data até</label>
+                                        <input type="date" id="dataFimProduto"
+                                            class="form-control rounded-1 border p-3">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mb-3 d-flex flex-column flex-sm-row gap-2">
+                                        <button id="btnPesquisarProdutos"
+                                            class="btn btn-orange p-3 px-5 w-100">Pesquisar</button>
+                                        <button id="btnLimparProdutos"
+                                            class="btn btn-outline-orange p-3 px-5 w-100">Limpar filtros</button>
+                                        <button id="btnOrdenarProdutos"
+                                            class="btn btn-outline-orange p-3 px-5 w-100">Ordenar A-Z</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <p id="resultadoProdutos" class="resultado__busca fs-6 fw-normal text-secondary"></p>
+                            <div id="listaProdutosGerados" class="row"></div>
+                            <nav id="paginacaoProdutos" aria-label="Paginador">
+                                <ul class="pagination gap-2"></ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="desenhosSection" class="container py-5 px-lg-4 d-none">
+                <div class="mx-lg-5">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="fs-2 text-dark fw-normal mb-4">Meus Desenhos Solicitados</h2>
+                            <form id="filtrosDesenhos" onsubmit="return false;" class="mb-4">
+                                <div class="row align-items-end justify-content-center">
+                                    <div class="col-xxl col-lg-4 col-md-6 col-12 mb-3">
+                                        <label class="form-label" for="filtroDesenho">Código, Referência ou
+                                            Descrição</label>
+                                        <input type="search" id="filtroDesenho"
+                                            class="form-control rounded-1 border p-3" placeholder="Digite...">
+                                    </div>
+                                    <div class="col-xxl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3">
+                                        <label class="form-label" for="dataIniDesenho">Data de</label>
+                                        <input type="date" id="dataIniDesenho"
+                                            class="form-control rounded-1 border p-3">
+                                    </div>
+                                    <div class="col-xxl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3">
+                                        <label class="form-label" for="dataFimDesenho">Data até</label>
+                                        <input type="date" id="dataFimDesenho"
+                                            class="form-control rounded-1 border p-3">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mb-3 d-flex flex-column flex-sm-row gap-2">
+                                        <button id="btnPesquisarDesenhos"
+                                            class="btn btn-orange p-3 px-5 w-100">Pesquisar</button>
+                                        <button id="btnLimparDesenhos"
+                                            class="btn btn-outline-orange p-3 px-5 w-100">Limpar filtros</button>
+                                        <button id="btnOrdenarDesenhos"
+                                            class="btn btn-outline-orange p-3 px-5 w-100">Ordenar A-Z</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <p id="resultadoDesenhos" class="resultado__busca fs-6 fw-normal text-secondary"></p>
+                            <div id="listaDesenhos" class="row"></div>
+                            <nav id="paginacaoDesenhos" aria-label="Paginador">
+                                <ul class="pagination gap-2"></ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="cotacoesSection" class="container py-5 px-lg-4 d-none">
+                <div class="mx-lg-5">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="fs-2 text-dark fw-normal mb-4">Minhas Cotações Solicitadas</h2>
+                            <form id="filtrosCotacoes" onsubmit="return false;" class="mb-4">
+                                <div class="row align-items-end justify-content-center">
+                                    <div class="col-xxl col-lg-4 col-md-6 col-12 mb-3">
+                                        <label class="form-label" for="filtroCotacao">Código, Referência ou
+                                            Descrição</label>
+                                        <input type="search" id="filtroCotacao"
+                                            class="form-control rounded-1 border p-3" placeholder="Digite...">
+                                    </div>
+                                    <div class="col-xxl col-lg-4 col-md-6 col-12 mb-3">
+                                        <label class="form-label" for="filtroOportunidade">Número da
+                                            Oportunidade</label>
+                                        <input type="number" id="filtroOportunidade" inputmode="numeric" min="0"
+                                            step="1" class="form-control rounded-1 border p-3" placeholder="Digite...">
+                                    </div>
+                                    <div class="col-xxl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3">
+                                        <label class="form-label" for="dataIniCotacao">Data de</label>
+                                        <input type="date" id="dataIniCotacao"
+                                            class="form-control rounded-1 border p-3">
+                                    </div>
+                                    <div class="col-xxl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3">
+                                        <label class="form-label" for="dataFimCotacao">Data até</label>
+                                        <input type="date" id="dataFimCotacao"
+                                            class="form-control rounded-1 border p-3">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mb-3 d-flex flex-column flex-sm-row gap-2">
+                                        <button id="btnPesquisarCotacoes"
+                                            class="btn btn-orange p-3 px-5 w-100">Pesquisar</button>
+                                        <button id="btnLimparCotacoes"
+                                            class="btn btn-outline-orange p-3 px-5 w-100">Limpar filtros</button>
+                                        <button id="btnOrdenarCotacoes"
+                                            class="btn btn-outline-orange p-3 px-5 w-100">Ordenar A-Z</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <p id="resultadoCotacoes" class="resultado__busca fs-6 fw-normal text-secondary"></p>
+                            <div id="listaCotacoes" class="row"></div>
+                            <nav id="paginacaoCotacoes" aria-label="Paginador">
+                                <ul class="pagination gap-2"></ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="cadastrosSection" class="container py-5 px-lg-4 d-none">
+                <div class="mx-lg-5">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="fs-2 text-dark fw-normal mb-4">Meus Cadastros de<br>Produtos Solicitados</h2>
+                            <form id="filtrosCadastros" onsubmit="return false;" class="mb-4">
+                                <div class="row align-items-end justify-content-center">
+                                    <div class="col-xxl col-lg-4 col-md-6 col-12 mb-3">
+                                        <label class="form-label" for="filtroCadastro">Código, Referência ou
+                                            Descrição</label>
+                                        <input type="search" id="filtroCadastro"
+                                            class="form-control rounded-1 border p-3" placeholder="Digite...">
+                                    </div>
+                                    <div class="col-xxl col-lg-4 col-md-6 col-12 mb-3">
+                                        <label class="form-label" for="filtroOportunidadeCadastro">Número da
+                                            Oportunidade</label>
+                                        <input type="number" id="filtroOportunidadeCadastro" inputmode="numeric" min="0"
+                                            step="1" class="form-control rounded-1 border p-3" placeholder="Digite...">
+                                    </div>
+                                    <div class="col-xxl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3">
+                                        <label class="form-label" for="dataIniCadastro">Data de</label>
+                                        <input type="date" id="dataIniCadastro"
+                                            class="form-control rounded-1 border p-3">
+                                    </div>
+                                    <div class="col-xxl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3">
+                                        <label class="form-label" for="dataFimCadastro">Data até</label>
+                                        <input type="date" id="dataFimCadastro"
+                                            class="form-control rounded-1 border p-3">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mb-3 d-flex flex-column flex-sm-row gap-2">
+                                        <button id="btnPesquisarCadastros"
+                                            class="btn btn-orange p-3 px-5 w-100">Pesquisar</button>
+                                        <button id="btnLimparCadastros"
+                                            class="btn btn-outline-orange p-3 px-5 w-100">Limpar filtros</button>
+                                        <button id="btnOrdenarCadastros"
+                                            class="btn btn-outline-orange p-3 px-5 w-100">Ordenar A-Z</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <p id="resultadoCadastros" class="resultado__busca fs-6 fw-normal text-secondary"></p>
+                            <div id="listaCadastros" class="row"></div>
+                            <nav id="paginacaoCadastros" aria-label="Paginador">
+                                <ul class="pagination gap-2"></ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="tituloModalExcluir" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="tituloModalExcluir">Excluir Conta</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Poxa 😔 ficamos tristes que você quer ir... Tem certeza de que deseja excluir sua conta? Essa
+                            ação é permanente e todos os seus dados serão removidos.</p>
+                        <div id="mensagemExcluir" aria-live="assertive"
+                            style="margin-top:16px;font-weight:bold;color:#ec4115;min-height:20px;"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary"
+                            data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-orange" id="confirmarExcluirConta">Excluir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"></script>
+
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const btn = document.getElementById('sidebarCollapse');
+                const closeBtn = document.getElementById('sidebarClose');
+                const sidebar = document.getElementById('sidebar');
+                const content = document.getElementById('content');
+                if (btn && sidebar && content) {
+                    btn.addEventListener('click', function () {
+                        sidebar.classList.toggle('active');
+                        content.classList.toggle('active');
+                    });
+                }
+                if (closeBtn && sidebar && content) {
+                    closeBtn.addEventListener('click', function () {
+                        sidebar.classList.remove('active');
+                        content.classList.remove('active');
+                    });
+                }
+            });
+
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+            const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+            const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+        </script>
+
+        <script>
+            function formatarCNPJ(valor) {
+                valor = valor.replace(/\D/g, '').slice(0, 14);
+                valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
+                valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+                valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
+                valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
+                return valor;
+            }
+
+            function formatarCPF(valor) {
+                valor = valor.replace(/\D/g, '').slice(0, 11);
+                valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+                valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+                valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                return valor;
+            }
+
+            function formatarDocumento(valor) {
+                const numeros = valor.replace(/\D/g, '');
+                return numeros.length > 11 ? formatarCNPJ(numeros) : formatarCPF(numeros);
+            }
+        </script>
+
+        <script>
+            async function preencherDados() {
+                try {
+                    const resp = await fetch('/Paginas/AreaCliente/AcessoCadastro/Acesso/ValidarSessao.php');
+                    const dados = await resp.json();
+                    if (!dados.sucesso) {
+                        window.location.href = '/AreaCliente';
+                        return;
+                    }
+
+                    document.getElementById('saudacao').textContent = `Olá, ${dados.nome}`;
+                    document.getElementById('nomeCliente').textContent = dados.nome;
+                    document.getElementById('cpfcnpj').textContent = formatarDocumento(dados.cpfcnpj || '');
+                    document.getElementById('emailP').textContent = dados.email;
+                    const codigoExibicao = (dados.codigo === 0 || dados.codigo === '0')
+                        ? 'ENTRE EM CONTATO COM NOSSOS CONSULTORES COMERCIAIS'
+                        : dados.codigo;
+                    document.getElementById('codigoIBR').textContent = codigoExibicao;
+                    document.getElementById('grupoPermissao').textContent = dados.grupo;
+
+                    const docDigits = (dados.cpfcnpj || '').replace(/\D/g, '');
+                    const empresaDiv = document.querySelector('.pessoaJuridica');
+                    if (docDigits.length === 14) {
+                        empresaDiv.style.display = '';
+                        document.getElementById('nomeEmpresa').textContent = dados.empresa;
+                    } else {
+                        empresaDiv.style.display = 'none';
+                    }
+                } catch (e) {
+                    //window.location.href = '/AreaCliente';
+                } finally {
+                    window.keepLoading = false;
+                    if (window.hideLoadingScreen) window.hideLoadingScreen();
+                }
+            }
+
+            preencherDados();
+        </script>
+
+        <script>
+            document.getElementById('confirmarExcluirConta')?.addEventListener('click', async () => {
+                const botao = document.getElementById('confirmarExcluirConta');
+                const mensagem = document.getElementById('mensagemExcluir');
+                if (botao) botao.disabled = true;
+                if (mensagem) {
+                    mensagem.style.color = '#ec4115';
+                    mensagem.textContent = '📨 Enviando Email...';
+                }
+                try {
+                    const resp = await fetch('/Paginas/AreaCliente/Sessao/ExcluirConta/SolicitarExclusao.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                    });
+                    let dados = null;
+                    try {
+                        dados = await resp.json();
+                    } catch { /* Não é JSON válido */ }
+                    if (resp.ok && dados && dados.sucesso) {
+                        if (mensagem) {
+                            mensagem.style.color = 'green';
+                            mensagem.textContent = dados.mensagem || '✅ Verifique o e-mail para confirmar a exclusão.';
+                        }
+                    } else {
+                        if (mensagem) {
+                            mensagem.style.color = '#ec4115';
+                            mensagem.textContent = '⚠️ Erro ao solicitar exclusão.';
+                        }
+                    }
+                } catch (e) {
+                    if (mensagem) {
+                        mensagem.style.color = '#ec4115';
+                        mensagem.textContent = '⚠️ Erro ao solicitar exclusão.';
+                    }
+                } finally {
+                    if (botao) botao.disabled = false;
+                }
+            });
+        </script>
+        <script>
+            let dadosOriginais = {};
+            document.getElementById('modalDados')?.addEventListener('show.bs.modal', carregarDadosEditar);
+
+            function atualizarCampoEmpresa() {
+                const doc = document.getElementById('Cpf');
+                const cnpj = document.getElementById('Cnpj');
+                const empresa = document.getElementById('NomeEmpresa');
+                const pj = document.getElementById('tipoPJ').checked;
+                if (pj) {
+                    document.querySelectorAll('.pessoaFisica').forEach(el => el.classList.add('d-none'));
+                    document.querySelectorAll('.pessoaJuridica').forEach(el => el.classList.remove('d-none'));
+                } else {
+                    document.querySelectorAll('.pessoaFisica').forEach(el => el.classList.remove('d-none'));
+                    document.querySelectorAll('.pessoaJuridica').forEach(el => el.classList.add('d-none'));
+                }
+                if (!pj) return;
+                const num = cnpj.value.replace(/\D/g, '');
+                if (num.length === 14) {
+                    document.getElementById('spinnerEmpresa').style.display = 'inline-block';
+                    fetch('/Paginas/Universais/BuscarEmpresa.php?cnpj=' + num)
+                        .then(r => r.json())
+                        .then(j => { if (j.sucesso) { empresa.value = j.nome; } })
+                        .catch(() => { })
+                        .finally(() => { document.getElementById('spinnerEmpresa').style.display = 'none'; });
+                }
+            }
+
+            document.getElementById('tipoPF')?.addEventListener('change', () => { atualizarCampoEmpresa(); verificarAlteracoes(); });
+            document.getElementById('tipoPJ')?.addEventListener('change', () => { atualizarCampoEmpresa(); verificarAlteracoes(); });
+            document.getElementById('Cpf')?.addEventListener('input', e => { e.target.value = formatarCPF(e.target.value); verificarAlteracoes(); });
+            document.getElementById('Cnpj')?.addEventListener('input', e => { e.target.value = formatarCNPJ(e.target.value); atualizarCampoEmpresa(); verificarAlteracoes(); });
+            document.getElementById('Nome')?.addEventListener('input', verificarAlteracoes);
+            document.getElementById('NomeEmpresa')?.addEventListener('input', verificarAlteracoes);
+            document.getElementById('Email')?.addEventListener('input', verificarAlteracoes);
+
+            const senhaCampoEdit = document.getElementById('NovaSenha');
+            const senhaRepCampoEdit = document.getElementById('SenhaNovaRep');
+            const criteriosEdit = {
+                length: document.getElementById('edit-criterion-length'),
+                upper: document.getElementById('edit-criterion-upper'),
+                lower: document.getElementById('edit-criterion-lower'),
+                digit: document.getElementById('edit-criterion-digit'),
+                special: document.getElementById('edit-criterion-special')
+            };
+            const mensagensEdit = {
+                length: 'Mínimo 8 caracteres',
+                upper: 'Uma letra maiúscula',
+                lower: 'Uma letra minúscula',
+                digit: 'Um número',
+                special: 'Um caractere especial'
+            };
+            for (const [k, li] of Object.entries(criteriosEdit)) {
+                if (li) li.textContent = `❌ ${mensagensEdit[k]}`;
+            }
+            const matchMsgEdit = document.getElementById('passwordMatchEdit');
+
+            function validarSenhaEdit() {
+                const valor = senhaCampoEdit.value;
+                const checks = {
+                    length: /.{8,}/.test(valor),
+                    upper: /[A-Z]/.test(valor),
+                    lower: /[a-z]/.test(valor),
+                    digit: /\d/.test(valor),
+                    special: /[^\w\s]/.test(valor)
+                };
+                let todos = true;
+                for (const [k, ok] of Object.entries(checks)) {
+                    const li = criteriosEdit[k];
+                    if (li) {
+                        li.classList.toggle('text-success', ok);
+                        li.classList.toggle('text-danger', !ok);
+                        li.textContent = `${ok ? '✅' : '❌'} ${mensagensEdit[k]}`;
+                    }
+                    todos &&= ok;
+                }
+                senhaCampoEdit.classList.toggle('is-valid', todos);
+                senhaCampoEdit.classList.toggle('is-invalid', !todos && valor !== '');
+                validarConfirmacaoEdit();
+            }
+
+            function validarConfirmacaoEdit() {
+                const match = senhaRepCampoEdit.value === senhaCampoEdit.value && senhaCampoEdit.value !== '';
+                senhaRepCampoEdit.classList.toggle('is-valid', match);
+                senhaRepCampoEdit.classList.toggle('is-invalid', !match && senhaRepCampoEdit.value !== '');
+                if (matchMsgEdit) {
+                    if (senhaRepCampoEdit.value === '') {
+                        matchMsgEdit.textContent = '';
+                        matchMsgEdit.className = 'mt-2';
+                    } else if (match) {
+                        matchMsgEdit.textContent = 'As senhas conferem.';
+                        matchMsgEdit.className = 'valid-feedback d-block';
+                    } else {
+                        matchMsgEdit.textContent = 'As senhas não conferem.';
+                        matchMsgEdit.className = 'invalid-feedback d-block';
+                    }
+                }
+                verificarAlteracoes();
+            }
+
+            senhaCampoEdit?.addEventListener('input', validarSenhaEdit);
+            senhaRepCampoEdit?.addEventListener('input', validarConfirmacaoEdit);
+
+            const closedEyeSvg = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.97993 8.22257C3.05683 9.31382 2.35242 10.596 1.93436 12.0015C3.22565 16.338 7.24311 19.5 11.9991 19.5C12.9917 19.5 13.9521 19.3623 14.8623 19.1049M6.22763 6.22763C7.88389 5.13558 9.86771 4.5 12 4.5C16.756 4.5 20.7734 7.66205 22.0647 11.9985C21.3528 14.3919 19.8106 16.4277 17.772 17.772M6.22763 6.22763L3 3M6.22763 6.22763L9.87868 9.87868M17.772 17.772L21 21M17.772 17.772L14.1213 14.1213M14.1213 14.1213C14.6642 13.5784 15 12.8284 15 12C15 10.3431 13.6569 9 12 9C11.1716 9 10.4216 9.33579 9.87868 9.87868M14.1213 14.1213L9.87868 9.87868" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+            const openEyeSvg = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.03555 12.3224C1.96647 12.1151 1.9664 11.8907 2.03536 11.6834C3.42372 7.50972 7.36079 4.5 12.0008 4.5C16.6387 4.5 20.5742 7.50692 21.9643 11.6776C22.0334 11.8849 22.0335 12.1093 21.9645 12.3166C20.5761 16.4903 16.6391 19.5 11.9991 19.5C7.36119 19.5 3.42564 16.4931 2.03555 12.3224Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+            document.querySelectorAll('.toggle-password').forEach(btn => {
+                const target = document.querySelector(btn.dataset.target);
+                if (target) btn.innerHTML = closedEyeSvg;
+                btn.addEventListener('click', () => {
+                    if (!target) return;
+                    const visible = target.type === 'text';
+                    target.type = visible ? 'password' : 'text';
+                    btn.innerHTML = visible ? closedEyeSvg : openEyeSvg;
+                    target.focus();
+                });
+            });
+
+            const criteriaEditEl = document.getElementById('passwordCriteriaEdit');
+            if (senhaCampoEdit && criteriaEditEl) {
+                senhaCampoEdit.addEventListener('focus', () => criteriaEditEl.classList.remove('d-none'));
+                senhaCampoEdit.addEventListener('blur', () => criteriaEditEl.classList.add('d-none'));
+            }
+
+            async function carregarDadosEditar() {
+                try {
+                    const resp = await fetch('/Paginas/AreaCliente/AcessoCadastro/Acesso/ValidarSessao.php');
+                    const dados = await resp.json();
+                    if (!dados.sucesso) return;
+                    document.getElementById('Nome').value = dados.nome;
+                    document.getElementById('Email').value = dados.email;
+                    const dig = (dados.cpfcnpj || '').replace(/\D/g, '');
+                    if (dig.length === 14) {
+                        document.getElementById('tipoPJ').checked = true;
+                        document.getElementById('Cnpj').value = formatarCNPJ(dig);
+                        document.getElementById('NomeEmpresa').value = dados.empresa;
+                    } else {
+                        document.getElementById('tipoPF').checked = true;
+                        document.getElementById('Cpf').value = formatarCPF(dig);
+                    }
+                    atualizarCampoEmpresa();
+                    dadosOriginais = {
+                        nome: dados.nome.trim(),
+                        email: dados.email.toLowerCase(),
+                        cpfcnpj: dig,
+                        empresa: dados.empresa,
+                        pj: dig.length === 14
+                    };
+                    verificarAlteracoes();
+                } catch { }
+            }
+
+            function verificarAlteracoes() {
+                const nome = document.getElementById('Nome')?.value.trim();
+                const email = document.getElementById('Email')?.value.trim().toLowerCase();
+                const pj = document.getElementById('tipoPJ')?.checked;
+                const doc = pj ?
+                    document.getElementById('Cnpj')?.value.replace(/\D/g, '') :
+                    document.getElementById('Cpf')?.value.replace(/\D/g, '');
+                const empresa = document.getElementById('NomeEmpresa')?.value;
+                const senha = document.getElementById('NovaSenha')?.value;
+                const alterado =
+                    nome !== dadosOriginais.nome ||
+                    email !== dadosOriginais.email ||
+                    doc !== dadosOriginais.cpfcnpj ||
+                    pj !== dadosOriginais.pj ||
+                    (pj && empresa !== dadosOriginais.empresa) ||
+                    (senha && senha.trim() !== '');
+                const btn = document.getElementById('btnSalvarDados');
+                if (btn) btn.style.display = alterado ? '' : 'none';
+            }
+
+            document.getElementById('alterarDados')?.addEventListener('submit', async e => {
+                e.preventDefault();
+                const nome = document.getElementById('Nome').value.trim();
+                const usarPJ = document.getElementById('tipoPJ').checked;
+                const doc = usarPJ ? document.getElementById('Cnpj').value : document.getElementById('Cpf').value;
+                const empresa = document.getElementById('NomeEmpresa').value;
+                const email = document.getElementById('Email').value.trim().toLowerCase();
+                const mensagem = document.getElementById('mensagemEditar');
+                mensagem.style.color = '#ec4115';
+                mensagem.textContent = '📨 Enviando Email...';
+                const senhaNova = document.getElementById('NovaSenha').value;
+                const senhaRep = document.getElementById('SenhaNovaRep').value;
+                const dados = new URLSearchParams({ nome, email, cpfcnpj: doc, empresa, senha: senhaNova, senhaRepetida: senhaRep });
+                const btn = e.target.querySelector('button[type="submit"]');
+                if (btn) btn.disabled = true;
+                fetch('/Paginas/AreaCliente/Sessao/EditarPerfil/SolicitarAtualizacao.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                    body: dados.toString()
+                }).then(async r => {
+                    let j = null;
+                    try {
+                        j = await r.json();
+                    } catch {
+                        mensagem.textContent = (await r.text()) || 'Erro';
+                        return;
+                    }
+                    mensagem.style.color = j.sucesso ? 'green' : '#ec4115';
+                    mensagem.textContent = j.mensagem;
+                    if (j.sucesso) {
+                        dadosOriginais = {
+                            nome: nome,
+                            email: email,
+                            cpfcnpj: doc.replace(/\D/g, ''),
+                            empresa: empresa,
+                            pj: usarPJ
+                        };
+                        document.getElementById('NovaSenha').value = '';
+                        document.getElementById('SenhaNovaRep').value = '';
+                        verificarAlteracoes();
+                    }
+                }).catch(() => { mensagem.textContent = 'Erro'; })
+                    .finally(() => { if (btn) btn.disabled = false; });
+            });
+        </script>
+
+        <script>
+            let linkDados, linkProdutos, linkDesenhos, linkCotacoes, linkCadastros;
+            let dadosSection, produtosSection, desenhosSection, cotacoesSection, cadastrosSection;
+            let breadcrumb, titulo;
+            const ITENS_POR_PAGINA = 5;
+            let carregouProdutos = false;
+            let carregouDesenhos = false;
+            let carregouCotacoes = false;
+            let carregouCadastros = false;
+            let produtosDados = [];
+            let desenhosDados = [];
+            let cotacoesDados = [];
+            let cadastrosDados = [];
+            let ordemProdutos = false;
+            let ordemDesenhos = false;
+            let ordemCotacoes = false;
+            let ordemCadastros = false;
+
+            function parseBrDate(str) {
+                if (!str) return new Date('1970-01-01');
+                const [d, m, rest] = str.split('/');
+                const [y, time] = rest.split(' ');
+                const [h, mi, s] = time.split(':');
+                return new Date(Number(y), Number(m) - 1, Number(d), Number(h), Number(mi), Number(s));
+            }
+
+            function filtrarLista(arr, termo, di, df, extra) {
+                const t = (termo || '').trim().toUpperCase();
+                return arr.filter(item => {
+                    let ok = true;
+                    if (t) {
+                        const text = `${item.produto || ''} ${item.codigo || ''} ${item.descricao || ''}`.toUpperCase();
+                        ok = text.includes(t);
+                    }
+                    if (ok && (di || df)) {
+                        const dt = parseBrDate(item.data);
+                        if (di && dt < di) ok = false;
+                        if (df && dt > df) ok = false;
+                    }
+                    if (ok && typeof extra === 'function') ok = extra(item);
+                    return ok;
+                });
+            }
+
+            function criarCard(item, semOrcamento = false) {
+                const temCodigo = item.codigo && item.codigo.trim();
+                const ref = item.referencia || item.produto;
+                const titulo = temCodigo ? (item.descricao || ref) : item.produto;
+                const codigoHtml = temCodigo
+                    ? `<p class="fs-6 fw-normal text-secondary mb-1">Código: <span class="text-dark">${item.codigo}</span></p>`
+                    : `<p class="fs-6 fw-normal text-secondary mb-1">😕 Ops! Este produto ainda não está cadastrado em nossa base. Fale com um de nossos representantes comerciais para realizar o cadastro e obter mais informações.</p>`;
+                const linkBase = 'https://configurador.redutoresibr.com.br/';
+                const link = item.link && item.link.trim() ? item.link : linkBase;
+                const refHtml = temCodigo ? `<p class="fs-6 fw-normal text-secondary mb-1">Referência: <span class="text-dark">${ref}</span></p>` : '';
+                const formatoHtml = item.formato ? `<p class=\"fs-6 fw-normal text-secondary mb-1\">Formato: <span class=\"text-dark\">${item.formato}</span></p>` : '';
+                const situacaoHtml = item.situacao ? `<p class=\"fs-6 fw-normal text-secondary mb-1\">Situação: <span class=\"text-dark\">${item.situacao}</span></p>` : '';
+                const orcLink = ' - <a href="https://www.redutoresibr.com.br/AreaRestrita/Orcamento/Index" target="_blank"><i><u>Clique aqui para acessar o orçamento</u></i></a>';
+                let estagioExtra = '';
+                if (!semOrcamento && (item.estagio === 'Proposta disponível' || item.estagio === 'Proposta enviada')) {
+                    estagioExtra = orcLink;
+                }
+                const estagioTexto = item.estagio ? ' - ' + item.estagio + estagioExtra : '';
+                const cotacaoHtml = item.oportunidade ? `<p class=\"fs-6 fw-normal text-secondary mb-1\">Oportunidade: <span class=\"text-dark\">${item.oportunidade}${estagioTexto}</span></p>` : '';
+                const dadosHtml = item.dados ? `<p class=\"fs-6 fw-normal text-secondary mb-1\">Dados da Solicitação: <span class=\"text-dark\">${item.dados}</span></p>` : '';
+                const responsavelHtml = item.responsavel ? `<p class=\"fs-6 fw-normal text-secondary mb-1\">Responsável IBR: <span class=\"text-dark\">${item.responsavel}</span></p>` : '';
+                return `
+                <div class="card card__pedido">
+                        <div class="card-body pe-xl-5">
+                            <div class="d-flex gap-3 align-items-lg-center">
+                                <div class="my-xl-1">
+                                    <p class="fs-6 fw-semibold text-dark mb-1">${titulo}</p>
+                                    ${refHtml}
+                                    ${codigoHtml}
+                                    ${formatoHtml}
+                                    ${situacaoHtml}
+                                    ${cotacaoHtml}
+                                    ${responsavelHtml}
+                                    ${dadosHtml}
+                                    <p class="fs-6 fw-normal text-secondary mb-1">Data: <span class="text-dark">${item.data}</span></p>
+                                    </div>
+                                <a href="${link}" class="btn btn-orange rounded-circle d-flex align-items-center justify-content-center ms-auto me-3 me-lg-0" target="_blank">
+                                    <svg viewBox="0 0 1024 1024" width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="#fff" transform="matrix(-1,0,0,1,0,0)">
+                                        <path d="M768 903.232l-50.432 56.768L256 512l461.568-448 50.432 56.768L364.928 512z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>`;
+            }
+
+            function renderItens(arr, listaId, resultadoId, pagId, pagina, total, pageFn, semOrcamento = false, progressive = false) {
+                const lista = document.getElementById(listaId);
+                const resultado = document.getElementById(resultadoId);
+                const nav = document.getElementById(pagId);
+                const ul = nav?.querySelector('ul');
+                if (!lista || !ul) return;
+
+                const totalItens = total ?? arr.length;
+                if (resultado) {
+                    resultado.innerHTML = `Sua busca resultou em <span class="text-orange">${totalItens} registro${totalItens === 1 ? '' : 's'} encontrado${totalItens === 1 ? '' : 's'}</span>`;
+                }
+
+                lista.innerHTML = '';
+                if (total === 0) {
+                    lista.innerHTML = `
+                        <div class="col-12 mb-3">
+                            <div class="card card__pedido">
+                                <div class="card-body pe-xl-5">
+                                    <div class="d-flex gap-3 align-items-lg-center">
+                                        <div class="my-xl-1">
+                                            <p class="fs-6 fw-normal text-dark mb-1">🔍 Nenhum produto encontrado. Que tal começar agora?</p>
+                                        </div>
+                                        <a href="https://configurador.redutoresibr.com.br/" class="btn btn-orange rounded-circle d-flex align-items-center justify-content-center ms-auto me-3 me-lg-0" target="_blank">
+                                            <svg viewBox="0 0 1024 1024" width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="#fff" transform="matrix(-1,0,0,1,0,0)">
+                                                <path d="M768 903.232l-50.432 56.768L256 512l461.568-448 50.432 56.768L364.928 512z" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                    nav.classList.add('d-none');
+                    return;
+                }
+
+                nav.classList.remove('d-none');
+                const totalPag = Math.ceil(totalItens / ITENS_POR_PAGINA);
+                pagina = Math.min(Math.max(1, pagina), totalPag);
+                const addItem = item => {
+                    const div = document.createElement('div');
+                    div.className = 'col-12 mb-3';
+                    div.innerHTML = criarCard(item, semOrcamento);
+                    lista.appendChild(div);
+                };
+
+                if (progressive && arr.length) {
+                    let idx = 0;
+                    const loading = document.createElement('div');
+                    loading.className = 'col-12 text-center my-2';
+                    loading.textContent = '⏳ Carregando...';
+                    lista.appendChild(loading);
+                    const appendNext = () => {
+                        addItem(arr[idx]);
+                        if (++idx < arr.length) {
+                            setTimeout(appendNext, 0);
+                        } else {
+                            loading.remove();
+                        }
+                    };
+                    appendNext();
+                } else {
+                    arr.forEach(addItem);
+                }
+
+
+
+                ul.innerHTML = '';
+                for (let p = 1; p <= totalPag; p++) {
+                    const li = document.createElement('li');
+                    li.className = 'page-item';
+                    const a = document.createElement('a');
+                    a.href = '#';
+                    a.className = 'page-link btn page-link border-0 text-white' + (p === pagina ? ' active' : '');
+                    a.dataset.page = p;
+                    a.textContent = p;
+                    a.addEventListener('click', e => { e.preventDefault(); if (typeof pageFn === 'function') pageFn(p); else renderItens(arr, listaId, resultadoId, pagId, p, totalItens, pageFn, semOrcamento, progressive); });
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                }
+                const nextLi = document.createElement('li');
+                nextLi.className = 'pagition-prev-next page-item';
+                const nextA = document.createElement('a');
+                nextA.href = '#';
+                nextA.setAttribute('aria-label', 'Next');
+                nextA.className = 'page-link btn border-0 text-white px-4 d-flex align-items-center h-100' + (pagina < totalPag ? ' active' : ' disabled');
+                nextA.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>';
+                nextA.addEventListener('click', e => { e.preventDefault(); if (pagina < totalPag) { if (typeof pageFn === 'function') pageFn(pagina + 1); else renderItens(arr, listaId, resultadoId, pagId, pagina + 1, totalItens, pageFn, semOrcamento, progressive); } });
+                nextLi.appendChild(nextA);
+                ul.appendChild(nextLi);
+            }
+
+            async function carregarProdutos(pagina = 1) {
+                const lista = document.getElementById('listaProdutosGerados');
+                if (!lista) return;
+                lista.innerHTML = '⏳ Carregando...';
+                const resultado = document.getElementById('resultadoProdutos');
+                if (resultado) resultado.textContent = '';
+                try {
+                    const resp = await fetch(`/Paginas/AreaCliente/Sessao/Produtos/ListarProdutos.php?pagina=${pagina - 1}&limite=${ITENS_POR_PAGINA}`);
+                    const dados = await resp.json();
+                    produtosDados = Array.isArray(dados.lista) ? dados.lista : [];
+                    renderItens(produtosDados, 'listaProdutosGerados', 'resultadoProdutos', 'paginacaoProdutos', pagina, dados.total, carregarProdutos, false, true);
+                    carregouProdutos = true;
+                } catch {
+                    lista.innerHTML = 'Erro ao carregar produtos.';
+                }
+            }
+
+            async function carregarDesenhos(pagina = 1) {
+                const lista = document.getElementById('listaDesenhos');
+                if (!lista) return;
+                lista.innerHTML = '⏳ Carregando...';
+                const resultado = document.getElementById('resultadoDesenhos');
+                if (resultado) resultado.textContent = '';
+                try {
+                    const resp = await fetch(`/Paginas/AreaCliente/Sessao/Desenhos/ListarDesenhos.php?pagina=${pagina - 1}&limite=${ITENS_POR_PAGINA}`);
+                    const dados = await resp.json();
+                    desenhosDados = Array.isArray(dados.lista) ? dados.lista : [];
+                    renderItens(desenhosDados, 'listaDesenhos', 'resultadoDesenhos', 'paginacaoDesenhos', pagina, dados.total, carregarDesenhos, false, true);
+                    carregouDesenhos = true;
+                } catch {
+                    lista.innerHTML = 'Erro ao carregar produtos.';
+                }
+            }
+
+            async function carregarCotacoes(pagina = 1) {
+                const lista = document.getElementById('listaCotacoes');
+                if (!lista) return;
+                lista.innerHTML = '⏳ Carregando...';
+                const resultado = document.getElementById('resultadoCotacoes');
+                if (resultado) resultado.textContent = '';
+                try {
+                    const resp = await fetch(`/Paginas/AreaCliente/Sessao/Cotacoes/ListarCotacoes.php?pagina=${pagina - 1}&limite=${ITENS_POR_PAGINA}`);
+                    const dados = await resp.json();
+                    cotacoesDados = Array.isArray(dados.lista) ? dados.lista : [];
+                    renderItens(cotacoesDados, 'listaCotacoes', 'resultadoCotacoes', 'paginacaoCotacoes', pagina, dados.total, carregarCotacoes, false, true)
+                    carregouCotacoes = true;
+                } catch {
+                    lista.innerHTML = 'Erro ao carregar produtos.';
+                }
+            }
+
+            async function carregarCadastros(pagina = 1) {
+                const lista = document.getElementById('listaCadastros');
+                if (!lista) return;
+                lista.innerHTML = '⏳ Carregando...';
+                const resultado = document.getElementById('resultadoCadastros');
+                if (resultado) resultado.textContent = '';
+                try {
+                    const resp = await fetch(`/Paginas/AreaCliente/Sessao/CadastrosProduto/ListarCadastros.php?pagina=${pagina - 1}&limite=${ITENS_POR_PAGINA}`);
+                    const dados = await resp.json();
+                    cadastrosDados = Array.isArray(dados.lista) ? dados.lista : [];
+                    renderItens(cadastrosDados, 'listaCadastros', 'resultadoCadastros', 'paginacaoCadastros', pagina, dados.total, carregarCadastros, true, true);
+                    carregouCadastros = true;
+                } catch {
+                    lista.innerHTML = 'Erro ao carregar produtos.';
+                }
+            }
+
+            function aplicarProdutos() {
+                const termo = document.getElementById('filtroProduto')?.value;
+                const diVal = document.getElementById('dataIniProduto')?.value;
+                const dfVal = document.getElementById('dataFimProduto')?.value;
+                const di = diVal ? new Date(diVal + 'T00:00:00') : null;
+                const df = dfVal ? new Date(dfVal + 'T23:59:59') : null;
+                let arr = filtrarLista(produtosDados, termo, di, df);
+                if (ordemProdutos) arr.sort((a, b) => (a.produto || '').localeCompare(b.produto || ''));
+                renderItens(arr, 'listaProdutosGerados', 'resultadoProdutos', 'paginacaoProdutos', 1, arr.length, null, false, true);
+
+            }
+
+            function aplicarDesenhos() {
+                const termo = document.getElementById('filtroDesenho')?.value;
+                const diVal = document.getElementById('dataIniDesenho')?.value;
+                const dfVal = document.getElementById('dataFimDesenho')?.value;
+                const di = diVal ? new Date(diVal + 'T00:00:00') : null;
+                const df = dfVal ? new Date(dfVal + 'T23:59:59') : null;
+                let arr = filtrarLista(desenhosDados, termo, di, df);
+                if (ordemDesenhos) arr.sort((a, b) => (a.produto || '').localeCompare(b.produto || ''));
+                renderItens(arr, 'listaDesenhos', 'resultadoDesenhos', 'paginacaoDesenhos', 1, arr.length, null, false, true);
+            }
+
+            function aplicarCotacoes() {
+                const termo = document.getElementById('filtroCotacao')?.value;
+                const opo = document.getElementById('filtroOportunidade')?.value?.trim().toUpperCase();
+                const diVal = document.getElementById('dataIniCotacao')?.value;
+                const dfVal = document.getElementById('dataFimCotacao')?.value;
+                const di = diVal ? new Date(diVal + 'T00:00:00') : null;
+                const df = dfVal ? new Date(dfVal + 'T23:59:59') : null;
+                let arr = filtrarLista(cotacoesDados, termo, di, df, item => {
+                    if (!opo) return true;
+                    return (item.oportunidade || '').toUpperCase().includes(opo);
+                });
+                if (ordemCotacoes) arr.sort((a, b) => (a.produto || '').localeCompare(b.produto || ''));
+                renderItens(arr, 'listaCotacoes', 'resultadoCotacoes', 'paginacaoCotacoes', 1, arr.length, null, false, true);
+            }
+
+            function aplicarCadastros() {
+                const termo = document.getElementById('filtroCadastro')?.value;
+                const opo = document.getElementById('filtroOportunidadeCadastro')?.value?.trim().toUpperCase();
+                const diVal = document.getElementById('dataIniCadastro')?.value;
+                const dfVal = document.getElementById('dataFimCadastro')?.value;
+                const di = diVal ? new Date(diVal + 'T00:00:00') : null;
+                const df = dfVal ? new Date(dfVal + 'T23:59:59') : null;
+                let arr = filtrarLista(cadastrosDados, termo, di, df, item => {
+                    if (!opo) return true;
+                    return (item.oportunidade || '').toUpperCase().includes(opo);
+                });
+                if (ordemCadastros) arr.sort((a, b) => (a.produto || '').localeCompare(b.produto || ''));
+                renderItens(arr, 'listaCadastros', 'resultadoCadastros', 'paginacaoCadastros', 1, arr.length, null, true, true);
+            }
+
+            window.mostrarDados = function (e) {
+                if (e) {
+                    e.preventDefault();
+                    location.href = '/AreaCliente/Sessao';
+                    return;
+                }
+                dadosSection.classList.remove('d-none');
+                produtosSection.classList.add('d-none');
+                desenhosSection.classList.add('d-none');
+                cotacoesSection.classList.add('d-none');
+                linkDados.classList.add('active');
+                linkProdutos.classList.remove('active');
+                linkDesenhos.classList.remove('active');
+                linkCotacoes.classList.remove('active');
+                breadcrumb.textContent = 'Dados Cadastrais';
+                titulo.textContent = 'Dados Cadastrais';
+            };
+
+            window.mostrarProdutos = function (e) {
+                if (e) {
+                    e.preventDefault();
+                    location.href = '/AreaCliente/Produtos';
+                    return;
+                }
+                dadosSection.classList.add('d-none');
+                produtosSection.classList.remove('d-none');
+                desenhosSection.classList.add('d-none');
+                cotacoesSection.classList.add('d-none');
+                linkProdutos.classList.add('active');
+                linkDados.classList.remove('active');
+                linkDesenhos.classList.remove('active');
+                linkCotacoes.classList.remove('active');
+                breadcrumb.textContent = 'Meus Produtos Gerados';
+                titulo.textContent = 'Meus Produtos Gerados';
+                if (!carregouProdutos) carregarProdutos();
+            };
+
+            window.mostrarDesenhos = function (e) {
+                if (e) {
+                    e.preventDefault();
+                    location.href = '/AreaCliente/Desenhos';
+                    return;
+                }
+                dadosSection.classList.add('d-none');
+                produtosSection.classList.add('d-none');
+                desenhosSection.classList.remove('d-none');
+                cotacoesSection.classList.add('d-none');
+                linkDesenhos.classList.add('active');
+                linkDados.classList.remove('active');
+                linkProdutos.classList.remove('active');
+                linkCotacoes.classList.remove('active');
+                breadcrumb.textContent = 'Meus Desenhos Solicitados';
+                titulo.textContent = 'Meus Desenhos Solicitados';
+                if (!carregouDesenhos) carregarDesenhos();
+            };
+
+            window.mostrarCotacoes = function (e) {
+                if (e) {
+                    e.preventDefault();
+                    location.href = '/AreaCliente/Cotacoes';
+                    return;
+                }
+                dadosSection.classList.add('d-none');
+                produtosSection.classList.add('d-none');
+                desenhosSection.classList.add('d-none');
+                cotacoesSection.classList.remove('d-none');
+                linkCotacoes.classList.add('active');
+                linkDados.classList.remove('active');
+                linkProdutos.classList.remove('active');
+                linkDesenhos.classList.remove('active');
+                breadcrumb.textContent = 'Minhas Cotações Solicitadas';
+                titulo.textContent = 'Minhas Cotações Solicitadas';
+                if (!carregouCotacoes) carregarCotacoes();
+            };
+
+
+            window.mostrarCadastros = function (e) {
+                if (e) {
+                    e.preventDefault();
+                    location.href = '/AreaCliente/Cadastros';
+                    return;
+                }
+                dadosSection.classList.add('d-none');
+                produtosSection.classList.add('d-none');
+                desenhosSection.classList.add('d-none');
+                cotacoesSection.classList.add('d-none');
+                cadastrosSection.classList.remove('d-none');
+                linkCadastros.classList.add('active');
+                linkDados.classList.remove('active');
+                linkProdutos.classList.remove('active');
+                linkDesenhos.classList.remove('active');
+                linkCotacoes.classList.remove('active');
+                breadcrumb.innerHTML = 'Meus Cadastros de<br>Produtos Solicitados';
+                titulo.innerHTML = 'Meus Cadastros de<br>Produtos Solicitados';
+                if (!carregouCadastros) carregarCadastros();
+            };
+
+            function initSecoes() {
+                linkDados = document.getElementById('linkDados');
+                linkProdutos = document.getElementById('linkProdutos');
+                linkDesenhos = document.getElementById('linkDesenhos');
+                linkCotacoes = document.getElementById('linkCotacoes');
+                linkCadastros = document.getElementById('linkCadastros');
+                dadosSection = document.getElementById('dadosSection');
+                produtosSection = document.getElementById('produtosSection');
+                desenhosSection = document.getElementById('desenhosSection');
+                cotacoesSection = document.getElementById('cotacoesSection');
+                cadastrosSection = document.getElementById('cadastrosSection');
+                breadcrumb = document.getElementById('breadcrumbItem');
+                titulo = document.getElementById('tituloPagina');
+                linkDados?.addEventListener('click', mostrarDados);
+                linkProdutos?.addEventListener('click', mostrarProdutos);
+                linkDesenhos?.addEventListener('click', mostrarDesenhos);
+                linkCotacoes?.addEventListener('click', mostrarCotacoes);
+                linkCadastros?.addEventListener('click', mostrarCadastros);
+
+                const path = location.pathname.toLowerCase();
+                if (path.includes('/areacliente/produtos')) {
+                    mostrarProdutos();
+                } else if (path.includes('/areacliente/desenhos')) {
+                    mostrarDesenhos();
+                } else if (path.includes('/areacliente/cotacoes')) {
+                    mostrarCotacoes();
+                } else if (path.includes('/areacliente/cadastros')) {
+                    mostrarCadastros();
+                }
+            }
+            function initFiltros() {
+                document.getElementById('btnPesquisarProdutos')?.addEventListener('click', aplicarProdutos);
+                document.getElementById('btnLimparProdutos')?.addEventListener('click', e => { e.preventDefault(); document.getElementById('filtrosProdutos').reset(); ordemProdutos = false; document.getElementById('btnOrdenarProdutos').textContent = 'Ordenar A-Z'; aplicarProdutos(); });
+                document.getElementById('btnOrdenarProdutos')?.addEventListener('click', e => { e.preventDefault(); ordemProdutos = !ordemProdutos; e.target.textContent = ordemProdutos ? 'Ordem Padrão' : 'Ordenar A-Z'; aplicarProdutos(); });
+
+                document.getElementById('btnPesquisarDesenhos')?.addEventListener('click', aplicarDesenhos);
+                document.getElementById('btnLimparDesenhos')?.addEventListener('click', e => { e.preventDefault(); document.getElementById('filtrosDesenhos').reset(); ordemDesenhos = false; document.getElementById('btnOrdenarDesenhos').textContent = 'Ordenar A-Z'; aplicarDesenhos(); });
+                document.getElementById('btnOrdenarDesenhos')?.addEventListener('click', e => { e.preventDefault(); ordemDesenhos = !ordemDesenhos; e.target.textContent = ordemDesenhos ? 'Ordem Padrão' : 'Ordenar A-Z'; aplicarDesenhos(); });
+
+                document.getElementById('btnPesquisarCotacoes')?.addEventListener('click', aplicarCotacoes);
+                document.getElementById('btnLimparCotacoes')?.addEventListener('click', e => { e.preventDefault(); document.getElementById('filtrosCotacoes').reset(); ordemCotacoes = false; document.getElementById('btnOrdenarCotacoes').textContent = 'Ordenar A-Z'; aplicarCotacoes(); });
+                document.getElementById('btnOrdenarCotacoes')?.addEventListener('click', e => { e.preventDefault(); ordemCotacoes = !ordemCotacoes; e.target.textContent = ordemCotacoes ? 'Ordem Padrão' : 'Ordenar A-Z'; aplicarCotacoes(); });
+
+                document.getElementById('btnPesquisarCadastros')?.addEventListener('click', aplicarCadastros);
+                document.getElementById('btnLimparCadastros')?.addEventListener('click', e => { e.preventDefault(); document.getElementById('filtrosCadastros').reset(); ordemCadastros = false; document.getElementById('btnOrdenarCadastros').textContent = 'Ordenar A-Z'; aplicarCadastros(); });
+                document.getElementById('btnOrdenarCadastros')?.addEventListener('click', e => { e.preventDefault(); ordemCadastros = !ordemCadastros; e.target.textContent = ordemCadastros ? 'Ordem Padrão' : 'Ordenar A-Z'; aplicarCadastros(); });
+            }
+
+            function initFormScroll() {
+                const form = document.getElementById('alterarDados');
+                form?.addEventListener('focusin', e => {
+                    const el = e.target;
+                    if (['INPUT', 'SELECT', 'TEXTAREA'].includes(el.tagName)) {
+                        setTimeout(() => {
+                            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 300);
+                    }
+                });
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => { initSecoes(); initFiltros(); initFormScroll(); });
+            } else {
+                initSecoes();
+                initFiltros();
+                initFormScroll();
+            }
+        </script>
+
+        <script src="/Layout/Estrutura/Layout.min.js"></script>
+
+</body>
+
+</html>

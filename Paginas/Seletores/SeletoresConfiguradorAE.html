@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+<main id="main-content" class="sr-only">
+    <h1>
+        Configurador
+    </h1>
+
+    <div id="titulo-estrutural">
+        Configurador
+    </div>
+</main>
+
+<link rel="stylesheet" href="/Layout/Galeria/Galeria.min.css">
+
+<main class="main mb-0 pb-0">
+    <div class="pagina__titulo--bloco fw-bold mt-5 mb-4">
+    </div>
+    <div class="container">
+        <div class="galeria-produto" data-visible="3.GR" data-folder="IBRGR" data-title="IBR GR"
+            data-description="O acoplamento GR destaca-se como um dispositivo flexível em sua categoria, proporcionando o mais alto desempenho em termos de eficiência e ocupação de espaço. Seu design extremamente compacto garante uma transmissão segura de potência, absorvendo sobrecargas e vibrações torsionais de forma eficaz. Além disso, seu elemento elástico compensa desalinhamentos angulares e radiais, garantindo um funcionamento suave e confiável. Disponível em alumínio anodizado nos tamanhos 14 ao 28 e em ferro fundido fosfatizado nos tamanhos 38 ao 180, o acoplamento GR possui uma ampla gama de aplicações, sendo adequado para uso em agitadores, compressores, transportadores industriais e diversas outras aplicações."
+            data-site="https://www.redutoresibr.com.br/pt/Produtos/acoplamento-gr"
+            data-catalog="https://www.redutoresibr.com.br/_uploads/5e8206c1-8493-4b22-8a80-eb53a900b696.pdf">
+        </div>
+
+        <div class="galeria-produto" data-visible="3.GS" data-folder="IBRGS" data-title="IBR GS"
+            data-description="O GS é nosso acoplamento sem folga (backlash) disponível em aço fosfatizado e alumínio anodizado. Foi especialmente projetado para compensar desalinhamentos, aumentar a resistência a sobrecargas e amortecer vibrações em aplicações de indexação. Seu design compacto o torna a escolha ideal para uma variedade de aplicações que demandam movimento preciso. Entre elas estão máquinas-ferramentas, equipamentos de automação e outros dispositivos que exigem acionamentos de médio e alto torque."
+            data-site="https://www.redutoresibr.com.br/pt/Produtos/acoplamento-gs"
+            data-catalog="https://www.redutoresibr.com.br/_uploads/d6c9d791-82e0-45dd-a62c-c306f9a86916.pdf">
+        </div>
+
+        <div class="galeria-produto" data-visible="3.RIC" data-folder="IBRRIC" data-title="IBR RIC"
+            data-description="O emprego de cubos de alumínio e um design compacto não só diminuem o momento de inércia, como também asseguram um acoplamento confiável e adequado para ocasiões de altas velocidade de rotação. A estrutura de diafragma simples RIC-XXX-0, tem maior rigidez e a estrutura de diafragma duplo RIC-XXX-T tem mais flexibilidade, pois a configuração de discos duplo foi especialmente projetada para lidar com desalinhamentos radiais. Este modelo de acoplamento é adequado para diversas aplicações, tais como a conexão de servomotores, motores de passo, codificadores e outros dispositivos."
+            data-site="https://www.redutoresibr.com.br/pt/Produtos/acoplamento-de-diafragma"
+            data-catalog="https://www.redutoresibr.com.br/_uploads/3edd13ea-e3ac-49f2-a36d-2b5ed91b8172.pdf">
+        </div>
+    </div>
+    <div id="titulo-configurador" class="pagina__titulo--bloco mt-5 mb-5 text-center">
+        <h2 id="texto-configurador" class="fs-3 fw-bolder m-0"></h2>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        function atualizarTitulo() {
+            const visivel = Array.from(document.querySelectorAll('.galeria-produto[data-title]'))
+                .find(g => g.style.display !== 'none');
+            const titulo = visivel ? visivel.dataset.title : '';
+            const el = document.getElementById('texto-configurador');
+            if (!el) return;
+            if (!titulo) {
+                el.innerHTML = '';
+                document.title = 'Configurador de Produtos';
+                return;
+            }
+            let html = 'Configure o seu ';
+            if (titulo.toUpperCase().startsWith('IBR ')) {
+                const partes = titulo.split(' ');
+                const primeiro = partes.shift();
+                const resto = partes.join(' ');
+                html += '<span class="text-dark">' + primeiro + '</span>';
+                if (resto) html += ' <span class="text-orange">' + resto + '</span>';
+            } else {
+                html += titulo;
+            }
+            el.innerHTML = html;
+            document.title = 'Configurador de Produtos - ' + titulo;
+        }
+        atualizarTitulo();
+        setTimeout(atualizarTitulo);
+        document.getElementById('AELN')?.addEventListener('change', atualizarTitulo);
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const helpConfigs = {
+
+            GrupoAELN() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoAEBR() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoAETP() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoAEEL() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoAEEE() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoAEEE2() {
+                return {
+                    title: 'Em Desenvolvimento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+        }
+
+        const buttons = document.querySelectorAll('button.help-icon[data-help-text]');
+        buttons.forEach(btn => {
+            btn.dataset.helpTextOriginal = btn.dataset.helpText;
+            btn.dataset.helpTitleOriginal = btn.dataset.helpTitle;
+        });
+
+        function updateButton(btn, data) {
+            if (!data) {
+                data = { title: btn.dataset.helpTitleOriginal, text: btn.dataset.helpTextOriginal };
+            }
+            btn.dataset.helpTitle = data.title || '';
+            btn.dataset.helpText = data.text || '';
+            btn.dataset.bsTitle = data.title || '';
+            btn.dataset.bsContent = data.text || '';
+            const pop = bootstrap.Popover.getOrCreateInstance(btn);
+            pop.setContent({ '.popover-header': data.title || '', '.popover-body': data.text || '' });
+        }
+
+        function updateHelps() {
+            buttons.forEach(btn => {
+                const section = btn.closest('section');
+                const cfgFn = section && helpConfigs[section.id];
+                const data = cfgFn && cfgFn();
+                updateButton(btn, data);
+            });
+        }
+
+        ['AELN', 'AEBR', 'AETP', 'AEEL', 'AEEE', 'AEEE2'].forEach(id => {
+            document.getElementById(id)?.addEventListener('change', updateHelps);
+        });
+
+        updateHelps();
+    });
+</script>
+
+<script src="/Layout/Galeria/Galeria.min.js"></script>
+<script src="/Layout/Galeria/FiltrarPorURL.min.js"></script>
+
+
+<section id="GrupoAELN">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="AELN">
+        Linha do Acoplamento:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="AELN" name="AELN" disabled>
+    </select>
+</section>
+
+<section id="GrupoAEBR">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="AEBR">
+        Tamanho do Acoplamento:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="AEBR" name="AEBR" disabled>
+    </select>
+</section>
+
+<section id="GrupoAETP">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="AETP">
+        Tipo do Acoplamento:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="AETP" name="AETP" disabled>
+    </select>
+</section>
+
+<section id="GrupoAEEL">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="AEEL">
+        Elemento Elástico do Acoplamento:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="AEEL" name="AEEL" disabled>
+    </select>
+</section>
+
+<section id="GrupoAEEE">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="AEEE">
+        Pré-Furo do Acoplamento - Lado 1:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="AEEE" name="AEEE" disabled>
+    </select>
+</section>
+
+<section id="GrupoAEEE2">
+    <label class="cssB d-flex align-items-center gap-1 justify-content-center" for="AEEE2">
+        Pré-Furo do Acoplamento - Lado 2:
+        <button class="help-icon" data-help-title="" data-help-text="" data-help-class="perm-popover" data-bs-title=""
+            data-bs-content=""></button>
+    </label>
+    <select class="cssC" id="AEEE2" name="AEEE2" disabled>
+    </select>
+</section>
+
+</div>
+</section>
+
+<script>
+
+    async function carregarAELN() {
+        const aelnSelect = document.getElementById('AELN');
+
+        const response = await fetch('/Paginas/Seletores/Configuradores/AE/AELN.php');
+        const optionsHTML = await response.text();
+
+        aelnSelect.innerHTML = optionsHTML;
+        aelnSelect.value = '';
+        aelnSelect.disabled = false;
+
+        aelnSelect.dispatchEvent(new Event('change'));
+    }
+
+    async function carregarAEBR() {
+        const aeln = document.getElementById('AELN').value;
+        const aebrSelect = document.getElementById('AEBR');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AE/AEBR.php?AELN=${encodeURIComponent(aeln)}`);
+        const optionsHTML = await response.text();
+
+        aebrSelect.innerHTML = optionsHTML;
+        aebrSelect.value = '';
+        aebrSelect.disabled = false;
+
+        aebrSelect.dispatchEvent(new Event('change'));
+    }
+
+    async function carregarAETP() {
+        const aeln = document.getElementById('AELN').value;
+        const aebr = document.getElementById('AEBR').value;
+        const aetpSelect = document.getElementById('AETP');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AE/AETP.php?AELN=${encodeURIComponent(aeln)}&AEBR=${encodeURIComponent(aebr)}`);
+        const optionsHTML = await response.text();
+
+        aetpSelect.innerHTML = optionsHTML;
+        aetpSelect.value = '';
+        aetpSelect.disabled = false;
+
+        aetpSelect.dispatchEvent(new Event('change'));
+    }
+
+    async function carregarAEEL() {
+        const aeln = document.getElementById('AELN').value;
+        const aebr = document.getElementById('AEBR').value;
+        const aetp = document.getElementById('AETP').value;
+        const aeelSelect = document.getElementById('AEEL');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AE/AEEL.php?AELN=${encodeURIComponent(aeln)}&AEBR=${encodeURIComponent(aebr)}&AETP=${encodeURIComponent(aetp)}`);
+        const optionsHTML = await response.text();
+
+        aeelSelect.innerHTML = optionsHTML;
+        aeelSelect.value = '';
+        aeelSelect.disabled = false;
+
+        aeelSelect.dispatchEvent(new Event('change'));
+    }
+
+    async function carregarAEEE() {
+        const aeln = document.getElementById('AELN').value;
+        const aebr = document.getElementById('AEBR').value;
+        const aetp = document.getElementById('AETP').value;
+        const aeel = document.getElementById('AEEL').value;
+        const aeeeSelect = document.getElementById('AEEE');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AE/AEEE.php?AELN=${encodeURIComponent(aeln)}&AEBR=${encodeURIComponent(aebr)}&AETP=${encodeURIComponent(aetp)}&AEEL=${encodeURIComponent(aeel)}`);
+        const optionsHTML = await response.text();
+
+        aeeeSelect.innerHTML = optionsHTML;
+        aeeeSelect.disabled = false;
+
+        aeeeSelect.dispatchEvent(new Event('change'));
+    }
+
+    async function carregarAEEE2() {
+        const aeln = document.getElementById('AELN').value;
+        const aebr = document.getElementById('AEBR').value;
+        const aetp = document.getElementById('AETP').value;
+        const aeel = document.getElementById('AEEL').value;
+        const aeee = document.getElementById('AEEE').value;
+        const aeee2Select = document.getElementById('AEEE2');
+
+        const response = await fetch(`/Paginas/Seletores/Configuradores/AE/AEEE2.php?AELN=${encodeURIComponent(aeln)}&AEBR=${encodeURIComponent(aebr)}&AETP=${encodeURIComponent(aetp)}&AEEL=${encodeURIComponent(aeel)}&AEEE=${encodeURIComponent(aeee)}`);
+        const optionsHTML = await response.text();
+
+        aeee2Select.innerHTML = optionsHTML;
+        aeee2Select.disabled = false;
+
+        aeee2Select.dispatchEvent(new Event('change'));
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        carregarAELN();
+
+        document.getElementById('AELN').addEventListener('change', () => {
+            carregarAEBR();
+        });
+
+        document.getElementById('AEBR').addEventListener('change', () => {
+            carregarAETP();
+        });
+
+        document.getElementById('AETP').addEventListener('change', () => {
+            carregarAEEL();
+        });
+
+        document.getElementById('AEEL').addEventListener('change', () => {
+            carregarAEEE();
+        });
+
+        document.getElementById('AEEE').addEventListener('change', () => {
+            carregarAEEE2();
+        });
+    });
+
+</script>
+
+<script>
+    function exibirBotaoCompartilhar() {
+        const wrapper = document.getElementById("compartilhar-wrapper");
+        if (wrapper) wrapper.style.display = "block";
+    }
+
+    function exibirBotaoSolicitarCotacao() {
+        const wrapper = document.getElementById("cotacao-wrapper");
+        if (wrapper) wrapper.style.display = "block";
+    }
+
+    async function gerarCodigoProduto() {
+        const AELN = v("AELN");
+        const AEBR = v("AEBR");
+        const AETP = v("AETP");
+        const AEEL = v("AEEL");
+        const AEEE = v("AEEE");
+        const AEEE2 = v("AEEE2");
+
+        let ELEMENTOELASTICO = await fetch(`/Paginas/Seletores/Configuradores/AE/AEOLN.php?AELN=${AELN}&AEBR=${AEBR}&AETP=${AETP}&AEEL=${AEEL}`)
+            .then(r => r.ok ? r.text() : "")
+            .then(t => t.trim().replaceAll(" ", "").toUpperCase());
+
+        const COMPOSICAOCODIGO = [
+            AELN,
+            AEBR,
+            AETP,
+            ELEMENTOELASTICO,
+            AEEE,
+            AEEE2
+        ]
+            .map(s => s.replace(/^\.|\.$/g, ""))
+            .map(s => s.replace(/,\s*/g, ".").replace(/\s+/g, ""))
+            .map(s => s.replace(/\.{2,}/g, "."))
+            .filter(Boolean)
+            .join(".");
+
+        document.getElementById("refProduto").textContent = COMPOSICAOCODIGO;
+        mostrarDetalhesProduto({}, COMPOSICAOCODIGO);
+
+        fetch("/Paginas/Seletores/Produto/CodigoDescricaoObservacaoProduto.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: `codigo=${encodeURIComponent(COMPOSICAOCODIGO)}`
+        })
+            .then(resp => resp.text())
+            .then(text => {
+                let dados;
+                try { dados = JSON.parse(text); } catch { throw new Error(text); }
+                return dados;
+            })
+            .then(dados => {
+                mostrarDetalhesProduto(dados || {}, COMPOSICAOCODIGO);
+                if (typeof mostrarDetalhesEstoque === 'function') {
+                    mostrarDetalhesEstoque(dados?.CD_PRODUTO || "");
+                }
+            })
+            .catch(err => {
+                console.error('Erro ao obter dados do produto', err);
+                if (typeof exibirAlerta === 'function') {
+                    exibirAlerta('⚠️ Erro ao obter dados do produto.');
+                }
+                mostrarDetalhesProduto({}, COMPOSICAOCODIGO);
+                if (typeof mostrarDetalhesEstoque === 'function') {
+                    mostrarDetalhesEstoque('');
+                }
+            });
+
+
+        if (window.ultimoHistoricoProduto !== COMPOSICAOCODIGO) {
+            fetch("/Paginas/AreaCliente/Sessao/Produtos/RegistrarProduto.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `produto=${encodeURIComponent(COMPOSICAOCODIGO)}`
+            });
+            window.ultimoHistoricoProduto = COMPOSICAOCODIGO;
+        }
+
+        exibirBotaoCompartilhar();
+        exibirBotaoSolicitarCotacao();
+    }
+</script>
+
+<script>
+    document.addEventListener('click', e => {
+        const img = e.target.closest('.popover img');
+        if (!img) return;
+        e.preventDefault();
+        const container = img.closest('.popover-body');
+        if (!container) return;
+        const imgs = Array.from(container.querySelectorAll('img')).filter(i => i.naturalWidth);
+        const index = imgs.indexOf(img);
+        const items = imgs.map(i => ({
+            src: i.src,
+            width: i.naturalWidth || 800,
+            height: i.naturalHeight || 600
+        }));
+        const lb = new PhotoSwipeLightbox({
+            dataSource: items,
+            pswpModule: PhotoSwipe,
+            initialZoomLevel: 1,
+            secondaryZoomLevel: 2,
+            wheelToZoom: true,
+            imageClickAction: 'zoom'
+        });
+        lb.on('close', () => lb.destroy());
+        lb.init();
+        lb.loadAndOpen(index);
+    });
+</script>
+
+</body>
+
+</html>

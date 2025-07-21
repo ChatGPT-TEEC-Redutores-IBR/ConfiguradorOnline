@@ -1,0 +1,24 @@
+# Ignore node dependencies
+node_modules/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Environment files
+.env
+
+Restritos/Cache/Empresas
+Restritos/LimitesSolicitacoes
+Restritos/Credenciais/Tokens
+Restritos/Credenciais/TokensCadastro
+Restritos/Credenciais/TokensEmail
+Restritos/Credenciais/TokensExclusao
+Restritos/Credenciais/TokensInvalidos
+Restritos/Credenciais/TokensRecuperacao
+Restritos/Credenciais/PasswordDates
+Restritos/CertificadoSeguranca
+Layout/Imagens/ConfiguracaoGuiada
+Layout/Imagens/Icones
+Layout/Imagens/Logotipos
+Layout/Imagens/Produtos

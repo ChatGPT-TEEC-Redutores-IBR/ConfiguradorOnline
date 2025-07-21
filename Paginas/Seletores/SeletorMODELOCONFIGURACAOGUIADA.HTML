@@ -1,0 +1,114 @@
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const helpConfigs = {
+            GrupoAELN() {
+                return {
+                    title: 'Linha do Acoplamento',
+                    text: `<p><strong>Grupo ou categoria do acoplamento.</strong> Indica o tipo ou família a que ele pertence, ajudando na escolha do modelo adequado para cada aplicação.</p>` +
+                        `<p><strong>Linhas disponíveis para acoplamentos:</strong><br>` +
+                        `• <strong>IBR GR:</strong> Acoplamento elástico de alto desempenho.<br>` +
+                        `• <strong>IBR GS:</strong> Acoplamento elástico sem folga, disponível em aço fosfatizado ou alumínio anodizado.<br>` +
+                        `• <strong>IBR RIC:</strong> Acoplamento elástico sem folga, disponível em alumínio.</p>` +
+                        `<p><em>Para trocar a linha do produto selecionado, volte para a tela principal.</em></p>`
+                };
+            },
+
+            GrupoAEBR() {
+                return {
+                    title: 'Tamanho do Acoplamento',
+                    text: `<p>Em Desenvolvimento`
+                };
+            },
+
+            GrupoAETP() {
+                const aeln = document.getElementById('AELN')?.value || '';
+                if (aeln === '3.GR') {
+                    return {
+                        title: 'Tipo do Acoplamento',
+                        text: `<p>Indica o formato do cubo de cada lado do acoplamento.</p>` +
+                            `<img src='/Layout/Imagens/ConfiguracaoGuiada/ConfiguradorAE/GrupoAETP/3GR.webp' alt='Tipo do Acoplamento' ` +
+                            `style='max-width:100%;' onerror='this.remove()'>`
+                    };
+                }
+                if (aeln === '3.GS') {
+                    return {
+                        title: 'Tipo do Acoplamento',
+                        text: `<p>Indica o formato do cubo de cada lado do acoplamento.</p>`
+                    };
+                }
+                if (aeln === '3.RIC') {
+                    return {
+                        title: 'Tipo do Acoplamento',
+                        text: `<p>Indica o formato do cubo de cada lado do acoplamento.</p>` +
+                            `<img src='/Layout/Imagens/ConfiguracaoGuiada/ConfiguradorAE/GrupoAETP/3RIC.webp' alt='Tipo do Acoplamento' ` +
+                            `style='max-width:100%;' onerror='this.remove()'>`
+                    };
+                }
+                return {
+                    title: 'Item não encontrado',
+                    text: `<p>Item não encontrado</p>`
+                };
+            },
+
+            GrupoAEEL() {
+                return {
+                    title: 'Elemento Elástico do Acoplamento',
+                    text: `<p>Em Desenvolvimento` +
+                        `<img src='/Layout/Imagens/ConfiguracaoGuiada/0IBRAPM.webp' alt='3.GR' ` +
+                        `style='max-width:100%;' onerror='this.remove()'>`
+                };
+            },
+
+            GrupoAEEE() {
+                return {
+                    title: 'Pré-Furo do Acoplamento - Lado 1',
+                    text: `<p>Em Desenvolvimento` +
+                        `<img src='/Layout/Imagens/ConfiguracaoGuiada/0IBRAPM.webp' alt='3.GR' ` +
+                        `style='max-width:100%;' onerror='this.remove()'>`
+                };
+            },
+
+            GrupoAEEE2() {
+                return {
+                    title: 'Pré-Furo do Acoplamento - Lado 2',
+                    text: `<p>Em Desenvolvimento` +
+                        `<img src='/Layout/Imagens/ConfiguracaoGuiada/0IBRAPM.webp' alt='3.GR' ` +
+                        `style='max-width:100%;' onerror='this.remove()'>`
+                };
+            }
+        };
+
+        const buttons = document.querySelectorAll('button.help-icon[data-help-text]');
+        buttons.forEach(btn => {
+            btn.dataset.helpTextOriginal = btn.dataset.helpText;
+            btn.dataset.helpTitleOriginal = btn.dataset.helpTitle;
+        });
+
+        function updateButton(btn, data) {
+            if (!data) {
+                data = { title: btn.dataset.helpTitleOriginal, text: btn.dataset.helpTextOriginal };
+            }
+            btn.dataset.helpTitle = data.title || '';
+            btn.dataset.helpText = data.text || '';
+            btn.dataset.bsTitle = data.title || '';
+            btn.dataset.bsContent = data.text || '';
+            const pop = bootstrap.Popover.getOrCreateInstance(btn);
+            pop.setContent({ '.popover-header': data.title || '', '.popover-body': data.text || '' });
+        }
+
+        function updateHelps() {
+            buttons.forEach(btn => {
+                const section = btn.closest('section');
+                const cfgFn = section && helpConfigs[section.id];
+                const data = cfgFn && cfgFn();
+                updateButton(btn, data);
+            });
+        }
+
+        ['AELN', 'AEBR', 'AETP', 'AEEL', 'AEEE', 'AEEE2'].forEach(id => {
+            document.getElementById(id)?.addEventListener('change', updateHelps);
+        });
+
+        updateHelps();
+    });
+</script>

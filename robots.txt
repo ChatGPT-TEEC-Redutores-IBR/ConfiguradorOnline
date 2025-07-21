@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /Paginas/Seletores/
+Disallow: /Paginas/PaginaErros/
+Disallow: /Paginas/AreaCliente/
+Disallow: /Paginas/SolicitacaoCotacao/
+Disallow: /Paginas/SolicitacaoDesenho/
+Disallow: /Paginas/Universais/
+Disallow: /node_modules/
+Disallow: /Restritos/
+Disallow: /.well-known/
+Sitemap: https://configurador.redutoresibr.com.br/sitemap.xml
+Allow: /Layout/
