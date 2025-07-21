@@ -60,7 +60,7 @@
 
   <script>
     const params = new URLSearchParams(window.location.search);
-    const paramCount = Array.from(params.keys()).length;
+    const paramCount = window.location.search ? window.location.search.slice(1).split('&').filter(Boolean).length : 0;
     window.keepLoading = paramCount > 0;
     window.indefiniteLoading = paramCount > 1;
 
@@ -69,9 +69,12 @@
         window.keepLoading = false;
         if (window.hideLoadingScreen) window.hideLoadingScreen();
       }, 500);
+    } if (paramCount > 1) {
+      setTimeout(() => {
+        if (window.hideLoadingScreen) window.hideLoadingScreen();
+      }, 15000);
     }
   </script>
-
 
   <script src="/Paginas/CarregarPagina.min.js?versao=versao.2.0.45"></script>
   <script>

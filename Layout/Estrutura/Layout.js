@@ -6,7 +6,7 @@ window.hideLoadingScreen = function () {
     }
 };
 setTimeout(() => {
-    if (document.getElementById("loader")) {
+    if (document.getElementById("loader") && !window.indefiniteLoading) {
         window.keepLoading = false;
         window.hideLoadingScreen();
     }
@@ -21,7 +21,7 @@ window.addEventListener("load", () => {
             if (!window.keepLoading) window.hideLoadingScreen();
         }, remaining);
         setTimeout(() => {
-            if (document.getElementById("loader")) {
+            if (document.getElementById("loader") && !window.indefiniteLoading) {
                 window.keepLoading = false;
                 window.hideLoadingScreen();
             }
