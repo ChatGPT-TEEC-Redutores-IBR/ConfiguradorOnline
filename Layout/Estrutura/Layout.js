@@ -5,12 +5,9 @@ window.hideLoadingScreen = function () {
         setTimeout(() => l.remove(), 600);
     }
 };
-if (window.keepLoading && window.location.search.length === 0) {
-    window.keepLoading = false;
-}
 setTimeout(() => {
     if (document.getElementById("loader")) window.hideLoadingScreen();
-}, 60000);
+}, 15000);
 
 window.addEventListener("load", () => {
     const loading = document.getElementById("loader");
@@ -22,7 +19,7 @@ window.addEventListener("load", () => {
         }, remaining);
         setTimeout(() => {
             if (document.getElementById("loader")) window.hideLoadingScreen();
-        }, 60000);
+        }, 10000);
     }
 });
 
