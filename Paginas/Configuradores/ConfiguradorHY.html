@@ -59,7 +59,17 @@
   <div id="pagina-completa"></div>
 
   <script>
-    window.keepLoading = window.location.search.length > 0;
+    const params = new URLSearchParams(window.location.search);
+    const paramCount = window.location.search ? window.location.search.slice(1).split('&').filter(Boolean).length : 0;
+    window.keepLoading = paramCount > 0;
+    window.indefiniteLoading = paramCount > 1;
+
+    if (paramCount === 1) {
+      setTimeout(() => {
+        window.keepLoading = false;
+        if (window.hideLoadingScreen) window.hideLoadingScreen();
+      }, 500);
+    } 
   </script>
 
 
