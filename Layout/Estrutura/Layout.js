@@ -6,7 +6,10 @@ window.hideLoadingScreen = function () {
     }
 };
 setTimeout(() => {
-    if (!window.indefiniteLoading && document.getElementById("loader")) window.hideLoadingScreen();
+    if (document.getElementById("loader")) {
+        window.keepLoading = false;
+        window.hideLoadingScreen();
+    }
 }, 15000);
 
 window.addEventListener("load", () => {
@@ -17,11 +20,12 @@ window.addEventListener("load", () => {
         setTimeout(() => {
             if (!window.keepLoading) window.hideLoadingScreen();
         }, remaining);
-        if (!window.indefiniteLoading) {
-            setTimeout(() => {
-                if (document.getElementById("loader")) window.hideLoadingScreen();
-            }, 10000);
-        }
+        setTimeout(() => {
+            if (document.getElementById("loader")) {
+                window.keepLoading = false;
+                window.hideLoadingScreen();
+            }
+        }, 10000);
     }
 });
 
