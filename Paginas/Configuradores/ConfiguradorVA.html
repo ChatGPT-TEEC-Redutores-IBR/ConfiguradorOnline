@@ -68,7 +68,10 @@
         window.keepLoading = false;
         if (window.hideLoadingScreen) window.hideLoadingScreen();
       }, 500);
-    } else 
+    } else if (paramCount > 1) {
+      setTimeout(() => {
+        if (window.hideLoadingScreen) window.hideLoadingScreen();
+      }, 3000);
     }
   </script>
 
