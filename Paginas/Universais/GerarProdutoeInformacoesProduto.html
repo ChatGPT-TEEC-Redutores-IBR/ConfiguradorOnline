@@ -853,6 +853,16 @@
                                 }
                             }
                         }
+                        let tentativasProd = 0;
+                        const aguardaProduto = setInterval(() => {
+                            const cdProd = document.getElementById('cdProduto');
+                            const pronto = cdProd && cdProd.textContent.trim() !== '---';
+                            if (pronto || ++tentativasProd > 60) {
+                                clearInterval(aguardaProduto);
+                                window.keepLoading = false;
+                                if (window.hideLoadingScreen) window.hideLoadingScreen();
+                            }
+                        }, 500);
                     }
                 }, 500);
             })();
