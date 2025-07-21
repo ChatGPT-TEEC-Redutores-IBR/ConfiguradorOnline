@@ -63,11 +63,17 @@
     const paramCount = Array.from(params.keys()).length;
     window.keepLoading = paramCount > 0;
     window.indefiniteLoading = paramCount > 1;
+
     if (paramCount === 1) {
       setTimeout(() => {
         window.keepLoading = false;
         if (window.hideLoadingScreen) window.hideLoadingScreen();
       }, 1500);
+    } else if (paramCount > 1) {
+      setTimeout(() => {
+        window.keepLoading = false;
+        if (window.hideLoadingScreen) window.hideLoadingScreen();
+      }, 15000);
     }
   </script>
 
