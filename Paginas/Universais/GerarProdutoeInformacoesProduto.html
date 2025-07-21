@@ -496,13 +496,18 @@
             if (compartilhar && grupoEstoque && grupoEstoque.parentNode) {
                 grupoEstoque.parentNode.insertBefore(compartilhar, grupoEstoque.nextSibling);
             }
-
         } else {
             if (grupoEstoque) {
                 grupoEstoque.style.display = "none";
             }
         }
+
+        if (window.keepLoading) {
+            window.keepLoading = false;
+            if (window.hideLoadingScreen) window.hideLoadingScreen();
+        }
     }
+
 
     async function get(url, params) {
         const queryString = new URLSearchParams(params).toString();
@@ -844,25 +849,23 @@
                             const alvo = document.querySelector('.gerar-produto-wrapper');
                             if (alvo) {
                                 scrollParaCentro(alvo);
+                                setTimeout(validarAntesDeGerar, 1000);
+                            }
 
-                                if (paramCount > 1) {
-                                    setTimeout(() => {
-                                        validarAntesDeGerar();
-
-                                    }, 1000);
+                            let tentativasProd = 0;
+                            const aguardaProduto = setInterval(() => {
+                                const cdProd = document.getElementById('cdProduto');
+                                const pronto = cdProd && cdProd.textContent.trim() !== '---';
+                                if (pronto || ++tentativasProd > 10) {
+                                    clearInterval(aguardaProduto);
+                                    window.keepLoading = false;
+                                    if (window.hideLoadingScreen) window.hideLoadingScreen();
                                 }
-                            }
+                            }, 500);
+                        } else {
+                            window.keepLoading = false;
+                            if (window.hideLoadingScreen) window.hideLoadingScreen();
                         }
-                        let tentativasProd = 0;
-                        const aguardaProduto = setInterval(() => {
-                            const cdProd = document.getElementById('cdProduto');
-                            const pronto = cdProd && cdProd.textContent.trim() !== '---';
-                            if (pronto || ++tentativasProd > 60) {
-                                clearInterval(aguardaProduto);
-                                window.keepLoading = false;
-                                if (window.hideLoadingScreen) window.hideLoadingScreen();
-                            }
-                        }, 500);
                     }
                 }, 500);
             })();
