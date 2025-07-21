@@ -14,9 +14,9 @@ try {
     ]);
 
     $email = strtolower(trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL) ?? ''));
-    $produto = strtoupper(trim(filter_input(INPUT_POST, 'produto', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? ''));
-    $formato = strtoupper(trim(filter_input(INPUT_POST, 'formato', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? ''));
-    $drvwIdField = trim(filter_input(INPUT_POST, 'drvw_idfield', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? '');
+    $produto = mb_strtoupper(trim(filter_input(INPUT_POST, 'produto', FILTER_UNSAFE_RAW) ?? ''), 'UTF-8');
+    $formato = mb_strtoupper(trim(filter_input(INPUT_POST, 'formato', FILTER_UNSAFE_RAW) ?? ''), 'UTF-8');
+    $drvwIdField = trim(filter_input(INPUT_POST, 'drvw_idfield', FILTER_UNSAFE_RAW) ?? '');
 
         $isCodigo = preg_match('/^[A-Z]{2,4}\.[0-9]{8}$/', $produto);
     if ($isCodigo) {
