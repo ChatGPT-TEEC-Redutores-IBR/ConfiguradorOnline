@@ -20,7 +20,7 @@ try {
        PDO::SQLSRV_ATTR_ENCODING => PDO::SQLSRV_ENCODING_UTF8
     ]);
 
-$formato    = mb_strtoupper(trim(filter_input(INPUT_POST, 'formato', FILTER_UNSAFE_RAW) ?? ''), 'UTF-8');
+$formato    = strtoupper(filter_input(INPUT_POST, 'formato', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? '');
 $cdProduto  = strtoupper(filter_input(INPUT_POST, 'cd_produto', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? '');
 $empresa    = strtoupper(filter_input(INPUT_POST, 'cd_empresa', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? '001');
 

@@ -6,10 +6,7 @@ window.hideLoadingScreen = function () {
     }
 };
 setTimeout(() => {
-    if (document.getElementById("loader") && !window.indefiniteLoading) {
-        window.keepLoading = false;
-        window.hideLoadingScreen();
-    }
+    if (document.getElementById("loader")) window.hideLoadingScreen();
 }, 15000);
 
 window.addEventListener("load", () => {
@@ -21,10 +18,7 @@ window.addEventListener("load", () => {
             if (!window.keepLoading) window.hideLoadingScreen();
         }, remaining);
         setTimeout(() => {
-            if (document.getElementById("loader") && !window.indefiniteLoading) {
-                window.keepLoading = false;
-                window.hideLoadingScreen();
-            }
+            if (document.getElementById("loader")) window.hideLoadingScreen();
         }, 10000);
     }
 });
@@ -606,7 +600,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
     window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/Service-Worker.min.js?versao=versao.2.0.45", { updateViaCache: 'none' })
+        navigator.serviceWorker.register("/Service-Worker.min.js?versao=versao.2.0.43", { updateViaCache: 'none' })
             .catch(err => console.warn('Service worker registration failed:', err));
     });
 } else {

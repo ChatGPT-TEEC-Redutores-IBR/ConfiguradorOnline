@@ -234,7 +234,7 @@
                     <div id="checklistFORMATO_DESENHO">
                         <label><input type="checkbox" name="FORMATO_DESENHO" value="3D (PARASOLID)"> 3D
                             (PARASOLID)</label>
-                        <label><input type="checkbox" name="FORMATO_DESENHO" value=" 3D (BINÁRIO)"> 3D (PARASOLID
+                        <label><input type="checkbox" name="FORMATO_DESENHO" value=" (BINÁRIO)"> 3D (PARASOLID
                             BINÁRIO)</label>
                         <label><input type="checkbox" name="FORMATO_DESENHO" value="PDF"> PDF</label>
                         <label><input type="checkbox" name="FORMATO_DESENHO" value="STEP"> STEP</label>
@@ -496,18 +496,13 @@
             if (compartilhar && grupoEstoque && grupoEstoque.parentNode) {
                 grupoEstoque.parentNode.insertBefore(compartilhar, grupoEstoque.nextSibling);
             }
+
         } else {
             if (grupoEstoque) {
                 grupoEstoque.style.display = "none";
             }
         }
-
-        if (window.keepLoading) {
-            window.keepLoading = false;
-            if (window.hideLoadingScreen) window.hideLoadingScreen();
-        }
     }
-
 
     async function get(url, params) {
         const queryString = new URLSearchParams(params).toString();
@@ -695,70 +690,29 @@
 
             clearInterval(aguardaCampos);
 
-            const aplicarCheckboxOPC = (id, valor) => {
-                const aplicar = () => {
-                    const hiddens = document.querySelectorAll(`input[id="${id}"]`);
-                    if (hiddens.length === 0) return false;
-
-                    const dropdowns = document.querySelectorAll(`#dropdown${id}`);
-                    const checklists = document.querySelectorAll(`#checklist${id} input[type="checkbox"]`);
-
-                    const valores = valor.split(',').map(v => v.trim());
-                    hiddens.forEach(h => {
-                        h.value = valores.join(',');
-                        h.dataset.linkValor = valores.join(',');
-                    });
-
-                    checklists.forEach(cb => {
-                        cb.checked = valores.includes(cb.value);
-                        cb.disabled = true;
-                    });
-
-                    dropdowns.forEach(dropdown => {
-                        const botao = dropdown.querySelector('.dropdown-button');
-                        if (botao) {
-                            const nomesVisiveis = valores.map(v => {
-                                const label = Array.from(dropdown.querySelectorAll('label'))
-                                    .find(lbl => lbl.querySelector(`input[value="${v}"]`));
-                                return label ? label.textContent.trim() : v;
-                            });
-
-                            botao.textContent = nomesVisiveis.join(', ');
-                            botao.style.pointerEvents = 'none';
-                            botao.style.opacity = '0.6';
-                            botao.style.cursor = 'not-allowed';
-                            botao.title = 'Campo bloqueado (via link)';
+            params.forEach((valor, id) => {
+                const select = document.getElementById(id);
+                if (select && select.tagName === "SELECT") {
+                    const aplicarValor = () => {
+                        if ([...select.options].some(opt => opt.value === valor)) {
+                            select.value = valor;
+                            select.dispatchEvent(new Event("change"));
+                        } else {
+                            let tentativas = 0;
+                            const timer = setInterval(() => {
+                                if ([...select.options].some(opt => opt.value === valor)) {
+                                    select.value = valor;
+                                    select.dispatchEvent(new Event("change"));
+                                    clearInterval(timer);
+                                } else if (++tentativas > 10) {
+                                    clearInterval(timer);
+                                }
+                            }, 200);
                         }
-                    });
-
-                    hiddens.forEach(h => h.dispatchEvent(new Event('change')));
-                    return true;
-                };
-
-                const addListener = () => {
-                    document.querySelectorAll(`input[id="${id}"]`).forEach(h => {
-                        if (h.dataset.linkListener) return;
-                        h.dataset.linkListener = '1';
-                        h.addEventListener('change', () => {
-                            if (h.dataset.linkValor && h.value !== h.dataset.linkValor) {
-                                aplicar();
-                            }
-                        });
-                    });
-                };
-
-                if (!aplicar()) {
-                    let tentativas = 0;
-                    const espera = setInterval(() => {
-                        if (aplicar() || ++tentativas > 40) {
-                            clearInterval(espera);
-                            addListener();
-                        }
-                    }, 300);
-                } else {
-                    addListener();
+                    };
+                    aplicarValor();
                 }
-            };
+            });
 
             params.forEach((valor, id) => {
                 if (!id.includes("OPC")) return;
@@ -849,22 +803,14 @@
                             const alvo = document.querySelector('.gerar-produto-wrapper');
                             if (alvo) {
                                 scrollParaCentro(alvo);
-                                setTimeout(validarAntesDeGerar, 1000);
-                            }
 
-                            let tentativasProd = 0;
-                            const aguardaProduto = setInterval(() => {
-                                const cdProd = document.getElementById('cdProduto');
-                                const pronto = cdProd && cdProd.textContent.trim() !== '---';
-                                if (pronto || ++tentativasProd > 10) {
-                                    clearInterval(aguardaProduto);
-                                    window.keepLoading = false;
-                                    if (window.hideLoadingScreen) window.hideLoadingScreen();
+                                if (paramCount > 1) {
+                                    setTimeout(() => {
+                                        validarAntesDeGerar();
+
+                                    }, 1000);
                                 }
-                            }, 500);
-                        } else {
-                            window.keepLoading = false;
-                            if (window.hideLoadingScreen) window.hideLoadingScreen();
+                            }
                         }
                     }
                 }, 500);

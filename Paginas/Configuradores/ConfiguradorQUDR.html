@@ -25,7 +25,7 @@
     content="IBR, redutores, configurador, motores, variadores, planetários, desenhos, cotações, 3D Download, Download, 3D, PDF, PDF Download, Desenhos Download, Cotação, Orçamento, Redutores de Dupla Redução">
   <meta property="og:type" content="website">
   <meta property="og:image" content="/Layout/Imagens/Logotipos/Logotipo.svg">
-  <link rel="preload" href="/Paginas/CarregarPagina.min.js?versao=versao.2.0.45" as="script">
+  <link rel="preload" href="/Paginas/CarregarPagina.min.js?versao=versao.2.0.43" as="script">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -58,25 +58,11 @@
   <div id="pagina-completa"></div>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const paramCount = Array.from(params.keys()).length;
-    window.keepLoading = paramCount > 0;
-    window.indefiniteLoading = paramCount > 1;
-
-    if (paramCount === 1) {
-      setTimeout(() => {
-        window.keepLoading = false;
-        if (window.hideLoadingScreen) window.hideLoadingScreen();
-      }, 500);
-    } else if (paramCount > 1) {
-      setTimeout(() => {
-        if (window.hideLoadingScreen) window.hideLoadingScreen();
-      }, 3000);
-    }
+    window.keepLoading = window.location.search.length > 0;
   </script>
 
 
-  <script src="/Paginas/CarregarPagina.min.js?versao=versao.2.0.45"></script>
+  <script src="/Paginas/CarregarPagina.min.js?versao=versao.2.0.43"></script>
   <script>
     carregarPagina('/Paginas/Seletores/SeletoresConfiguradorQUDR.html');
   </script>
