@@ -1352,6 +1352,7 @@
 <script>
     function gerarLinkAtual() {
         const params = new URLSearchParams();
+        const fieldIds = new Set();
 
         function visivel(el) {
             if (el.closest('.dropdown-list')) return false;
@@ -1379,6 +1380,7 @@
         document.querySelectorAll('select[id], input[id]').forEach(el => {
             const id = el.id;
             if (!id || /[^A-Z0-9_]/.test(id)) return;
+            fieldIds.add(id);
             if (!visivel(el)) return;
             if (el.type === 'checkbox') {
                 if (el.checked) params.append(id, el.value);
@@ -1386,6 +1388,21 @@
                 const val = el.value;
                 if (val) params.set(id, val);
             }
+        });
+
+        const completo = formularioCompleto();
+        const atuais = new URLSearchParams(location.search);
+
+        if (!completo) {
+            const baseParams = new URLSearchParams();
+            atuais.forEach((v, k) => {
+                if (!fieldIds.has(k)) baseParams.append(k, v);
+            });
+            return location.origin + location.pathname + (baseParams.toString() ? '?' + baseParams.toString() : '');
+        }
+
+        atuais.forEach((v, k) => {
+            if (!params.has(k) && !fieldIds.has(k)) params.append(k, v);
         });
         return location.origin + location.pathname + (params.toString() ? '?' + params.toString() : '');
     }
@@ -1434,44 +1451,57 @@
         }
     }
 
-    function preencherCamposDaUrl(tentativas = 30) {
-        const params = new URLSearchParams(location.search);
-        let pendentes = false;
+    function preencherCampoSequencial(paramEntries, index = 0, tentativas = 30) {
+        if (index >= paramEntries.length) {
+            if (paramEntries.length && typeof gerarCodigoProduto === 'function') {
+                const generated = gerarLinkAtual();
+                const search = generated.split('?')[1] || '';
+                const genParams = new URLSearchParams(search);
+                const origParams = new URLSearchParams(location.search);
 
-        params.forEach((val, key) => {
-            const el = document.getElementById(key);
-            if (!el) return;
-            if (el.type === 'checkbox') {
-                if (el.value === val) el.checked = true;
-            } else {
-                el.value = val;
-                if (el.tagName === 'SELECT' && el.value !== val) {
-                    pendentes = true;
+                let allMatch = true;
+                for (const [k, v] of genParams.entries()) {
+                    if (origParams.get(k) !== v) {
+                        allMatch = false;
+                        break;
+                    }
+                }
+
+                if (allMatch && genParams.size === origParams.size && formularioCompleto()) {
+                    gerarCodigoProduto();
                 }
             }
+            return;
+        }
+
+        const [key, val] = paramEntries[index];
+        const el = document.getElementById(key);
+        if (!el) {
+            preencherCampoSequencial(paramEntries, index + 1, tentativas);
+            return;
+        }
+
+        if (el.type === 'checkbox') {
+            if (el.value === val) el.checked = true;
             el.dispatchEvent(new Event('change'));
-        });
-
-        if (pendentes && tentativas > 0) {
-            setTimeout(() => preencherCamposDaUrl(tentativas - 1), 500);
-        } else if (!pendentes && [...params.keys()].length &&
-            typeof gerarCodigoProduto === 'function') {
-            const generated = gerarLinkAtual();
-            const search = generated.split('?')[1] || '';
-            const genParams = new URLSearchParams(search);
-
-            let allMatch = true;
-            for (const [k, v] of genParams.entries()) {
-                if (params.get(k) !== v) {
-                    allMatch = false;
-                    break;
+            setTimeout(() => preencherCampoSequencial(paramEntries, index + 1), 50);
+        } else {
+            el.value = val;
+            if (el.tagName === 'SELECT' && el.value !== val) {
+                if (tentativas > 0) {
+                    setTimeout(() => preencherCampoSequencial(paramEntries, index, tentativas - 1), 500);
                 }
-            }
-
-            if (allMatch && [...genParams.keys()].length === [...params.keys()].length && formularioCompleto()) {
-                gerarCodigoProduto();
+            } else {
+                el.dispatchEvent(new Event('change'));
+                setTimeout(() => preencherCampoSequencial(paramEntries, index + 1), 50);
             }
         }
+    }
+
+    function preencherCamposDaUrl() {
+        const params = Array.from(new URLSearchParams(location.search).entries());
+        if (!params.length) return;
+        preencherCampoSequencial(params, 0);
     }
 
     function copiarLink(event) {
