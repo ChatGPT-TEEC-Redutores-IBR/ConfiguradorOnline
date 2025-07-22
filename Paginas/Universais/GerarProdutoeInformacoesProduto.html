@@ -679,34 +679,6 @@
                 .map(s => s.id)
                 .filter(id => params.has(id));
 
-            ordemSelects.forEach(id => {
-                const valor = params.get(id);
-                const select = document.getElementById(id);
-                if (!select || select.tagName !== "SELECT") return;
-
-                const aplicarValor = () => {
-                    if ([...select.options].some(opt => opt.value === valor)) {
-                        select.value = valor;
-                        select.dispatchEvent(new Event("change"));
-                    } else {
-                        let tentativas = 0;
-                        const timer = setInterval(() => {
-                            if ([...select.options].some(opt => opt.value === valor)) {
-                                console.log(`[prefill] Set ${id}=${valor} after ${tentativas} attempts`);
-                                select.value = valor;
-                                select.dispatchEvent(new Event("change"));
-                                clearInterval(timer);
-                            } else if (++tentativas > 300) {
-                                console.warn(`[prefill] Timeout ao preencher ${id}`);
-                                console.warn('Timeout aplicando valor para', id);
-                                clearInterval(timer);
-                            }
-                        }, 200);
-                    }
-                };
-                aplicarValor();
-            });
-
             params.forEach((valor, id) => {
                 if (!id.includes("OPC")) return;
 
@@ -764,7 +736,8 @@
                     .map(s => s.id)
                     .filter(id => params.has(id));
 
-                for (const id of ordemSelects) {
+                for (let i = 0; i < ordemSelects.length; i++) {
+                    const id = ordemSelects[i];
                     const valor = params.get(id);
                     const select = document.getElementById(id);
                     if (!select || select.tagName !== "SELECT") continue;
@@ -788,6 +761,24 @@
                             }
                         }, 200);
                     });
+
+                    const proxId = ordemSelects[i + 1];
+                    if (proxId) {
+                        const proxSelect = document.getElementById(proxId);
+                        if (proxSelect) {
+                            await new Promise(resolve => {
+                                let tent = 0;
+                                const espera = setInterval(() => {
+                                    const pronto = proxSelect.options.length > 0 && proxSelect.offsetParent !== null;
+                                    if (pronto || ++tent > 100) {
+                                        if (tent > 100) console.warn('Próximo select não carregou', proxId);
+                                        clearInterval(espera);
+                                        resolve();
+                                    }
+                                }, 200);
+                            });
+                        }
+                    }
                 }
 
                 const paramCount = params.size;
