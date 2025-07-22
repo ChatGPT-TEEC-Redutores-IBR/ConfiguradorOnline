@@ -5003,6 +5003,20 @@ body.dark-mode .perm-popover {
     color: #b94a48;
 }
 
+#btnRefazerConfiguracao {
+    background: rgb(var(--ibr-orange));
+    color: #fff;
+    border-color: #ec4115;
+}
+
+#btnRefazerConfiguracao svg {
+    transition: transform 0.4s ease;
+}
+
+#btnRefazerConfiguracao:hover svg {
+    transform: rotate(360deg) scale(1.2);
+}
+
 @media (min-width: 992px) {
     .botoes-filtros-wrapper {
         margin-right: 0;

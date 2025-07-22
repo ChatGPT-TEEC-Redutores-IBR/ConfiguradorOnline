@@ -594,6 +594,7 @@
     function exibirBotaoCompartilhar() {
         const wrapper = document.getElementById("compartilhar-wrapper");
         if (wrapper) wrapper.style.display = "block";
+        if (typeof exibirBotaoRefazerConfiguracao === "function") exibirBotaoRefazerConfiguracao();
     }
 
     function exibirBotaoSolicitarCotacao() {
