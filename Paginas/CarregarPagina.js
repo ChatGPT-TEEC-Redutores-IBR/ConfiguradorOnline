@@ -44,7 +44,23 @@ if (window.scriptSources = window.scriptSources || [], applySavedTheme(document)
 
     const t = window.fetch.bind(window);
 
+    const MAX_CONCURRENT_FETCHES = 8;
+    let activeFetches = 0;
+    const fetchQueue = [];
+
+    async function dequeue() {
+        activeFetches--;
+        if (fetchQueue.length) {
+            const next = fetchQueue.shift();
+            next();
+        }
+    }
+
     window.fetch = async function (o, n = {}) {
+        if (activeFetches >= MAX_CONCURRENT_FETCHES) {
+            await new Promise(resolve => fetchQueue.push(resolve));
+        }
+        activeFetches++;
         if (n && (n.method || "GET").toUpperCase() === "POST") {
             n.headers = n.headers || {};
             if (!window.csrfToken) {
@@ -66,10 +82,11 @@ if (window.scriptSources = window.scriptSources || [], applySavedTheme(document)
         } catch (err) {
             redirecionarSeOffline();
             throw err;
+        } finally {
+            dequeue();
         }
     };
 }
-
 async function clearCachesAndReload() {
     try {
         const e = await caches.keys();

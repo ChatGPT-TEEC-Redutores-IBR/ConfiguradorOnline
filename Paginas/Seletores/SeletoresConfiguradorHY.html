@@ -90,41 +90,6 @@
 </script>
 
 <script>
-    const paramsLink = new URLSearchParams(window.location.search);
-
-    function aplicarParametrosLink() {
-        paramsLink.forEach((valor, id) => {
-            const el = document.getElementById(id);
-            if (!el) return;
-
-            const aplicar = () => {
-                if (el.tagName === 'SELECT') {
-                    if ([...el.options].some(o => o.value === valor)) {
-                        el.value = valor;
-                        el.dispatchEvent(new Event('change'));
-                        return true;
-                    }
-                } else {
-                    el.value = valor;
-                    el.dispatchEvent(new Event('change'));
-                    return true;
-                }
-                return false;
-            };
-
-            if (el.tagName === 'SELECT') {
-                if (!aplicar()) {
-                    const obs = new MutationObserver(() => {
-                        if (aplicar()) obs.disconnect();
-                    });
-                    obs.observe(el, { childList: true });
-                }
-            } else {
-                aplicar();
-            }
-        });
-    }
-    document.addEventListener('DOMContentLoaded', aplicarParametrosLink);
     document.addEventListener('DOMContentLoaded', () => {
         const helpConfigs = {
 

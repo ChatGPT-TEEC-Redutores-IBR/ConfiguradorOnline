@@ -527,43 +527,6 @@
 </script>
 
 <script>
-    var veioDeLink = window.location.search.length > 0;
-
-    function aplicarParametrosLink() {
-        const params = new URLSearchParams(window.location.search);
-        params.forEach((valor, id) => {
-            const el = document.getElementById(id);
-            if (!el) return;
-
-            const aplicar = () => {
-                if (el.tagName === 'SELECT') {
-                    if ([...el.options].some(o => o.value === valor)) {
-                        el.value = valor;
-                        el.dispatchEvent(new Event('change'));
-                        return true;
-                    }
-                } else {
-                    el.value = valor;
-                    el.dispatchEvent(new Event('change'));
-                    return true;
-                }
-                return false;
-            };
-
-            if (el.tagName === 'SELECT') {
-                if (!aplicar()) {
-                    const obs = new MutationObserver(() => {
-                        if (aplicar()) obs.disconnect();
-                    });
-                    obs.observe(el, { childList: true });
-                }
-            } else {
-                aplicar();
-            }
-        });
-    }
-    document.addEventListener('DOMContentLoaded', aplicarParametrosLink);
-
     function codigoAmigavel(codigo) {
         const map = {
             '1.Q': 'IBRQ',
@@ -828,8 +791,6 @@
 
                     if (!selectsPendentes && !opcPendentes) {
                         clearInterval(scrollFinal);
-                        window.keepLoading = false;
-                        if (window.hideLoadingScreen) window.hideLoadingScreen();
 
                         if (paramCount > 1) {
                             const alvo = document.querySelector('.gerar-produto-wrapper');
@@ -848,7 +809,7 @@
                 }, 500);
             })();
 
-        }, 300);
+        });
     }
     document.addEventListener("click", function (e) {
         const alvo = e.target.closest("#btnCopiarLink");
