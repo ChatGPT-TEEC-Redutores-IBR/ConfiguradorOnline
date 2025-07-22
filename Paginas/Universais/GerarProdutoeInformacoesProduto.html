@@ -571,17 +571,11 @@
     }
 
     function gerarLinkAtual() {
-        const selects = Array.from(document.querySelectorAll("select")).filter(select => {
-            const style = window.getComputedStyle(select);
-            return style.display !== "none" && select.offsetParent !== null && select.value.trim() !== "";
-        });
+        const selects = Array.from(document.querySelectorAll("select"))
+            .filter(select => select.value.trim() !== "");
 
         const hiddenInputs = Array.from(document.querySelectorAll("input[type='hidden']"))
-            .filter(input => {
-                if (!input.id.includes("OPC") || !input.value.trim()) return false;
-                const dropdown = document.getElementById("dropdown" + input.id);
-                return dropdown && dropdown.offsetParent !== null;
-            });
+            .filter(input => input.id.includes("OPC") && input.value.trim() !== "");
 
         const params = [
             ...selects.map(select => `${select.id}=${encodeURIComponent(select.value)}`),
@@ -695,7 +689,7 @@
                                     select.value = valor;
                                     select.dispatchEvent(new Event("change"));
                                     clearInterval(timer);
-                                } else if (++tentativas > 10) {
+                                } else if (++tentativas > 40) {
                                     clearInterval(timer);
                                 }
                             }, 200);

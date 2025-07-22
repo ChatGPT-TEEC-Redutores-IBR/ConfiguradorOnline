@@ -64,9 +64,7 @@ if (window.scriptSources = window.scriptSources || [], applySavedTheme(document)
         try {
             return await t(o, n);
         } catch (err) {
-            if (!navigator.onLine) {
-                redirecionarSeOffline();
-            }
+            redirecionarSeOffline();
             throw err;
         }
     };
