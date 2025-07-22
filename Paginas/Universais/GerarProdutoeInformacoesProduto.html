@@ -692,10 +692,13 @@
                         let tentativas = 0;
                         const timer = setInterval(() => {
                             if ([...select.options].some(opt => opt.value === valor)) {
+                                console.log(`[prefill] Set ${id}=${valor} after ${tentativas} attempts`);
                                 select.value = valor;
                                 select.dispatchEvent(new Event("change"));
                                 clearInterval(timer);
-                            } else if (++tentativas > 100) {
+                            } else if (++tentativas > 300) {
+                                console.warn(`[prefill] Timeout ao preencher ${id}`);
+                                console.warn('Timeout aplicando valor para', id);
                                 clearInterval(timer);
                             }
                         }, 200);
@@ -744,7 +747,11 @@
                 if (!aplicarCheckboxOPC()) {
                     let tentativas = 0;
                     const espera = setInterval(() => {
-                        if (aplicarCheckboxOPC() || ++tentativas > 100) {
+                        if (aplicarCheckboxOPC()) {
+                            console.log(`[prefill] Checkbox ${id} preenchido ap\ós ${tentativas} tentativas`);
+                            clearInterval(espera);
+                        } else if (++tentativas > 300) {
+                            console.warn(`[prefill] Timeout ao preencher checkbox ${id}`);
                             clearInterval(espera);
                         }
                     }, 300);
@@ -768,12 +775,14 @@
                             const opcoes = [...select.options].map(opt => opt.value);
                             const visivel = select.offsetParent !== null;
                             if (opcoes.includes(valor) && visivel) {
+                                console.log(`[prefill] Definitivo ${id}=${valor} depois de ${tentativas} tentativas`);
                                 select.value = valor;
                                 select.dispatchEvent(new Event("change"));
                                 select.disabled = true;
                                 clearInterval(timer);
                                 resolve();
-                            } else if (++tentativas > 100) {
+                            } else if (++tentativas > 300) {
+                                console.warn(`[prefill] Timeout definitivo para ${id}`);
                                 clearInterval(timer);
                                 resolve();
                             }

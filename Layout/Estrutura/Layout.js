@@ -291,6 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function gerarLinkCompartilhamento(valorDigitado) {
         const params = new URLSearchParams();
         params.append("valor", valorDigitado);
+        console.log("[BUSCA INICIADA]", valorDigitado);
         const token =
             window.csrfToken ||
             document.cookie
@@ -309,6 +310,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
             );
             const json = await resposta.json();
+            console.log("[BUSCA RESPOSTA]", json);
+
             if (json.erro) {
                 exibirAlerta(`❌ ${json.erro}`);
             } else if (json.url) {
