@@ -44,7 +44,7 @@ if (window.scriptSources = window.scriptSources || [], applySavedTheme(document)
 
     const t = window.fetch.bind(window);
 
-    const MAX_CONCURRENT_FETCHES = 16;
+    const MAX_CONCURRENT_FETCHES = 32;
 
     let activeFetches = 0;
     const fetchQueue = [];
@@ -64,7 +64,7 @@ if (window.scriptSources = window.scriptSources || [], applySavedTheme(document)
             await new Promise(resolve => fetchQueue.push(resolve));
         }
         activeFetches++;
-        console.log("[FETCH START]", url, "active:", activeFetches);
+        console.log("[FETCH START]", url, "active:", activeFetches, "queue:", fetchQueue.length);
         if (n && (n.method || "GET").toUpperCase() === "POST") {
             n.headers = n.headers || {};
             if (!window.csrfToken) {
@@ -83,12 +83,13 @@ if (window.scriptSources = window.scriptSources || [], applySavedTheme(document)
         }
         try {
             const resp = await t(o, n);
+            console.log("[FETCH RESPONSE]", url, resp.status);
             return resp;
         } catch (err) {
             redirecionarSeOffline();
             throw err;
         } finally {
-            console.log("[FETCH END]", url, "active:", activeFetches - 1);
+            console.log("[FETCH END]", url, "active:", activeFetches - 1, "queue:", fetchQueue.length);
             dequeue();
         }
     };

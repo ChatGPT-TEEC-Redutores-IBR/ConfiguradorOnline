@@ -722,7 +722,7 @@
                         if (aplicarCheckboxOPC()) {
                             console.log(`[prefill] Checkbox ${id} preenchido ap\ós ${tentativas} tentativas`);
                             clearInterval(espera);
-                        } else if (++tentativas > 300) {
+                        } else if (++tentativas > 1200) {
                             console.warn(`[prefill] Timeout ao preencher checkbox ${id}`);
                             clearInterval(espera);
                         }
@@ -754,7 +754,7 @@
                                 select.disabled = true;
                                 clearInterval(timer);
                                 resolve();
-                            } else if (++tentativas > 300) {
+                            } else if (++tentativas > 1200) {
                                 console.warn(`[prefill] Timeout definitivo para ${id}`);
                                 clearInterval(timer);
                                 resolve();
@@ -770,8 +770,8 @@
                                 let tent = 0;
                                 const espera = setInterval(() => {
                                     const pronto = proxSelect.options.length > 0 && proxSelect.offsetParent !== null;
-                                    if (pronto || ++tent > 100) {
-                                        if (tent > 100) console.warn('Próximo select não carregou', proxId);
+                                    if (pronto || ++tent > 1200) {
+                                        if (tent > 1200) console.warn('Próximo select não carregou', proxId);
                                         clearInterval(espera);
                                         resolve();
                                     }
@@ -793,6 +793,7 @@
 
                     if (!selectsPendentes && !opcPendentes) {
                         clearInterval(scrollFinal);
+                        console.log('[prefill] Preenchimento concluído');
 
                         if (paramCount > 1) {
                             const alvo = document.querySelector('.gerar-produto-wrapper');
