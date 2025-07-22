@@ -8779,3 +8779,16 @@
 [22/07/2025 14:43:00] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
     at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.0:1:1420)
     at https://configurador.redutoresibr.com.br/Layout/Estrutura/Layout.min.js?versao=versao.3.0.0:1:34747
+[22/07/2025 15:09:12] Cadastro confirmado: nata.oliveira@redutoresibr.com.br
+[22/07/2025 15:10:33] Email de confirmacao enviado para misael.ferreira@redutoresibr.com.br
+[22/07/2025 15:10:33] Cadastro pendente: misael.ferreira@redutoresibr.com.br
+[22/07/2025 15:10:39] Login email inexistente: misael.ferreira@redutoresibr.com.br
+[22/07/2025 15:10:59] CSRF token invalido. Cookie: [TOKEN] Cabecalho: 
+[22/07/2025 15:16:47] Email de confirmacao enviado para misael.ferreira@redutoresibr.com.br
+[22/07/2025 15:16:47] Cadastro pendente: misael.ferreira@redutoresibr.com.br
+[22/07/2025 15:17:22] Login email inexistente: misael.ferreira@redutoresibr.com.br
+[22/07/2025 15:17:44] Email de confirmacao de exclusao enviado para bperuzzo96@hotmail.com
+[22/07/2025 15:18:04] Conta excluida: bperuzzo96@hotmail.com
+[22/07/2025 15:18:53] Email de confirmacao enviado para bperuzzo96@hotmail.com
+[22/07/2025 15:18:53] Cadastro pendente: bperuzzo96@hotmail.com
+[22/07/2025 15:19:22] Cadastro confirmado: bperuzzo96@hotmail.com
