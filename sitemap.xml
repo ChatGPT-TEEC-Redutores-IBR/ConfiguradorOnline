@@ -25,7 +25,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://configurador.redutoresibr.com.br/ConfiguradorIBRALTORENDIMENTO?MOLN=3.I</loc>
+    <loc>https://configurador.redutoresibr.com.br/ConfiguradorIBRT3AT3C?MOLN=3.I</loc>
     <lastmod>2024-07-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -151,13 +151,19 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://configurador.redutoresibr.com.br/ConfiguradorIBRSTANDARD?MOLN=2.I</loc>
+    <loc>https://configurador.redutoresibr.com.br/ConfiguradorIBRMSML?MOLN=2.I</loc>
     <lastmod>2024-07-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://configurador.redutoresibr.com.br/ConfiguradorIBRV?VALN=1.V</loc>
+    <lastmod>2024-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+    <url>
+  <loc>https://configurador.redutoresibr.com.br/ConfiguradorIBRVFN?ACLN=1.VFN</loc>
     <lastmod>2024-07-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
