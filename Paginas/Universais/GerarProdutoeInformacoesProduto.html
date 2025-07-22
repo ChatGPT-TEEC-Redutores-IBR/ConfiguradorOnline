@@ -82,8 +82,8 @@
 <div id="compartilhar-wrapper" style="display: none; text-align: center; margin: 40px 0;">
     <div class="acoes-botoes">
         <div style="position: relative;">
-            <a href="javascript:void(0)" id="btnCompartilhar" onclick="toggleCompartilhar(); return false;"
-                aria-expanded="false" class="botao-icon botao-compartilhar-tema">
+            <button type="button" id="btnCompartilhar" onclick="toggleCompartilhar(event);" aria-expanded="false"
+                class="botao-icon botao-compartilhar-tema">
                 <svg class="icone-compartilhar-svg" width="40" height="40" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                     <path class="quadrado"
@@ -92,7 +92,7 @@
                         d="M19.6495 0.799565C18.4834 -0.72981 16.0093 0.081426 16.0093 1.99313V3.91272C12.2371 3.86807 9.65665 5.16473 7.9378 6.97554C6.10034 8.9113 5.34458 11.3314 5.02788 12.9862C4.86954 13.8135 5.41223 14.4138 5.98257 14.6211C6.52743 14.8191 7.25549 14.7343 7.74136 14.1789C9.12036 12.6027 11.7995 10.4028 16.0093 10.5464V13.0069C16.0093 14.9186 18.4834 15.7298 19.6495 14.2004L23.3933 9.29034C24.2022 8.2294 24.2022 6.7706 23.3933 5.70966L19.6495 0.799565Z" />
                 </svg>
                 Compartilhar
-            </a>
+            </button>
 
             <div id="submenu-compartilhar">
                 <div style="display: flex; gap: 12px; justify-content: center; align-items: center; margin-top: 10px;">
@@ -1516,7 +1516,9 @@
         }).catch(() => { });
     }
 
-    function toggleCompartilhar() {
+    function toggleCompartilhar(event) {
+        event?.preventDefault();
+        event?.stopPropagation();
         const menu = document.getElementById('submenu-compartilhar');
         const botao = document.getElementById('btnCompartilhar');
         if (!menu || !botao) return;
