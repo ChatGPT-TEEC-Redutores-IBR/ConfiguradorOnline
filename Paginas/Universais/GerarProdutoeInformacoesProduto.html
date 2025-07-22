@@ -1486,6 +1486,38 @@
         }).catch(() => { });
     }
 
+    function toggleCompartilhar() {
+        const menu = document.getElementById('submenu-compartilhar');
+        const botao = document.getElementById('btnCompartilhar');
+        if (!menu || !botao) return;
+
+        if (typeof gerarCodigoProduto === 'function') {
+            gerarCodigoProduto();
+        }
+
+        const ativo = !menu.classList.contains('ativo');
+        menu.classList.toggle('ativo', ativo);
+        botao.setAttribute('aria-expanded', ativo.toString());
+        if (!ativo) {
+            menu.style.animation = 'submenuFadeOut 250ms ease-out forwards';
+            setTimeout(() => {
+                menu.style.display = 'none';
+                menu.classList.remove('ativo');
+                menu.style.animation = '';
+            }, 250);
+        } else {
+            menu.style.display = 'block';
+            menu.style.animation = 'submenuFadeIn 250ms ease-out forwards';
+        }
+    }
+
+    function compartilharWhatsApp(event) {
+        event?.preventDefault();
+        const link = gerarLinkAtual();
+        const url = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(link);
+        window.open(url, '_blank');
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         preencherCamposDaUrl();
 
