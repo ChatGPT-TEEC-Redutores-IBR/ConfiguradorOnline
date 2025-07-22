@@ -26,20 +26,6 @@
   <meta property="og:type" content="website">
   <meta property="og:image" content="/Layout/Imagens/Logotipos/Logotipo.svg">
   <link rel="preload" href="/Paginas/CarregarPagina.min.js?versao=versao.3.0.1" as="script">
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      "name": "Redutores de Alto Rendimento FXD",
-      "offers": {
-        "@type": "Offer",
-        "url": "https://configurador.redutoresibr.com.br/ConfiguradorIBRPFFA",
-        "price": "0",
-        "priceCurrency": "BRL",
-        "availability": "https://schema.org/InStock"
-      }
-    }
-  </script>
   <style>
     body {
       margin: 0;
@@ -58,19 +44,7 @@
 <body>
   <div id="pagina-completa"></div>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const paramCount = window.location.search ? window.location.search.slice(1).split('&').filter(Boolean).length : 0;
-    window.keepLoading = paramCount > 0;
-    window.indefiniteLoading = paramCount > 1;
 
-    if (paramCount === 1) {
-      setTimeout(() => {
-        window.keepLoading = false;
-        if (window.hideLoadingScreen) window.hideLoadingScreen();
-      }, 500);
-    } 
-  </script>
 
 
   <script src="/Paginas/CarregarPagina.min.js?versao=versao.3.0.1"></script>
