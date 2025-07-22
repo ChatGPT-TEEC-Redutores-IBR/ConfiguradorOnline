@@ -1364,6 +1364,34 @@
         return location.origin + location.pathname + (params.toString() ? '?' + params.toString() : '');
     }
 
+    function formularioCompleto() {
+        function visivel(el) {
+            if (el.type === 'hidden') {
+                const name = el.name;
+                if (name) {
+                    return Array.from(document.querySelectorAll(`[name="${name}"]`))
+                        .some(o => o !== el && o.type !== 'hidden' && o.offsetParent !== null);
+                }
+                return false;
+            }
+            return el.offsetParent !== null;
+        }
+
+        let completo = true;
+        document.querySelectorAll('select[id], input[id]').forEach(el => {
+            const id = el.id;
+            if (!id || /[^A-Z0-9_]/.test(id)) return;
+            if (!visivel(el) || el.disabled) {
+                completo = false;
+                return;
+            }
+            if (el.type !== 'checkbox' && !el.value) {
+                completo = false;
+            }
+        });
+        return completo;
+    }
+
     function tentarGerarProduto(tentativas = 20) {
         if (typeof gerarCodigoProduto === 'function' && typeof get === 'function') {
             gerarCodigoProduto();
@@ -1406,7 +1434,7 @@
                 }
             }
 
-            if (allMatch && [...genParams.keys()].length === [...params.keys()].length) {
+            if (allMatch && [...genParams.keys()].length === [...params.keys()].length && formularioCompleto()) {
                 gerarCodigoProduto();
             }
         }
@@ -1431,7 +1459,7 @@
 
         document.querySelector('.gerar-produto')?.addEventListener('click', e => {
             e.preventDefault();
-            if (typeof gerarCodigoProduto === 'function') {
+            if (typeof gerarCodigoProduto === 'function' && formularioCompleto()) {
                 gerarCodigoProduto();
             }
             const link = gerarLinkAtual();
