@@ -1503,6 +1503,23 @@
             return el.checked && el.value === valor;
         }
 
+        if (el.type === 'hidden') {
+            const checkboxes = document.querySelectorAll(`#checklist${id} input[type="checkbox"][name="${id}"]`);
+            if (checkboxes.length) {
+                const valores = valor.split(',');
+                checkboxes.forEach(cb => {
+                    cb.checked = valores.includes(cb.value);
+                });
+                const validarFn = window[`validar${id}`];
+                if (typeof validarFn === 'function') validarFn();
+                else {
+                    el.value = valores.join(',');
+                    el.dispatchEvent(new Event('change'));
+                }
+                return el.value === valor;
+            }
+        }
+
         if (el.tagName === 'SELECT') {
             const opt = el.querySelector(`option[value="${valor}"]`);
             if (!opt) return false;
@@ -1552,7 +1569,7 @@
                 if (window._paramCount > 1) {
                     const botao = document.querySelector('.gerar-produto-wrapper');
                     if (botao) {
-                        if (typeof smoothScrollParaCentro === 'function') smoothScrollParaCentro(botao, 500);
+                        if (typeof smoothScrollParaCentro === 'function') smoothScrollParaCentro(botao, 1000);
                         else if (typeof scrollParaCentro === 'function') scrollParaCentro(botao);
                     }
                 }
