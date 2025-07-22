@@ -1491,7 +1491,7 @@
         }
     }
 
-    function preencherCampoSequencial(paramEntries, index = 0, tentativas = 60, globalTentativas = 5) {
+    function preencherCampoSequencial(paramEntries, index = 0, tentativas = 120, globalTentativas = 40) {
         if (index >= paramEntries.length) {
             if (paramEntries.length && typeof gerarCodigoProduto === 'function') {
                 const generated = gerarLinkAtual();
@@ -1541,16 +1541,32 @@
             el.dispatchEvent(new Event('change'));
             setTimeout(() => preencherCampoSequencial(paramEntries, index + 1, tentativas, globalTentativas), 50);
         } else {
-            el.value = val;
+            const setValue = () => {
+                el.value = val;
+                el.dispatchEvent(new Event('change'));
+                setTimeout(() => preencherCampoSequencial(paramEntries, index + 1, tentativas, globalTentativas), 50);
+            };
             if (el.tagName === 'SELECT' && el.value !== val) {
-                if (tentativas > 0) {
-                    setTimeout(() => preencherCampoSequencial(paramEntries, index, tentativas - 1, globalTentativas), 500);
+                const optionExists = () => el.querySelector(`option[value="${val}"]`);
+                if (optionExists()) {
+                    setValue();
+                } else if (tentativas > 0) {
+                    const obs = new MutationObserver(() => {
+                        if (optionExists()) {
+                            obs.disconnect();
+                            setValue();
+                        }
+                    });
+                    obs.observe(el, { childList: true });
+                    setTimeout(() => {
+                        obs.disconnect();
+                        preencherCampoSequencial(paramEntries, index, tentativas - 1, globalTentativas);
+                    }, 500);
                 } else {
                     setTimeout(() => preencherCampoSequencial(paramEntries, index + 1, tentativas, globalTentativas), 50);
                 }
             } else {
-                el.dispatchEvent(new Event('change'));
-                setTimeout(() => preencherCampoSequencial(paramEntries, index + 1, tentativas, globalTentativas), 50);
+                setValue();
             }
         }
     }
