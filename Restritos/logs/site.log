@@ -6,3 +6,5 @@
     at HTMLAnchorElement.onclick (https://configurador.redutoresibr.com.br/ConfiguradorIBRQ?QULN=1.Q:1:1)
 [22/07/2025 17:50:55] JS Error: Uncaught ReferenceError: toggleCompartilhar is not defined File:https://configurador.redutoresibr.com.br/ConfiguradorIBRQ?QULN=1.Q Line:1:1 Stack:ReferenceError: toggleCompartilhar is not defined
     at HTMLAnchorElement.onclick (https://configurador.redutoresibr.com.br/ConfiguradorIBRQ?QULN=1.Q:1:1)
+[22/07/2025 17:57:55] JS Error: Uncaught ReferenceError: toggleCompartilhar is not defined File:https://configurador.redutoresibr.com.br/ConfiguradorIBRQ?QULN=1.Q Line:1:1 Stack:ReferenceError: toggleCompartilhar is not defined
+    at HTMLAnchorElement.onclick (https://configurador.redutoresibr.com.br/ConfiguradorIBRQ?QULN=1.Q:1:1)

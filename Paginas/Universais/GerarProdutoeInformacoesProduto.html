@@ -1326,9 +1326,16 @@
 <script>
     function gerarLinkAtual() {
         const params = new URLSearchParams();
+
+        function visivel(el) {
+            if (el.type === 'hidden') return false;
+            return el.offsetParent !== null;
+        }
+
         document.querySelectorAll('select[id], input[id]').forEach(el => {
             const id = el.id;
             if (!id || /[^A-Z0-9_]/.test(id)) return;
+            if (!visivel(el)) return;
             if (el.type === 'checkbox') {
                 if (el.checked) params.append(id, el.value);
             } else {
