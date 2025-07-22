@@ -1360,8 +1360,27 @@
         });
     }
 
+    function copiarLink(event) {
+        event?.preventDefault();
+        const link = gerarLinkAtual();
+        navigator.clipboard?.writeText(link).then(() => {
+            const alerta = document.getElementById('alerta-copiado');
+            if (alerta) {
+                alerta.style.display = 'block';
+                setTimeout(() => alerta.style.display = 'none', 3000);
+            }
+        }).catch(() => { });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         preencherCamposDaUrl();
+
+        const params = new URLSearchParams(location.search);
+        if ([...params.keys()].length && typeof gerarCodigoProduto === 'function') {
+            gerarCodigoProduto();
+        }
+
+        document.getElementById('btnCopiarLink')?.addEventListener('click', copiarLink);
 
         document.querySelector('.gerar-produto')?.addEventListener('click', e => {
             e.preventDefault();
@@ -1369,6 +1388,7 @@
                 gerarCodigoProduto();
             }
             const link = gerarLinkAtual();
+            history.pushState(null, '', link);
             history.replaceState(null, '', link);
         });
     });
