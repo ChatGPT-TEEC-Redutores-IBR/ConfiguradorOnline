@@ -1491,104 +1491,81 @@
         }
     }
 
-    function preencherCampoSequencial(paramEntries, index = 0, tentativas = 120, globalTentativas = 40) {
-        if (index >= paramEntries.length) {
-            if (paramEntries.length && typeof gerarCodigoProduto === 'function') {
-                const generated = gerarLinkAtual();
-                const search = generated.split('?')[1] || '';
-                const genParams = new URLSearchParams(search);
-                const origParams = new URLSearchParams(location.search);
-
-                const mismatches = [];
-                for (const [k, v] of origParams.entries()) {
-                    if (genParams.get(k) !== v) mismatches.push([k, v]);
-                }
-
-                if (!mismatches.length && genParams.size === origParams.size && formularioCompleto()) {
-                    gerarCodigoProduto();
-                    if (window._paramCount > 1) {
-                        const botao = document.querySelector('.gerar-produto-wrapper');
-                        if (botao) {
-                            if (typeof smoothScrollParaCentro === 'function') {
-                                smoothScrollParaCentro(botao, 500);
-                            } else if (typeof scrollParaCentro === 'function') {
-                                scrollParaCentro(botao);
-                            }
-                        }
-                        if (typeof window.finishLoading === 'function') window.finishLoading();
-                    }
-                } else if (mismatches.length && globalTentativas > 0) {
-                    setTimeout(() => preencherCampoSequencial(mismatches, 0, tentativas, globalTentativas - 1), 500);
-                } else if (typeof window.finishLoading === 'function') {
-                    window.finishLoading();
-                }
-            }
-            return;
-        }
-
-        const [key, val] = paramEntries[index];
-        const el = document.getElementById(key);
-        if (!el) {
-            if (tentativas > 0) {
-                setTimeout(() => preencherCampoSequencial(paramEntries, index, tentativas - 1, globalTentativas), 500);
-            } else {
-                preencherCampoSequencial(paramEntries, index + 1, tentativas, globalTentativas);
-            } return;
-        }
+    function definirValorCampo(id, valor) {
+        const el = document.getElementById(id);
+        if (!el) return false;
 
         if (el.type === 'checkbox') {
-            if (el.value === val) el.checked = true;
-            el.dispatchEvent(new Event('change'));
-            setTimeout(() => preencherCampoSequencial(paramEntries, index + 1, tentativas, globalTentativas), 50);
-        } else {
-            const setValue = () => {
-                el.value = val;
+            if (el.value === valor && !el.checked) {
+                el.checked = true;
                 el.dispatchEvent(new Event('change'));
-                setTimeout(() => preencherCampoSequencial(paramEntries, index + 1, tentativas, globalTentativas), 50);
-            };
-            if (el.tagName === 'SELECT' && el.value !== val) {
-                const optionExists = () => el.querySelector(`option[value="${val}"]`);
-                if (optionExists()) {
-                    setValue();
-                } else if (tentativas > 0) {
-                    const obs = new MutationObserver(() => {
-                        if (optionExists()) {
-                            obs.disconnect();
-                            setValue();
-                        }
-                    });
-                    obs.observe(el, { childList: true });
-                    setTimeout(() => {
-                        obs.disconnect();
-                        preencherCampoSequencial(paramEntries, index, tentativas - 1, globalTentativas);
-                    }, 500);
-                } else {
-                    setTimeout(() => preencherCampoSequencial(paramEntries, index + 1, tentativas, globalTentativas), 50);
-                }
-            } else {
-                setValue();
             }
+            return el.checked && el.value === valor;
         }
+
+        if (el.tagName === 'SELECT') {
+            const opt = el.querySelector(`option[value="${valor}"]`);
+            if (!opt) return false;
+        }
+
+        if (el.value !== valor) {
+            el.value = valor;
+            el.dispatchEvent(new Event('change'));
+        }
+        return el.value === valor;
     }
 
     function preencherCamposDaUrl() {
-        const params = Array.from(new URLSearchParams(location.search).entries());
-        if (!params.length) return;
-        const order = { PL: 0, MO: 1, VA: 2, MH: 3 };
+        const origParams = new URLSearchParams(location.search);
+        if (!origParams.toString()) return;
 
+        const params = Array.from(origParams.entries());
+        const order = { PL: 0, MO: 1, VA: 2, MH: 3 };
         params.sort(([aKey], [bKey]) => {
             const sa = aKey.slice(-2).toUpperCase();
             const sb = bKey.slice(-2).toUpperCase();
             if (order[sa] !== undefined && order[sb] !== undefined) {
                 const pa = aKey.slice(0, -2);
                 const pb = bKey.slice(0, -2);
-                if (pa === pb) {
-                    return order[sa] - order[sb];
-                }
+                if (pa === pb) return order[sa] - order[sb];
             }
             return 0;
         });
-        preencherCampoSequencial(params, 0);
+
+        let attempts = 0;
+        const MAX_ATTEMPTS = 600;
+
+        const verificar = () => {
+            let todos = true;
+            for (const [k, v] of params) {
+                if (!definirValorCampo(k, v)) todos = false;
+            }
+
+            const cur = new URLSearchParams((gerarLinkAtual().split('?')[1]) || '');
+            let mismatch = false;
+            for (const [k, v] of origParams.entries()) {
+                if (cur.get(k) !== v) { mismatch = true; break; }
+            }
+
+            if (!mismatch && cur.size === origParams.size && formularioCompleto()) {
+                gerarCodigoProduto();
+                if (window._paramCount > 1) {
+                    const botao = document.querySelector('.gerar-produto-wrapper');
+                    if (botao) {
+                        if (typeof smoothScrollParaCentro === 'function') smoothScrollParaCentro(botao, 500);
+                        else if (typeof scrollParaCentro === 'function') scrollParaCentro(botao);
+                    }
+                }
+                if (typeof window.finishLoading === 'function') window.finishLoading();
+                clearInterval(timer);
+            } else if (++attempts > MAX_ATTEMPTS) {
+                if (typeof window.finishLoading === 'function') window.finishLoading();
+                clearInterval(timer);
+            }
+        };
+
+        const timer = setInterval(verificar, 500);
+        verificar();
     }
 
     function copiarLink(event) {
