@@ -1481,7 +1481,13 @@
                     gerarCodigoProduto();
                     if (window._paramCount > 1) {
                         const botao = document.querySelector('.gerar-produto-wrapper');
-                        if (botao && typeof scrollParaCentro === 'function') scrollParaCentro(botao);
+                        if (botao) {
+                            if (typeof smoothScrollParaCentro === 'function') {
+                                smoothScrollParaCentro(botao, 500);
+                            } else if (typeof scrollParaCentro === 'function') {
+                                scrollParaCentro(botao);
+                            }
+                        }
                         if (typeof window.finishLoading === 'function') window.finishLoading();
                     }
                 }
@@ -1516,6 +1522,20 @@
     function preencherCamposDaUrl() {
         const params = Array.from(new URLSearchParams(location.search).entries());
         if (!params.length) return;
+        const order = { PL: 0, MO: 1, VA: 2, MH: 3 };
+
+        params.sort(([aKey], [bKey]) => {
+            const sa = aKey.slice(-2).toUpperCase();
+            const sb = bKey.slice(-2).toUpperCase();
+            if (order[sa] !== undefined && order[sb] !== undefined) {
+                const pa = aKey.slice(0, -2);
+                const pb = bKey.slice(0, -2);
+                if (pa === pb) {
+                    return order[sa] - order[sb];
+                }
+            }
+            return 0;
+        });
         preencherCampoSequencial(params, 0);
     }
 
