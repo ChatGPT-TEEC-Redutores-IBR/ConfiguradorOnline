@@ -1,4 +1,4 @@
-const CACHE_NAME = 'versao.3.0.0';
+const CACHE_NAME = 'versao.3.0.1';
 const OFFLINE_URL = '/Paginas/PaginaErros/PaginaErros.html';
 const STATIC_DESTINATIONS = ['style', 'script', 'image'];
 

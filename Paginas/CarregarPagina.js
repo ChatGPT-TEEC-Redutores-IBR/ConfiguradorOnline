@@ -1,4 +1,4 @@
-const APP_VERSION = "versao.3.0.0";
+const APP_VERSION = "versao.3.0.1";
 
 function getSavedTheme() {
     try {
