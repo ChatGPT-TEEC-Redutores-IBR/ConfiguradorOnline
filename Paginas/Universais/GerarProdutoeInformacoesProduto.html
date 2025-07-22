@@ -1364,6 +1364,14 @@
         return location.origin + location.pathname + (params.toString() ? '?' + params.toString() : '');
     }
 
+    function tentarGerarProduto(tentativas = 20) {
+        if (typeof gerarCodigoProduto === 'function' && typeof get === 'function') {
+            gerarCodigoProduto();
+        } else if (tentativas > 0) {
+            setTimeout(() => tentarGerarProduto(tentativas - 1), 300);
+        }
+    }
+
     function preencherCamposDaUrl(tentativas = 15) {
         const params = new URLSearchParams(location.search);
         let pendentes = false;
@@ -1386,7 +1394,21 @@
             setTimeout(() => preencherCamposDaUrl(tentativas - 1), 300);
         } else if (!pendentes && [...params.keys()].length &&
             typeof gerarCodigoProduto === 'function') {
-            gerarCodigoProduto();
+            const generated = gerarLinkAtual();
+            const search = generated.split('?')[1] || '';
+            const genParams = new URLSearchParams(search);
+
+            let allMatch = true;
+            for (const [k, v] of genParams.entries()) {
+                if (params.get(k) !== v) {
+                    allMatch = false;
+                    break;
+                }
+            }
+
+            if (allMatch && [...genParams.keys()].length === [...params.keys()].length) {
+                gerarCodigoProduto();
+            }
         }
     }
 
