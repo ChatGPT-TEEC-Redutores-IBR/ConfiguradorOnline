@@ -1350,6 +1350,16 @@
 </script>
 
 <script>
+    function obterParametroLinha() {
+        const params = new URLSearchParams(location.search);
+        let nome = [...params.keys()].find(k => k.toUpperCase().endsWith('LN'));
+        if (!nome) {
+            const selectEl = document.querySelector('select[id$="LN"]');
+            if (selectEl) nome = selectEl.id;
+        }
+        return nome;
+    }
+
     function gerarLinkAtual() {
         const params = new URLSearchParams();
         const fieldIds = new Set();
@@ -1392,13 +1402,13 @@
 
         const completo = formularioCompleto();
         const atuais = new URLSearchParams(location.search);
+        const paramLN = obterParametroLinha();
 
         if (!completo) {
-            const baseParams = new URLSearchParams();
-            atuais.forEach((v, k) => {
-                if (!fieldIds.has(k)) baseParams.append(k, v);
-            });
-            return location.origin + location.pathname + (baseParams.toString() ? '?' + baseParams.toString() : '');
+            const base = atuais.get(paramLN) || document.getElementById(paramLN)?.value || '';
+            if (base)
+                return location.origin + location.pathname + '?' + encodeURIComponent(paramLN) + '=' + encodeURIComponent(base);
+            return location.origin + location.pathname;
         }
 
         atuais.forEach((v, k) => {
@@ -1469,6 +1479,11 @@
 
                 if (allMatch && genParams.size === origParams.size && formularioCompleto()) {
                     gerarCodigoProduto();
+                    if (window._paramCount > 1) {
+                        const botao = document.querySelector('.gerar-produto-wrapper');
+                        if (botao && typeof scrollParaCentro === 'function') scrollParaCentro(botao);
+                        if (typeof window.finishLoading === 'function') window.finishLoading();
+                    }
                 }
             }
             return;
