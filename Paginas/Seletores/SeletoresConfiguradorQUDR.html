@@ -1856,7 +1856,10 @@
 
     const qumoSelect = document.getElementById('QUMO');
     if (qumoSelect) {
-        qumoSelect.addEventListener('change', carregarMOLN);
+        qumoSelect.addEventListener('change', () => {
+            carregarMOLN();
+            carregarQUPL();
+        });
     }
 
     async function carregarMOLN() {

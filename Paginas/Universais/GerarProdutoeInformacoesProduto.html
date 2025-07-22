@@ -1,4 +1,30 @@
 <!DOCTYPE html>
+<script>
+    (function () {
+        const params = new URLSearchParams(window.location.search);
+        window._paramCount = Array.from(params.keys()).length;
+        window.keepLoading = window._paramCount > 0;
+        window.finishLoading = function () {
+            if (!window.keepLoading) return;
+            window.keepLoading = false;
+            if (window.hideLoadingScreen) window.hideLoadingScreen();
+        };
+        if (window._paramCount === 1) {
+            setTimeout(window.finishLoading, 2000);
+        }
+    })();
+</script>
+<script>
+    async function get(arquivo, params = {}) {
+        const resp = await fetch(`/Paginas/Seletores/Produto/${arquivo}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(params)
+        });
+        return resp.text();
+    }
+</script>
+
 <script src="/Paginas/Universais/ValidacaoDocumento.min.js"></script>
 
 <section class="home-botoes" style="margin-top:40px !important; grid-template-columns: 1fr !important;">
@@ -1364,7 +1390,7 @@
         return location.origin + location.pathname + (params.toString() ? '?' + params.toString() : '');
     }
 
-    function formularioCompleto() {
+    function formularioCompleto(destacar = false) {
         function visivel(el) {
             if (el.type === 'hidden') {
                 const name = el.name;
@@ -1377,19 +1403,27 @@
             return el.offsetParent !== null;
         }
 
-        let completo = true;
+        let incompleto = null;
         document.querySelectorAll('select[id], input[id]').forEach(el => {
             const id = el.id;
             if (!id || /[^A-Z0-9_]/.test(id)) return;
-            if (!visivel(el) || el.disabled) {
-                completo = false;
-                return;
-            }
+            if (!visivel(el) || el.disabled) return;
             if (el.type !== 'checkbox' && !el.value) {
-                completo = false;
+                if (!incompleto) incompleto = el;
+                if (destacar) animarErroCampo(el);
             }
         });
-        return completo;
+
+        if (destacar && incompleto) {
+            try {
+                incompleto.focus({ preventScroll: true });
+            } catch {
+                incompleto.focus();
+            }
+            if (typeof scrollParaCentro === 'function') scrollParaCentro(incompleto);
+        }
+
+        return !incompleto;
     }
 
     function tentarGerarProduto(tentativas = 20) {
@@ -1400,7 +1434,7 @@
         }
     }
 
-    function preencherCamposDaUrl(tentativas = 15) {
+    function preencherCamposDaUrl(tentativas = 30) {
         const params = new URLSearchParams(location.search);
         let pendentes = false;
 
@@ -1419,7 +1453,7 @@
         });
 
         if (pendentes && tentativas > 0) {
-            setTimeout(() => preencherCamposDaUrl(tentativas - 1), 300);
+            setTimeout(() => preencherCamposDaUrl(tentativas - 1), 500);
         } else if (!pendentes && [...params.keys()].length &&
             typeof gerarCodigoProduto === 'function') {
             const generated = gerarLinkAtual();
@@ -1459,8 +1493,11 @@
 
         document.querySelector('.gerar-produto')?.addEventListener('click', e => {
             e.preventDefault();
-            if (typeof gerarCodigoProduto === 'function' && formularioCompleto()) {
+            const completo = formularioCompleto(true);
+            if (typeof gerarCodigoProduto === 'function' && completo) {
                 gerarCodigoProduto();
+            } else if (!completo && typeof exibirAlerta === 'function') {
+                exibirAlerta('⚠️ Por favor, preencha todos os campos obrigatórios antes de continuar.');
             }
             const link = gerarLinkAtual();
             history.pushState(null, '', link);
