@@ -1328,15 +1328,26 @@
         const params = new URLSearchParams();
 
         function visivel(el) {
+            if (el.closest('.dropdown-list')) return false;
+
             if (el.type === 'hidden') {
                 const name = el.name;
                 if (name) {
-                    return Array.from(document.querySelectorAll(`[name="${name}"]`))
-                        .some(o => o !== el && o.type !== 'hidden' && o.offsetParent !== null);
+                    return Array.from(document.getElementsByName(name)).some(o => {
+                        if (o === el || o.type === 'hidden') return false;
+                        if (o.closest('.dropdown-list')) {
+                            const dd = o.closest('.dropdown-checkbox');
+                            return dd && dd.offsetParent !== null && dd.style.display !== 'none';
+                        }
+                        return o.offsetParent !== null;
+                    });
                 }
                 return false;
             }
-            return el.offsetParent !== null;
+
+            if (el.offsetParent !== null) return true;
+            const dd = el.closest('.dropdown-checkbox');
+            return dd && dd.offsetParent !== null && dd.style.display !== 'none';
         }
 
         document.querySelectorAll('select[id], input[id]').forEach(el => {
