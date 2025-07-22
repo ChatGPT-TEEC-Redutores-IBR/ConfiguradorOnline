@@ -669,34 +669,39 @@
                 return;
             }
 
-            const ids = [...params.keys()];
-            const algumExiste = ids.some(id => document.getElementById(id));
+            const algumExiste = Array.from(params.keys())
+                .some(id => document.getElementById(id));
             if (!algumExiste) return;
 
             clearInterval(aguardaCampos);
 
-            params.forEach((valor, id) => {
+            const ordemSelects = Array.from(document.querySelectorAll('select'))
+                .map(s => s.id)
+                .filter(id => params.has(id));
+
+            ordemSelects.forEach(id => {
+                const valor = params.get(id);
                 const select = document.getElementById(id);
-                if (select && select.tagName === "SELECT") {
-                    const aplicarValor = () => {
-                        if ([...select.options].some(opt => opt.value === valor)) {
-                            select.value = valor;
-                            select.dispatchEvent(new Event("change"));
-                        } else {
-                            let tentativas = 0;
-                            const timer = setInterval(() => {
-                                if ([...select.options].some(opt => opt.value === valor)) {
-                                    select.value = valor;
-                                    select.dispatchEvent(new Event("change"));
-                                    clearInterval(timer);
-                                } else if (++tentativas > 40) {
-                                    clearInterval(timer);
-                                }
-                            }, 200);
-                        }
-                    };
-                    aplicarValor();
-                }
+                if (!select || select.tagName !== "SELECT") return;
+
+                const aplicarValor = () => {
+                    if ([...select.options].some(opt => opt.value === valor)) {
+                        select.value = valor;
+                        select.dispatchEvent(new Event("change"));
+                    } else {
+                        let tentativas = 0;
+                        const timer = setInterval(() => {
+                            if ([...select.options].some(opt => opt.value === valor)) {
+                                select.value = valor;
+                                select.dispatchEvent(new Event("change"));
+                                clearInterval(timer);
+                            } else if (++tentativas > 40) {
+                                clearInterval(timer);
+                            }
+                        }, 200);
+                    }
+                };
+                aplicarValor();
             });
 
             params.forEach((valor, id) => {
@@ -748,7 +753,12 @@
 
             (async () => {
                 const params = new URLSearchParams(window.location.search);
-                for (const [id, valor] of params.entries()) {
+                const ordemSelects = Array.from(document.querySelectorAll('select'))
+                    .map(s => s.id)
+                    .filter(id => params.has(id));
+
+                for (const id of ordemSelects) {
+                    const valor = params.get(id);
                     const select = document.getElementById(id);
                     if (!select || select.tagName !== "SELECT") continue;
 
