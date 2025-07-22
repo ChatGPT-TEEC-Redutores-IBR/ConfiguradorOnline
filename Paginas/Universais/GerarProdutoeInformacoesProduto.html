@@ -828,6 +828,8 @@
 
                     if (!selectsPendentes && !opcPendentes) {
                         clearInterval(scrollFinal);
+                        window.keepLoading = false;
+                        if (window.hideLoadingScreen) window.hideLoadingScreen();
 
                         if (paramCount > 1) {
                             const alvo = document.querySelector('.gerar-produto-wrapper');
@@ -846,7 +848,7 @@
                 }, 500);
             })();
 
-        });
+        }, 300);
     }
     document.addEventListener("click", function (e) {
         const alvo = e.target.closest("#btnCopiarLink");
