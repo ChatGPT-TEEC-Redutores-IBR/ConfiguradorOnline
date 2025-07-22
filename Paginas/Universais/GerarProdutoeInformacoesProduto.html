@@ -491,833 +491,880 @@
                 codigo: CD_PRODUTO,
                 existe: true
             }, { scroll: false });
+        }
+    }
 </script>
 
 <script>
-            async function preencherCamposSessao() {
-                try {
-                    const resp = await fetch("/Paginas/AreaCliente/AcessoCadastro/Acesso/ValidarSessao.php");
-                    const dados = await resp.json();
-                    if (dados.sucesso) {
-                        const nomeDes = document.getElementById("nomeDesenho");
-                        if (nomeDes && !nomeDes.value) nomeDes.value = dados.nome;
-                        const docDes = document.getElementById("cnpjDesenho");
-                        if (docDes && !docDes.value) {
-                            docDes.value = formatarDocumento(dados.cpfcnpj || '');
-                        }
-                        const empresaDes = document.getElementById("empresaDesenho");
-                        if (empresaDes && !empresaDes.value) empresaDes.value = dados.empresa;
-                        const emailDes = document.getElementById("emailDesenho");
-                        if (emailDes && !emailDes.value) emailDes.value = dados.email;
-                        const nomeCot = document.getElementById("nomeCotacao");
-                        if (nomeCot && !nomeCot.value) {
-                            nomeCot.value = dados.nome;
-                            localStorage.setItem("cotacao_nome", nomeCot.value);
-                        }
-                        const emailCot = document.getElementById("emailCotacao");
-                        if (emailCot && !emailCot.value) {
-                            emailCot.value = dados.email;
-                            localStorage.setItem("cotacao_email", emailCot.value);
-                        }
-                        const empresaCot = document.getElementById("empresaCotacao");
-                        if (empresaCot && !empresaCot.value) {
-                            empresaCot.value = dados.empresa;
-                            localStorage.setItem("cotacao_empresa", empresaCot.value);
-                        }
-                        const docCot = document.getElementById("cnpjCotacao");
-                        if (docCot && !docCot.value) {
-                            docCot.value = formatarDocumento(dados.cpfcnpj || '');
-                            localStorage.setItem("cotacao_cnpj", docCot.value);
-                        }
-                        const nomeCad = document.getElementById("nomeCadastro");
-                        if (nomeCad && !nomeCad.value) {
-                            nomeCad.value = dados.nome;
-                            localStorage.setItem("cadastro_nome", nomeCad.value);
-                        }
-                        const emailCad = document.getElementById("emailCadastro");
-                        if (emailCad && !emailCad.value) {
-                            emailCad.value = dados.email;
-                            localStorage.setItem("cadastro_email", emailCad.value);
-                        }
-                    }
-                } catch (e) {
+    async function preencherCamposSessao() {
+        try {
+            const resp = await fetch("/Paginas/AreaCliente/AcessoCadastro/Acesso/ValidarSessao.php");
+            const dados = await resp.json();
+            if (dados.sucesso) {
+                const nomeDes = document.getElementById("nomeDesenho");
+                if (nomeDes && !nomeDes.value) nomeDes.value = dados.nome;
+                const docDes = document.getElementById("cnpjDesenho");
+                if (docDes && !docDes.value) {
+                    docDes.value = formatarDocumento(dados.cpfcnpj || '');
+                }
+                const empresaDes = document.getElementById("empresaDesenho");
+                if (empresaDes && !empresaDes.value) empresaDes.value = dados.empresa;
+                const emailDes = document.getElementById("emailDesenho");
+                if (emailDes && !emailDes.value) emailDes.value = dados.email;
+                const nomeCot = document.getElementById("nomeCotacao");
+                if (nomeCot && !nomeCot.value) {
+                    nomeCot.value = dados.nome;
+                    localStorage.setItem("cotacao_nome", nomeCot.value);
+                }
+                const emailCot = document.getElementById("emailCotacao");
+                if (emailCot && !emailCot.value) {
+                    emailCot.value = dados.email;
+                    localStorage.setItem("cotacao_email", emailCot.value);
+                }
+                const empresaCot = document.getElementById("empresaCotacao");
+                if (empresaCot && !empresaCot.value) {
+                    empresaCot.value = dados.empresa;
+                    localStorage.setItem("cotacao_empresa", empresaCot.value);
+                }
+                const docCot = document.getElementById("cnpjCotacao");
+                if (docCot && !docCot.value) {
+                    docCot.value = formatarDocumento(dados.cpfcnpj || '');
+                    localStorage.setItem("cotacao_cnpj", docCot.value);
+                }
+                const nomeCad = document.getElementById("nomeCadastro");
+                if (nomeCad && !nomeCad.value) {
+                    nomeCad.value = dados.nome;
+                    localStorage.setItem("cadastro_nome", nomeCad.value);
+                }
+                const emailCad = document.getElementById("emailCadastro");
+                if (emailCad && !emailCad.value) {
+                    emailCad.value = dados.email;
+                    localStorage.setItem("cadastro_email", emailCad.value);
                 }
             }
+        } catch (e) {
+        }
+    }
 
-            let scrollPos = 0;
-            function freezeScroll() {
-                scrollPos = window.scrollY || document.documentElement.scrollTop;
-                document.body.style.top = `-${scrollPos}px`;
-                document.body.style.position = 'fixed';
-                document.body.style.width = '100%';
-                document.body.style.overflow = 'hidden';
-            }
+    let scrollPos = 0;
+    function freezeScroll() {
+        scrollPos = window.scrollY || document.documentElement.scrollTop;
+        document.body.style.top = `-${scrollPos}px`;
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.style.overflow = 'hidden';
+    }
 
-            function restoreScroll() {
-                const html = document.documentElement;
-                const prevBehavior = html.style.scrollBehavior;
-                html.style.scrollBehavior = 'auto';
-                document.body.style.position = '';
-                document.body.style.top = '';
-                document.body.style.width = '';
-                document.body.style.overflow = '';
-                window.scrollTo(0, scrollPos);
-                html.style.scrollBehavior = prevBehavior;
-            }
+    function restoreScroll() {
+        const html = document.documentElement;
+        const prevBehavior = html.style.scrollBehavior;
+        html.style.scrollBehavior = 'auto';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, scrollPos);
+        html.style.scrollBehavior = prevBehavior;
+    }
 
 
-            function exibirBotaoSolicitarDesenho() {
-                const botao = document.getElementById("solicitar-wrapper");
-                const link = document.getElementById("btnSolicitarDesenho");
+    function exibirBotaoSolicitarDesenho() {
+        const botao = document.getElementById("solicitar-wrapper");
+        const link = document.getElementById("btnSolicitarDesenho");
 
-                botao.style.display = "inline-flex";
+        botao.style.display = "inline-flex";
 
-                if (link) {
-                    link.onclick = function (e) {
-                        e.preventDefault();
+        if (link) {
+            link.onclick = function (e) {
+                e.preventDefault();
 
-                        const hyln = (document.getElementById("HYLN")?.value || "").toUpperCase();
+                const hyln = (document.getElementById("HYLN")?.value || "").toUpperCase();
 
-                        const bloqueados = ["1.C", "1.H", "1.X", "1.R"];
+                const bloqueados = ["1.C", "1.H", "1.X", "1.R"];
 
-                        if (bloqueados.includes(hyln)) {
-                            exibirAlerta("🚧 Esta linha ainda está em desenvolvimento. Para os modelos Hydromec, a Solicitação de Desenhos está disponível apenas nas linhas IBR M e IBR P.");
-                            return;
-                        }
-
-                        const form = document.getElementById("formulario-desenho");
-                        form.style.display = "flex";
-                        form.style.animation = "fadeInBackdrop 0.3s ease";
-                        freezeScroll();
-                        document.body.style.overflow = "hidden";
-                        document.addEventListener("keydown", escFechaFormulario);
-                        ["nomeDesenho", "cnpjDesenho", "empresaDesenho", "emailDesenho"].forEach(id => {
-                            const campo = document.getElementById(id);
-                            if (campo && !campo.value) animarPlaceholder(campo, campo.getAttribute('placeholder'));
-                        });
-                    };
-                }
-            }
-
-            function exibirBotaoSolicitarCotacao() {
-                const botao = document.getElementById("cotacao-wrapper");
-                const link = document.getElementById("btnSolicitarCotacao");
-
-                botao.style.display = "inline-flex";
-
-                if (link) {
-                    link.onclick = function (e) {
-                        e.preventDefault();
-                        const form = document.getElementById("formulario-cotacao");
-                        form.style.display = "flex";
-                        form.style.animation = "fadeInBackdrop 0.3s ease";
-                        freezeScroll();
-                        document.body.style.overflow = "hidden";
-                        document.addEventListener("keydown", escFechaFormularioCotacao);
-                        [
-                            "nomeCotacao",
-                            "cnpjCotacao",
-                            "empresaCotacao",
-                            "emailCotacao",
-                            "telefoneCotacao",
-                            "quantidadeCotacao",
-                            "observacaoCotacao"
-                        ].forEach(id => {
-                            const campo = document.getElementById(id);
-                            if (campo && !campo.value) animarPlaceholder(campo, campo.getAttribute('placeholder'));
-                        });
-                    };
+                if (bloqueados.includes(hyln)) {
+                    exibirAlerta("🚧 Esta linha ainda está em desenvolvimento. Para os modelos Hydromec, a Solicitação de Desenhos está disponível apenas nas linhas IBR M e IBR P.");
+                    return;
                 }
 
-            }
-
-            function exibirBotaoSolicitarCadastro() {
-                const botao = document.getElementById("cadastro-wrapper");
-                const link = document.getElementById("btnSolicitarCadastro");
-                if (botao) botao.style.display = "inline-flex";
-                if (link) {
-                    link.onclick = function (e) {
-                        e.preventDefault();
-                        const form = document.getElementById("formulario-cadastro");
-                        form.style.display = "flex";
-                        form.style.animation = "fadeInBackdrop 0.3s ease";
-                        freezeScroll();
-                        document.body.style.overflow = "hidden";
-                        document.addEventListener("keydown", escFechaFormularioCadastro);
-                        ["nomeCadastro", "emailCadastro"].forEach(id => {
-                            const campo = document.getElementById(id);
-                            if (campo && !campo.value) animarPlaceholder(campo, campo.getAttribute('placeholder'));
-                        });
-                    };
-                }
-            }
-
-            function fecharFormularioDesenho() {
                 const form = document.getElementById("formulario-desenho");
-                form.style.animation = "fadeOutBackdrop 0.3s ease";
-                setTimeout(() => {
-                    form.style.display = "none";
-                    form.style.animation = "";
-                }, 300);
-                restoreScroll();
-                document.body.style.overflow = "";
-                document.removeEventListener("keydown", escFechaFormulario);
-            }
+                form.style.display = "flex";
+                form.style.animation = "fadeInBackdrop 0.3s ease";
+                freezeScroll();
+                document.body.style.overflow = "hidden";
+                document.addEventListener("keydown", escFechaFormulario);
+                ["nomeDesenho", "cnpjDesenho", "empresaDesenho", "emailDesenho"].forEach(id => {
+                    const campo = document.getElementById(id);
+                    if (campo && !campo.value) animarPlaceholder(campo, campo.getAttribute('placeholder'));
+                });
+            };
+        }
+    }
 
-            function fecharFormularioCotacao() {
+    function exibirBotaoSolicitarCotacao() {
+        const botao = document.getElementById("cotacao-wrapper");
+        const link = document.getElementById("btnSolicitarCotacao");
+
+        botao.style.display = "inline-flex";
+
+        if (link) {
+            link.onclick = function (e) {
+                e.preventDefault();
                 const form = document.getElementById("formulario-cotacao");
-                form.style.animation = "fadeOutBackdrop 0.3s ease";
-                setTimeout(() => {
-                    form.style.display = "none";
-                    form.style.animation = "";
-                }, 300);
-                restoreScroll();
-                document.body.style.overflow = "";
-                document.removeEventListener("keydown", escFechaFormularioCotacao);
-            }
+                form.style.display = "flex";
+                form.style.animation = "fadeInBackdrop 0.3s ease";
+                freezeScroll();
+                document.body.style.overflow = "hidden";
+                document.addEventListener("keydown", escFechaFormularioCotacao);
+                [
+                    "nomeCotacao",
+                    "cnpjCotacao",
+                    "empresaCotacao",
+                    "emailCotacao",
+                    "telefoneCotacao",
+                    "quantidadeCotacao",
+                    "observacaoCotacao"
+                ].forEach(id => {
+                    const campo = document.getElementById(id);
+                    if (campo && !campo.value) animarPlaceholder(campo, campo.getAttribute('placeholder'));
+                });
+            };
+        }
 
-            function fecharFormularioCadastro() {
+    }
+
+    function exibirBotaoSolicitarCadastro() {
+        const botao = document.getElementById("cadastro-wrapper");
+        const link = document.getElementById("btnSolicitarCadastro");
+        if (botao) botao.style.display = "inline-flex";
+        if (link) {
+            link.onclick = function (e) {
+                e.preventDefault();
                 const form = document.getElementById("formulario-cadastro");
-                form.style.animation = "fadeOutBackdrop 0.3s ease";
-                setTimeout(() => {
-                    form.style.display = "none";
-                    form.style.animation = "";
-                }, 300);
-                restoreScroll();
-                document.body.style.overflow = "";
-                document.removeEventListener("keydown", escFechaFormularioCadastro);
-            }
-
-            function escFechaFormularioCadastro(e) {
-                if (e.key === "Escape") {
-                    fecharFormularioCadastro();
-                }
-            }
-
-            function fecharAoClicarFora(event) {
-                if (event.target.id === "formulario-desenho") {
-                    fecharFormularioDesenho();
-                }
-                if (event.target.id === "formulario-cotacao") {
-                    fecharFormularioCotacao();
-                }
-                if (event.target.id === "formulario-cadastro") {
-                    fecharFormularioCadastro();
-                }
-            }
-
-            function escFechaFormulario(e) {
-                if (e.key === "Escape") {
-                    fecharFormularioDesenho();
-                }
-            }
-
-            function escFechaFormularioCotacao(e) {
-                if (e.key === "Escape") {
-                    fecharFormularioCotacao();
-                }
-            }
-
-            function animarErroCampo(campo) {
-                campo.classList.add("campo-invalido");
-                campo.addEventListener("input", function limparErro() {
-                    if (campo.value.trim()) {
-                        campo.classList.remove("campo-invalido");
-                        campo.removeEventListener("input", limparErro);
-                    }
+                form.style.display = "flex";
+                form.style.animation = "fadeInBackdrop 0.3s ease";
+                freezeScroll();
+                document.body.style.overflow = "hidden";
+                document.addEventListener("keydown", escFechaFormularioCadastro);
+                ["nomeCadastro", "emailCadastro"].forEach(id => {
+                    const campo = document.getElementById(id);
+                    if (campo && !campo.value) animarPlaceholder(campo, campo.getAttribute('placeholder'));
                 });
+            };
+        }
+    }
+
+    function fecharFormularioDesenho() {
+        const form = document.getElementById("formulario-desenho");
+        form.style.animation = "fadeOutBackdrop 0.3s ease";
+        setTimeout(() => {
+            form.style.display = "none";
+            form.style.animation = "";
+        }, 300);
+        restoreScroll();
+        document.body.style.overflow = "";
+        document.removeEventListener("keydown", escFechaFormulario);
+    }
+
+    function fecharFormularioCotacao() {
+        const form = document.getElementById("formulario-cotacao");
+        form.style.animation = "fadeOutBackdrop 0.3s ease";
+        setTimeout(() => {
+            form.style.display = "none";
+            form.style.animation = "";
+        }, 300);
+        restoreScroll();
+        document.body.style.overflow = "";
+        document.removeEventListener("keydown", escFechaFormularioCotacao);
+    }
+
+    function fecharFormularioCadastro() {
+        const form = document.getElementById("formulario-cadastro");
+        form.style.animation = "fadeOutBackdrop 0.3s ease";
+        setTimeout(() => {
+            form.style.display = "none";
+            form.style.animation = "";
+        }, 300);
+        restoreScroll();
+        document.body.style.overflow = "";
+        document.removeEventListener("keydown", escFechaFormularioCadastro);
+    }
+
+    function escFechaFormularioCadastro(e) {
+        if (e.key === "Escape") {
+            fecharFormularioCadastro();
+        }
+    }
+
+    function fecharAoClicarFora(event) {
+        if (event.target.id === "formulario-desenho") {
+            fecharFormularioDesenho();
+        }
+        if (event.target.id === "formulario-cotacao") {
+            fecharFormularioCotacao();
+        }
+        if (event.target.id === "formulario-cadastro") {
+            fecharFormularioCadastro();
+        }
+    }
+
+    function escFechaFormulario(e) {
+        if (e.key === "Escape") {
+            fecharFormularioDesenho();
+        }
+    }
+
+    function escFechaFormularioCotacao(e) {
+        if (e.key === "Escape") {
+            fecharFormularioCotacao();
+        }
+    }
+
+    function animarErroCampo(campo) {
+        campo.classList.add("campo-invalido");
+        campo.addEventListener("input", function limparErro() {
+            if (campo.value.trim()) {
+                campo.classList.remove("campo-invalido");
+                campo.removeEventListener("input", limparErro);
             }
+        });
+    }
 
-            function toggleDropdown(button) {
-                const list = button.nextElementSibling;
-                const aberto = list.style.display === 'block';
-                list.style.display = aberto ? 'none' : 'block';
+    function toggleDropdown(button) {
+        const list = button.nextElementSibling;
+        const aberto = list.style.display === 'block';
+        list.style.display = aberto ? 'none' : 'block';
+    }
+
+    function validarFormatoDesenho() {
+        const checkboxes = document.querySelectorAll('#checklistFORMATO_DESENHO input[type="checkbox"]');
+        const selecionados = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+
+        const resultado = selecionados.join(', ');
+        const botao = document.getElementById('botaoFormatoDesenho');
+        document.getElementById('FORMATO_DESENHO').value = resultado;
+
+        botao.textContent = resultado || 'Formato do Desenho*';
+        botao.classList.toggle('placeholder-style', !resultado);
+    }
+
+    function formatarTelefone(valor) {
+        valor = valor.replace(/\D/g, '').slice(0, 11);
+        if (valor.length > 10) {
+            return valor.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+        }
+        if (valor.length > 6) {
+            return valor.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+        }
+        if (valor.length > 2) {
+            return valor.replace(/^(\d{2})(\d+)/, '($1) $2');
+        }
+        return valor.replace(/^(\d*)/, '($1');
+    }
+
+    function formatarCNPJ(valor) {
+        valor = valor.replace(/\D/g, '').slice(0, 14);
+        valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
+        valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+        valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
+        valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
+        return valor;
+    }
+
+    function formatarCPF(valor) {
+        valor = valor.replace(/\D/g, '').slice(0, 11);
+        valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+        valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+        valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        return valor;
+    }
+
+    function formatarDocumento(valor) {
+        const numeros = valor.replace(/\D/g, '');
+        return numeros.length > 11 ? formatarCNPJ(numeros) : formatarCPF(numeros);
+    }
+
+    function atualizarCampoEmpresa(docCampo, empresaCampo) {
+        if (!docCampo || !empresaCampo) return;
+        const digitos = docCampo.value.replace(/\D/g, '');
+        const ehCPF = digitos.length === 11;
+        empresaCampo.style.display = ehCPF ? 'none' : '';
+        empresaCampo.required = !ehCPF;
+    }
+
+    function animarPlaceholder(campo, texto) {
+        if (!campo) return;
+        campo.placeholder = '';
+        let index = 0;
+        function digitar() {
+            campo.placeholder = texto.substring(0, index);
+            index++;
+            if (index <= texto.length) {
+                setTimeout(digitar, 80);
             }
+        }
+        digitar();
+    }
 
-            function validarFormatoDesenho() {
-                const checkboxes = document.querySelectorAll('#checklistFORMATO_DESENHO input[type="checkbox"]');
-                const selecionados = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+    document.addEventListener("DOMContentLoaded", () => {
+        preencherCamposSessao();
 
-                const resultado = selecionados.join(', ');
-                const botao = document.getElementById('botaoFormatoDesenho');
-                document.getElementById('FORMATO_DESENHO').value = resultado;
+        document.querySelectorAll('#checklistFORMATO_DESENHO input[type="checkbox"]').forEach(cb => {
+            cb.addEventListener('change', validarFormatoDesenho);
+        });
 
-                botao.textContent = resultado || 'Formato do Desenho*';
-                botao.classList.toggle('placeholder-style', !resultado);
+        document.addEventListener('click', function (e) {
+            const botao = document.getElementById('botaoFormatoDesenho');
+            const lista = document.querySelector('#dropdownFORMATO_DESENHO .dropdown-list');
+            if (!botao.contains(e.target) && !lista.contains(e.target)) {
+                lista.style.display = 'none';
             }
+        });
 
-            function formatarTelefone(valor) {
-                valor = valor.replace(/\D/g, '').slice(0, 11);
-                if (valor.length > 10) {
-                    return valor.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
-                }
-                if (valor.length > 6) {
-                    return valor.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
-                }
-                if (valor.length > 2) {
-                    return valor.replace(/^(\d{2})(\d+)/, '($1) $2');
-                }
-                return valor.replace(/^(\d*)/, '($1');
-            }
+        document.getElementById('botaoFormatoDesenho').classList.add('placeholder-style');
 
-            function formatarCNPJ(valor) {
-                valor = valor.replace(/\D/g, '').slice(0, 14);
-                valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
-                valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
-                valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
-                valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
-                return valor;
-            }
+        document.getElementById("nomeDesenho").value = localStorage.getItem("solicitacao_nome") || "";
+        const docDesenhoCache = localStorage.getItem("solicitacao_cnpj") || "";
+        document.getElementById("cnpjDesenho").value = formatarDocumento(docDesenhoCache);
+        document.getElementById("empresaDesenho").value = localStorage.getItem("solicitacao_empresa") || "";
+        document.getElementById("emailDesenho").value = localStorage.getItem("solicitacao_email") || "";
+        document.getElementById("FORMATO_DESENHO").value = localStorage.getItem("solicitacao_formato") || "";
 
-            function formatarCPF(valor) {
-                valor = valor.replace(/\D/g, '').slice(0, 11);
-                valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
-                valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
-                valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-                return valor;
-            }
+        const docDesenho = document.getElementById('cnpjDesenho');
+        const empresaDesenho = document.getElementById('empresaDesenho');
+        const spinnerDes = document.getElementById('spinnerEmpresaDes');
+        if (docDesenho) {
+            let ultimoCNPJDes = '';
 
-            function formatarDocumento(valor) {
-                const numeros = valor.replace(/\D/g, '');
-                return numeros.length > 11 ? formatarCNPJ(numeros) : formatarCPF(numeros);
-            }
-
-            function atualizarCampoEmpresa(docCampo, empresaCampo) {
-                if (!docCampo || !empresaCampo) return;
-                const digitos = docCampo.value.replace(/\D/g, '');
-                const ehCPF = digitos.length === 11;
-                empresaCampo.style.display = ehCPF ? 'none' : '';
-                empresaCampo.required = !ehCPF;
-            }
-
-            function animarPlaceholder(campo, texto) {
-                if (!campo) return;
-                campo.placeholder = '';
-                let index = 0;
-                function digitar() {
-                    campo.placeholder = texto.substring(0, index);
-                    index++;
-                    if (index <= texto.length) {
-                        setTimeout(digitar, 80);
-                    }
-                }
-                digitar();
-            }
-
-            document.addEventListener("DOMContentLoaded", () => {
-                preencherCamposSessao();
-
-                document.querySelectorAll('#checklistFORMATO_DESENHO input[type="checkbox"]').forEach(cb => {
-                    cb.addEventListener('change', validarFormatoDesenho);
-                });
-
-                document.addEventListener('click', function (e) {
-                    const botao = document.getElementById('botaoFormatoDesenho');
-                    const lista = document.querySelector('#dropdownFORMATO_DESENHO .dropdown-list');
-                    if (!botao.contains(e.target) && !lista.contains(e.target)) {
-                        lista.style.display = 'none';
-                    }
-                });
-
-                document.getElementById('botaoFormatoDesenho').classList.add('placeholder-style');
-
-                document.getElementById("nomeDesenho").value = localStorage.getItem("solicitacao_nome") || "";
-                const docDesenhoCache = localStorage.getItem("solicitacao_cnpj") || "";
-                document.getElementById("cnpjDesenho").value = formatarDocumento(docDesenhoCache);
-                document.getElementById("empresaDesenho").value = localStorage.getItem("solicitacao_empresa") || "";
-                document.getElementById("emailDesenho").value = localStorage.getItem("solicitacao_email") || "";
-                document.getElementById("FORMATO_DESENHO").value = localStorage.getItem("solicitacao_formato") || "";
-
-                const docDesenho = document.getElementById('cnpjDesenho');
-                const empresaDesenho = document.getElementById('empresaDesenho');
-                const spinnerDes = document.getElementById('spinnerEmpresaDes');
-                if (docDesenho) {
-                    let ultimoCNPJDes = '';
-
-                    async function buscarEmpresaDesenho() {
-                        const num = docDesenho.value.replace(/\D/g, '');
-                        if (num.length === 14 && num !== ultimoCNPJDes) {
-                            ultimoCNPJDes = num;
-                            spinnerDes.style.display = 'inline-block';
+            async function buscarEmpresaDesenho() {
+                const num = docDesenho.value.replace(/\D/g, '');
+                if (num.length === 14 && num !== ultimoCNPJDes) {
+                    ultimoCNPJDes = num;
+                    spinnerDes.style.display = 'inline-block';
+                    empresaDesenho.readOnly = true;
+                    try {
+                        const r = await fetch('/Paginas/Universais/BuscarEmpresa.php?cnpj=' + num);
+                        const j = await r.json();
+                        if (j.sucesso) {
+                            empresaDesenho.value = j.nome;
                             empresaDesenho.readOnly = true;
-                            try {
-                                const r = await fetch('/Paginas/Universais/BuscarEmpresa.php?cnpj=' + num);
-                                const j = await r.json();
-                                if (j.sucesso) {
-                                    empresaDesenho.value = j.nome;
-                                    empresaDesenho.readOnly = true;
-                                    localStorage.setItem('solicitacao_empresa', empresaDesenho.value);
-                                } else {
-                                    empresaDesenho.readOnly = false;
-                                }
-                            } catch {
-                                empresaDesenho.readOnly = false;
-                            } finally {
-                                spinnerDes.style.display = 'none';
-                            }
-                        } else if (num.length !== 14) {
+                            localStorage.setItem('solicitacao_empresa', empresaDesenho.value);
+                        } else {
                             empresaDesenho.readOnly = false;
-                            ultimoCNPJDes = '';
                         }
+                    } catch {
+                        empresaDesenho.readOnly = false;
+                    } finally {
+                        spinnerDes.style.display = 'none';
                     }
-
-                    const onDocInputDes = e => {
-                        e.target.value = formatarDocumento(e.target.value);
-                        buscarEmpresaDesenho();
-                        atualizarCampoEmpresa(docDesenho, empresaDesenho);
-                        localStorage.setItem('solicitacao_cnpj', docDesenho.value);
-                    };
-                    docDesenho.addEventListener('input', onDocInputDes);
-                    docDesenho.addEventListener('blur', () => { buscarEmpresaDesenho(); atualizarCampoEmpresa(docDesenho, empresaDesenho); });
-                    atualizarCampoEmpresa(docDesenho, empresaDesenho);
-                    [300, 800, 1500, 2500].forEach(t =>
-                        setTimeout(() => { buscarEmpresaDesenho(); atualizarCampoEmpresa(docDesenho, empresaDesenho); }, t)
-                    );
+                } else if (num.length !== 14) {
+                    empresaDesenho.readOnly = false;
+                    ultimoCNPJDes = '';
                 }
+            }
 
-                const camposCotacaoCache = {
-                    nomeCotacao: 'cotacao_nome',
-                    emailCotacao: 'cotacao_email',
-                    telefoneCotacao: 'cotacao_telefone',
-                    quantidadeCotacao: 'cotacao_quantidade',
-                    observacaoCotacao: 'cotacao_observacao',
-                    empresaCotacao: 'cotacao_empresa',
-                    cnpjCotacao: 'cotacao_cnpj'
-                };
+            const onDocInputDes = e => {
+                e.target.value = formatarDocumento(e.target.value);
+                buscarEmpresaDesenho();
+                atualizarCampoEmpresa(docDesenho, empresaDesenho);
+                localStorage.setItem('solicitacao_cnpj', docDesenho.value);
+            };
+            docDesenho.addEventListener('input', onDocInputDes);
+            docDesenho.addEventListener('blur', () => { buscarEmpresaDesenho(); atualizarCampoEmpresa(docDesenho, empresaDesenho); });
+            atualizarCampoEmpresa(docDesenho, empresaDesenho);
+            [300, 800, 1500, 2500].forEach(t =>
+                setTimeout(() => { buscarEmpresaDesenho(); atualizarCampoEmpresa(docDesenho, empresaDesenho); }, t)
+            );
+        }
 
-                Object.entries(camposCotacaoCache).forEach(([id, key]) => {
-                    const campo = document.getElementById(id);
-                    if (!campo) return;
-                    const valor = localStorage.getItem(key);
-                    if (valor) campo.value = id === 'cnpjCotacao' ? formatarDocumento(valor) : valor;
-                    campo.addEventListener('input', () => localStorage.setItem(key, campo.value));
-                });
+        const camposCotacaoCache = {
+            nomeCotacao: 'cotacao_nome',
+            emailCotacao: 'cotacao_email',
+            telefoneCotacao: 'cotacao_telefone',
+            quantidadeCotacao: 'cotacao_quantidade',
+            observacaoCotacao: 'cotacao_observacao',
+            empresaCotacao: 'cotacao_empresa',
+            cnpjCotacao: 'cotacao_cnpj'
+        };
 
-                const camposCadastroCache = {
-                    nomeCadastro: 'cadastro_nome',
-                    emailCadastro: 'cadastro_email'
-                };
+        Object.entries(camposCotacaoCache).forEach(([id, key]) => {
+            const campo = document.getElementById(id);
+            if (!campo) return;
+            const valor = localStorage.getItem(key);
+            if (valor) campo.value = id === 'cnpjCotacao' ? formatarDocumento(valor) : valor;
+            campo.addEventListener('input', () => localStorage.setItem(key, campo.value));
+        });
 
-                Object.entries(camposCadastroCache).forEach(([id, key]) => {
-                    const campo = document.getElementById(id);
-                    if (!campo) return;
-                    const valor = localStorage.getItem(key);
-                    if (valor) campo.value = valor;
-                    campo.addEventListener('input', () => localStorage.setItem(key, campo.value));
-                });
+        const camposCadastroCache = {
+            nomeCadastro: 'cadastro_nome',
+            emailCadastro: 'cadastro_email'
+        };
+
+        Object.entries(camposCadastroCache).forEach(([id, key]) => {
+            const campo = document.getElementById(id);
+            if (!campo) return;
+            const valor = localStorage.getItem(key);
+            if (valor) campo.value = valor;
+            campo.addEventListener('input', () => localStorage.setItem(key, campo.value));
+        });
 
 
-                validarFormatoDesenho();
+        validarFormatoDesenho();
 
-                const tel = document.getElementById('telefoneCotacao');
-                const cnpj = document.getElementById('cnpjCotacao');
-                const spinnerCot = document.getElementById('spinnerEmpresaCot');
+        const tel = document.getElementById('telefoneCotacao');
+        const cnpj = document.getElementById('cnpjCotacao');
+        const spinnerCot = document.getElementById('spinnerEmpresaCot');
 
-                const aplicarTel = e => e.target.value = formatarTelefone(e.target.value);
-                const aplicarDoc = e => e.target.value = formatarDocumento(e.target.value);
+        const aplicarTel = e => e.target.value = formatarTelefone(e.target.value);
+        const aplicarDoc = e => e.target.value = formatarDocumento(e.target.value);
 
-                tel?.addEventListener('input', aplicarTel);
+        tel?.addEventListener('input', aplicarTel);
 
-                if (cnpj) {
-                    const empresa = document.getElementById('empresaCotacao');
-                    const onDocInput = e => {
-                        aplicarDoc(e);
-                        atualizarCampoEmpresa(cnpj, empresa);
-                    };
-                    async function buscarEmpresaCotacao() {
-                        const num = cnpj.value.replace(/\D/g, '');
-                        if (num.length === 14) {
-                            spinnerCot.style.display = 'inline-block';
+        if (cnpj) {
+            const empresa = document.getElementById('empresaCotacao');
+            const onDocInput = e => {
+                aplicarDoc(e);
+                atualizarCampoEmpresa(cnpj, empresa);
+            };
+            async function buscarEmpresaCotacao() {
+                const num = cnpj.value.replace(/\D/g, '');
+                if (num.length === 14) {
+                    spinnerCot.style.display = 'inline-block';
+                    empresa.readOnly = true;
+                    try {
+                        const r = await fetch('/Paginas/Universais/BuscarEmpresa.php?cnpj=' + num);
+                        const j = await r.json();
+                        if (j.sucesso) {
+                            empresa.value = j.nome;
                             empresa.readOnly = true;
-                            try {
-                                const r = await fetch('/Paginas/Universais/BuscarEmpresa.php?cnpj=' + num);
-                                const j = await r.json();
-                                if (j.sucesso) {
-                                    empresa.value = j.nome;
-                                    empresa.readOnly = true;
-                                } else {
-                                    empresa.readOnly = false;
-                                }
-                            } catch {
-                                empresa.readOnly = false;
-                            } finally {
-                                spinnerCot.style.display = 'none';
-                            }
                         } else {
                             empresa.readOnly = false;
                         }
+                    } catch {
+                        empresa.readOnly = false;
+                    } finally {
+                        spinnerCot.style.display = 'none';
                     }
-                    cnpj.addEventListener('input', onDocInput);
-                    cnpj.addEventListener('blur', buscarEmpresaCotacao);
-                    atualizarCampoEmpresa(cnpj, empresa);
-                    [300, 800, 1500, 2500].forEach(t =>
-                        setTimeout(() => { buscarEmpresaCotacao(); atualizarCampoEmpresa(cnpj, empresa); }, t)
-                    );
+                } else {
+                    empresa.readOnly = false;
                 }
+            }
+            cnpj.addEventListener('input', onDocInput);
+            cnpj.addEventListener('blur', buscarEmpresaCotacao);
+            atualizarCampoEmpresa(cnpj, empresa);
+            [300, 800, 1500, 2500].forEach(t =>
+                setTimeout(() => { buscarEmpresaCotacao(); atualizarCampoEmpresa(cnpj, empresa); }, t)
+            );
+        }
 
-                const mapEnvio = {
-                    'formulario-desenho': enviarSolicitacaoDesenho,
-                    'formulario-cotacao': enviarSolicitacaoCotacao,
-                    'formulario-cadastro': enviarSolicitacaoCadastro
-                };
-                Object.entries(mapEnvio).forEach(([id, fn]) => {
-                    const form = document.getElementById(id);
-                    form?.querySelectorAll('input, textarea').forEach(campo => {
-                        campo.addEventListener('keydown', e => {
-                            if (e.key === 'Enter') {
-                                e.preventDefault();
-                                fn();
-                            }
-                        });
-                    });
+        const mapEnvio = {
+            'formulario-desenho': enviarSolicitacaoDesenho,
+            'formulario-cotacao': enviarSolicitacaoCotacao,
+            'formulario-cadastro': enviarSolicitacaoCadastro
+        };
+        Object.entries(mapEnvio).forEach(([id, fn]) => {
+            const form = document.getElementById(id);
+            form?.querySelectorAll('input, textarea').forEach(campo => {
+                campo.addEventListener('keydown', e => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        fn();
+                    }
                 });
             });
+        });
+    });
 
-            async function enviarSolicitacaoDesenho() {
-                const nome = document.getElementById("nomeDesenho");
-                const cnpj = document.getElementById("cnpjDesenho");
-                const empresa = document.getElementById("empresaDesenho");
-                const email = document.getElementById("emailDesenho");
+    async function enviarSolicitacaoDesenho() {
+        const nome = document.getElementById("nomeDesenho");
+        const cnpj = document.getElementById("cnpjDesenho");
+        const empresa = document.getElementById("empresaDesenho");
+        const email = document.getElementById("emailDesenho");
 
-                const nomeVal = nome.value.trim();
-                const cnpjVal = cnpj.value.trim();
-                const empresaVal = empresa.value.trim();
-                const emailVal = email.value.trim();
+        const nomeVal = nome.value.trim();
+        const cnpjVal = cnpj.value.trim();
+        const empresaVal = empresa.value.trim();
+        const emailVal = email.value.trim();
 
-                [nome, cnpj, empresa, email].forEach(el => el.classList.remove("campo-invalido"));
+        [nome, cnpj, empresa, email].forEach(el => el.classList.remove("campo-invalido"));
 
-                if (!nomeVal || !emailVal || (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11) || !cnpjVal) {
-                    if (!nomeVal) animarErroCampo(nome);
-                    else if (!emailVal) animarErroCampo(email);
-                    else if (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11) animarErroCampo(empresa);
-                    else animarErroCampo(cnpj);
+        if (!nomeVal || !emailVal || (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11) || !cnpjVal) {
+            if (!nomeVal) animarErroCampo(nome);
+            else if (!emailVal) animarErroCampo(email);
+            else if (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11) animarErroCampo(empresa);
+            else animarErroCampo(cnpj);
 
-                    exibirAlerta("⚠️ Por favor, preencha todos os campos antes de continuar.");
-                    (!nomeVal && nome.focus()) || (!emailVal && email.focus()) ||
-                        (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11 && empresa.focus()) || cnpj.focus();
-                    return;
-                }
+            exibirAlerta("⚠️ Por favor, preencha todos os campos antes de continuar.");
+            (!nomeVal && nome.focus()) || (!emailVal && email.focus()) ||
+                (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11 && empresa.focus()) || cnpj.focus();
+            return;
+        }
 
-                if (!emailVal.includes("@") || !emailVal.includes(".com") || emailVal.includes(" ")) {
-                    animarErroCampo(email);
-                    exibirAlerta("⚠️ O email informado parece incorreto. Verifique o formato.");
-                    email.focus();
-                    return;
-                }
+        if (!emailVal.includes("@") || !emailVal.includes(".com") || emailVal.includes(" ")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ O email informado parece incorreto. Verifique o formato.");
+            email.focus();
+            return;
+        }
 
-                if (emailVal.includes(";")) {
-                    animarErroCampo(email);
-                    exibirAlerta("⚠️ Aceitamos apenas um email por vez.");
-                    email.focus();
-                    return;
-                }
+        if (emailVal.includes(";")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ Aceitamos apenas um email por vez.");
+            email.focus();
+            return;
+        }
 
-                if (emailVal.includes("redutoresibr")) {
-                    animarErroCampo(email);
-                    exibirAlerta("⚠️ Este recurso é destinado a solicitações externas. Para uso interno, acesse o ERP.");
-                    email.focus();
-                    return;
-                }
+        if (emailVal.includes("redutoresibr")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ Este recurso é destinado a solicitações externas. Para uso interno, acesse o ERP.");
+            email.focus();
+            return;
+        }
 
-                const docDigits = cnpjVal.replace(/\D/g, "");
-                let docValido = false;
-                if (docDigits.length === 11) docValido = validarCPF(docDigits);
-                else if (docDigits.length === 14) docValido = validarCNPJ(docDigits);
-                if (!docValido) {
-                    animarErroCampo(cnpj);
-                    exibirAlerta("⚠️O CPF ou CNPJ parece incorreto. Informe um CPF Válido com 11 Dígitos ou um CNPJ Válido com 14 Dígitos.");
-                    cnpj.focus();
-                    return;
-                }
+        const docDigits = cnpjVal.replace(/\D/g, "");
+        let docValido = false;
+        if (docDigits.length === 11) docValido = validarCPF(docDigits);
+        else if (docDigits.length === 14) docValido = validarCNPJ(docDigits);
+        if (!docValido) {
+            animarErroCampo(cnpj);
+            exibirAlerta("⚠️O CPF ou CNPJ parece incorreto. Informe um CPF Válido com 11 Dígitos ou um CNPJ Válido com 14 Dígitos.");
+            cnpj.focus();
+            return;
+        }
 
-                const formatosSelecionados = document.getElementById("FORMATO_DESENHO").value;
-                const botao = document.getElementById("botaoFormatoDesenho");
-                const botaoEnviar = document.getElementById("botaoEnviarDesenho");
+        const formatosSelecionados = document.getElementById("FORMATO_DESENHO").value;
+        const botao = document.getElementById("botaoFormatoDesenho");
+        const botaoEnviar = document.getElementById("botaoEnviarDesenho");
 
-                if (botaoEnviar.dataset.enviando === "true") {
-                    return;
-                }
+        if (botaoEnviar.dataset.enviando === "true") {
+            return;
+        }
 
-                if (!formatosSelecionados) {
-                    botao.classList.add("campo-invalido");
-                    exibirAlerta("⚠️ Selecione ao menos um formato de arquivo para o desenho.");
-                    return;
-                }
+        if (!formatosSelecionados) {
+            botao.classList.add("campo-invalido");
+            exibirAlerta("⚠️ Selecione ao menos um formato de arquivo para o desenho.");
+            return;
+        }
 
-                botao.classList.remove("campo-invalido");
-                botaoEnviar.disabled = true;
-                botaoEnviar.dataset.enviando = "true";
-                const spinner = document.createElement('span');
-                spinner.className = 'loading-spinner';
-                botaoEnviar.appendChild(spinner);
+        botao.classList.remove("campo-invalido");
+        botaoEnviar.disabled = true;
+        botaoEnviar.dataset.enviando = "true";
+        const spinner = document.createElement('span');
+        spinner.className = 'loading-spinner';
+        botaoEnviar.appendChild(spinner);
 
-                try {
-                    const cdProduto = document.getElementById("cdProduto")?.textContent.trim().toUpperCase() || "";
-                    const cdEmpresa = document.getElementById("cdEmpresaProduto")?.value.trim().toUpperCase() || "001";
+        try {
+            const cdProduto = document.getElementById("cdProduto")?.textContent.trim().toUpperCase() || "";
+            const cdEmpresa = document.getElementById("cdEmpresaProduto")?.value.trim().toUpperCase() || "001";
 
-                    const resp = await fetch("/Paginas/SolicitacaoDesenho/SolicitacaoDesenho.php", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                        body: new URLSearchParams({
-                            nome: nomeVal.toUpperCase(),
-                            empresa: empresaVal.toUpperCase(),
-                            email: emailVal.toUpperCase(),
-                            cpfcnpj: docDigits,
-                            formato: formatosSelecionados.toUpperCase(),
-                            cd_produto: cdProduto,
-                            cd_empresa: cdEmpresa
-                        })
-                    });
-                    const respTexto = await resp.text();
-                    const drvwIdField = respTexto.trim();
+            const resp = await fetch("/Paginas/SolicitacaoDesenho/SolicitacaoDesenho.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({
+                    nome: nomeVal.toUpperCase(),
+                    empresa: empresaVal.toUpperCase(),
+                    email: emailVal.toUpperCase(),
+                    cpfcnpj: docDigits,
+                    formato: formatosSelecionados.toUpperCase(),
+                    cd_produto: cdProduto,
+                    cd_empresa: cdEmpresa
+                })
+            });
+            const respTexto = await resp.text();
+            const drvwIdField = respTexto.trim();
 
-                    if (resp.ok) {
-                        const referenciaHistorico = document.getElementById("refProduto")?.textContent.trim().toUpperCase() || cdProduto || "";
-                        fetch("/Paginas/AreaCliente/Sessao/Desenhos/RegistrarDesenho.php", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                            body: new URLSearchParams({
-                                produto: referenciaHistorico,
-                                formato: formatosSelecionados.toUpperCase(),
-                                drvw_idfield: drvwIdField
-                            })
-                        }).catch(() => { });
-                        fetch("/Paginas/AreaCliente/Sessao/Desenhos/HistoricoDesenho.php", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                            body: new URLSearchParams({
-                                email: emailVal.toUpperCase(),
-                                produto: referenciaHistorico,
-                                formato: formatosSelecionados.toUpperCase(),
-                                drvw_idfield: drvwIdField
-                            })
-                        }).catch(() => { });
-                        fecharFormularioDesenho();
-                        exibirAlerta("✅ Sua solicitação foi enviada com sucesso! Em torno de 10min você receberá o desenho por email.");
-                    } else {
-                        exibirAlerta(respTexto || "⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
-                    }
-                } catch {
-                    exibirAlerta("⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
-                } finally {
-                    botaoEnviar.disabled = false;
-                    botaoEnviar.dataset.enviando = "false";
-                    spinner.remove();
-                }
+            if (resp.ok) {
+                const referenciaHistorico = document.getElementById("refProduto")?.textContent.trim().toUpperCase() || cdProduto || "";
+                fetch("/Paginas/AreaCliente/Sessao/Desenhos/RegistrarDesenho.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        produto: referenciaHistorico,
+                        formato: formatosSelecionados.toUpperCase(),
+                        drvw_idfield: drvwIdField
+                    })
+                }).catch(() => { });
+                fetch("/Paginas/AreaCliente/Sessao/Desenhos/HistoricoDesenho.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        email: emailVal.toUpperCase(),
+                        produto: referenciaHistorico,
+                        formato: formatosSelecionados.toUpperCase(),
+                        drvw_idfield: drvwIdField
+                    })
+                }).catch(() => { });
+                fecharFormularioDesenho();
+                exibirAlerta("✅ Sua solicitação foi enviada com sucesso! Em torno de 10min você receberá o desenho por email.");
+            } else {
+                exibirAlerta(respTexto || "⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
             }
+        } catch {
+            exibirAlerta("⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
+        } finally {
+            botaoEnviar.disabled = false;
+            botaoEnviar.dataset.enviando = "false";
+            spinner.remove();
+        }
+    }
 
-            async function enviarSolicitacaoCotacao() {
-                const nome = document.getElementById("nomeCotacao");
-                const email = document.getElementById("emailCotacao");
-                const telefone = document.getElementById("telefoneCotacao");
-                const quantidade = document.getElementById("quantidadeCotacao");
-                const observacao = document.getElementById("observacaoCotacao");
-                const empresa = document.getElementById("empresaCotacao");
-                const cnpj = document.getElementById("cnpjCotacao");
-                const botaoEnviar = document.getElementById("botaoEnviarCotacao");
+    async function enviarSolicitacaoCotacao() {
+        const nome = document.getElementById("nomeCotacao");
+        const email = document.getElementById("emailCotacao");
+        const telefone = document.getElementById("telefoneCotacao");
+        const quantidade = document.getElementById("quantidadeCotacao");
+        const observacao = document.getElementById("observacaoCotacao");
+        const empresa = document.getElementById("empresaCotacao");
+        const cnpj = document.getElementById("cnpjCotacao");
+        const botaoEnviar = document.getElementById("botaoEnviarCotacao");
 
-                const nomeVal = nome.value.trim();
-                const emailVal = email.value.trim();
-                const telefoneVal = telefone.value.trim();
-                const quantidadeVal = quantidade.value.trim();
-                const observacaoVal = observacao.value.trim();
-                const empresaVal = empresa.value.trim();
-                const cnpjVal = cnpj.value.trim();
+        const nomeVal = nome.value.trim();
+        const emailVal = email.value.trim();
+        const telefoneVal = telefone.value.trim();
+        const quantidadeVal = quantidade.value.trim();
+        const observacaoVal = observacao.value.trim();
+        const empresaVal = empresa.value.trim();
+        const cnpjVal = cnpj.value.trim();
 
-                [nome, email, telefone, empresa, cnpj, quantidade].forEach(el => el.classList.remove("campo-invalido"));
+        [nome, email, telefone, empresa, cnpj, quantidade].forEach(el => el.classList.remove("campo-invalido"));
 
-                if (!nomeVal || !emailVal || (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11) || !cnpjVal || !quantidadeVal) {
-                    if (!nomeVal) animarErroCampo(nome);
-                    else if (!emailVal) animarErroCampo(email);
-                    else if (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11) animarErroCampo(empresa);
-                    else if (!quantidadeVal) animarErroCampo(quantidade);
-                    else animarErroCampo(cnpj);
+        if (!nomeVal || !emailVal || (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11) || !cnpjVal || !quantidadeVal) {
+            if (!nomeVal) animarErroCampo(nome);
+            else if (!emailVal) animarErroCampo(email);
+            else if (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11) animarErroCampo(empresa);
+            else if (!quantidadeVal) animarErroCampo(quantidade);
+            else animarErroCampo(cnpj);
 
-                    exibirAlerta("⚠️ Por favor, preencha todos os campos obrigatórios antes de continuar.");
-                    (!nomeVal && nome.focus()) || (!emailVal && email.focus()) || (!telefoneVal && telefone.focus()) ||
-                        (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11 && empresa.focus()) ||
-                        (!quantidadeVal && quantidade.focus()) || cnpj.focus();
-                    return;
-                }
+            exibirAlerta("⚠️ Por favor, preencha todos os campos obrigatórios antes de continuar.");
+            (!nomeVal && nome.focus()) || (!emailVal && email.focus()) || (!telefoneVal && telefone.focus()) ||
+                (!empresaVal && cnpjVal.replace(/\D/g, '').length !== 11 && empresa.focus()) ||
+                (!quantidadeVal && quantidade.focus()) || cnpj.focus();
+            return;
+        }
 
-                if (!emailVal.includes("@") || !emailVal.includes(".com") || emailVal.includes(" ")) {
-                    animarErroCampo(email);
-                    exibirAlerta("⚠️ O email informado parece incorreto. Verifique o formato.");
-                    email.focus();
-                    return;
-                }
+        if (!emailVal.includes("@") || !emailVal.includes(".com") || emailVal.includes(" ")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ O email informado parece incorreto. Verifique o formato.");
+            email.focus();
+            return;
+        }
 
-                if (emailVal.includes(";")) {
-                    animarErroCampo(email);
-                    exibirAlerta("⚠️ Aceitamos apenas um email por vez.");
-                    email.focus();
-                    return;
-                }
+        if (emailVal.includes(";")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ Aceitamos apenas um email por vez.");
+            email.focus();
+            return;
+        }
 
-                if (emailVal.includes("redutoresibr")) {
-                    animarErroCampo(email);
-                    exibirAlerta("⚠️ Este recurso é destinado a solicitações externas. Para uso interno, acesse o ERP.");
-                    email.focus();
-                    return;
-                }
+        if (emailVal.includes("redutoresibr")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ Este recurso é destinado a solicitações externas. Para uso interno, acesse o ERP.");
+            email.focus();
+            return;
+        }
 
-                const docDigits = cnpjVal.replace(/\D/g, "");
-                let docValido = false;
-                if (docDigits.length === 11) docValido = validarCPF(docDigits);
-                else if (docDigits.length === 14) docValido = validarCNPJ(docDigits);
-                if (!docValido) {
-                    animarErroCampo(cnpj);
-                    exibirAlerta("⚠️ O CPF ou CNPJ parece incorreto. Informe um CPF Válido com 11 Dígitos ou um CNPJ Válido com 14 Dígitos.");
-                    cnpj.focus();
-                    return;
-                }
+        const docDigits = cnpjVal.replace(/\D/g, "");
+        let docValido = false;
+        if (docDigits.length === 11) docValido = validarCPF(docDigits);
+        else if (docDigits.length === 14) docValido = validarCNPJ(docDigits);
+        if (!docValido) {
+            animarErroCampo(cnpj);
+            exibirAlerta("⚠️ O CPF ou CNPJ parece incorreto. Informe um CPF Válido com 11 Dígitos ou um CNPJ Válido com 14 Dígitos.");
+            cnpj.focus();
+            return;
+        }
 
-                botaoEnviar.disabled = true;
-                const spinner = document.createElement('span');
-                spinner.className = 'loading-spinner';
-                botaoEnviar.appendChild(spinner);
+        botaoEnviar.disabled = true;
+        const spinner = document.createElement('span');
+        spinner.className = 'loading-spinner';
+        botaoEnviar.appendChild(spinner);
 
-                try {
-                    const cdProdNota = document.getElementById("cdProduto")?.textContent.trim().toUpperCase() || "";
-                    const referenciaProdNota = document.getElementById("refProduto")?.textContent.trim().toUpperCase() || "";
+        try {
+            const cdProdNota = document.getElementById("cdProduto")?.textContent.trim().toUpperCase() || "";
+            const referenciaProdNota = document.getElementById("refProduto")?.textContent.trim().toUpperCase() || "";
 
-                    const resp = await fetch("/Paginas/SolicitacaoCotacao/SolicitacaoCotacao.php", {
+            const resp = await fetch("/Paginas/SolicitacaoCotacao/SolicitacaoCotacao.php", {
 
-                        method: "POST",
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                        body: new URLSearchParams({
-                            nome: nomeVal.toUpperCase(),
-                            empresa: empresaVal.toUpperCase(),
-                            email: emailVal.toUpperCase(),
-                            telefone: telefoneVal,
-                            quantidade: quantidadeVal,
-                            observacao: observacaoVal.toUpperCase(),
-                            cnpj: cnpjVal,
-                            cd_produto: cdProdNota,
-                            referencia_produto: referenciaProdNota
-                        })
-                    });
-                    const respTexto = await resp.text();
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({
+                    nome: nomeVal.toUpperCase(),
+                    empresa: empresaVal.toUpperCase(),
+                    email: emailVal.toUpperCase(),
+                    telefone: telefoneVal,
+                    quantidade: quantidadeVal,
+                    observacao: observacaoVal.toUpperCase(),
+                    cnpj: cnpjVal,
+                    cd_produto: cdProdNota,
+                    referencia_produto: referenciaProdNota
+                })
+            });
+            const respTexto = await resp.text();
 
-                    if (resp.ok) {
-                        fecharFormularioCotacao();
-                        exibirAlerta(respTexto);
-                        await fetch("/Paginas/AreaCliente/Sessao/Cotacoes/RegistrarCotacao.php", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                            body: new URLSearchParams({
-                                produto: referenciaProdNota,
-                                oportunidade: (respTexto.match(/\d+/) || [])[0] || ''
-                            })
-                        });
-                        fetch("/Paginas/AreaCliente/Sessao/Cotacoes/HistoricoCotacao.php", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                            body: new URLSearchParams({
-                                email: emailVal.toUpperCase(),
-                                produto: referenciaProdNota,
-                                oportunidade: (respTexto.match(/\d+/) || [])[0] || ''
-                            })
-                        }).catch(() => { });
-                    } else {
-                        exibirAlerta(respTexto || "⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
-                    }
-                } catch {
-                    exibirAlerta("⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
-                } finally {
-                    botaoEnviar.disabled = false;
-                    spinner.remove();
-                }
+            if (resp.ok) {
+                fecharFormularioCotacao();
+                exibirAlerta(respTexto);
+                await fetch("/Paginas/AreaCliente/Sessao/Cotacoes/RegistrarCotacao.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        produto: referenciaProdNota,
+                        oportunidade: (respTexto.match(/\d+/) || [])[0] || ''
+                    })
+                });
+                fetch("/Paginas/AreaCliente/Sessao/Cotacoes/HistoricoCotacao.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        email: emailVal.toUpperCase(),
+                        produto: referenciaProdNota,
+                        oportunidade: (respTexto.match(/\d+/) || [])[0] || ''
+                    })
+                }).catch(() => { });
+            } else {
+                exibirAlerta(respTexto || "⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
             }
+        } catch {
+            exibirAlerta("⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
+        } finally {
+            botaoEnviar.disabled = false;
+            spinner.remove();
+        }
+    }
 
-            async function enviarSolicitacaoCadastro() {
-                const nome = document.getElementById("nomeCadastro");
-                const email = document.getElementById("emailCadastro");
-                const botaoEnviar = document.getElementById("botaoEnviarCadastro");
+    async function enviarSolicitacaoCadastro() {
+        const nome = document.getElementById("nomeCadastro");
+        const email = document.getElementById("emailCadastro");
+        const botaoEnviar = document.getElementById("botaoEnviarCadastro");
 
-                const nomeVal = nome.value.trim();
-                const emailVal = email.value.trim();
+        const nomeVal = nome.value.trim();
+        const emailVal = email.value.trim();
 
-                [nome, email].forEach(el => el.classList.remove("campo-invalido"));
+        [nome, email].forEach(el => el.classList.remove("campo-invalido"));
 
-                if (!nomeVal || !emailVal) {
-                    (!nomeVal && animarErroCampo(nome)) || animarErroCampo(email);
-                    exibirAlerta("⚠️ Por favor, preencha todos os campos antes de continuar.");
-                    (!nomeVal && nome.focus()) || email.focus();
-                    return;
-                }
+        if (!nomeVal || !emailVal) {
+            (!nomeVal && animarErroCampo(nome)) || animarErroCampo(email);
+            exibirAlerta("⚠️ Por favor, preencha todos os campos antes de continuar.");
+            (!nomeVal && nome.focus()) || email.focus();
+            return;
+        }
 
-                if (!emailVal.includes("@") || !emailVal.includes(".com") || emailVal.includes(" ")) {
-                    animarErroCampo(email);
-                    exibirAlerta("⚠️ O email informado parece incorreto. Verifique o formato.");
-                    email.focus();
-                    return;
-                }
+        if (!emailVal.includes("@") || !emailVal.includes(".com") || emailVal.includes(" ")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ O email informado parece incorreto. Verifique o formato.");
+            email.focus();
+            return;
+        }
 
-                if (emailVal.includes(";")) {
-                    animarErroCampo(email);
-                    exibirAlerta("⚠️ Aceitamos apenas um email por vez.");
-                    email.focus();
-                    return;
-                }
+        if (emailVal.includes(";")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ Aceitamos apenas um email por vez.");
+            email.focus();
+            return;
+        }
 
-                if (emailVal.includes("redutoresibr")) {
-                    animarErroCampo(email);
-                    exibirAlerta("⚠️ Este recurso é destinado a solicitações externas. Para uso interno, acesse o ERP.");
-                    email.focus();
-                    return;
-                }
+        if (emailVal.includes("redutoresibr")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ Este recurso é destinado a solicitações externas. Para uso interno, acesse o ERP.");
+            email.focus();
+            return;
+        }
 
-                botaoEnviar.disabled = true;
-                const spinner = document.createElement('span');
-                spinner.className = 'loading-spinner';
-                botaoEnviar.appendChild(spinner);
+        botaoEnviar.disabled = true;
+        const spinner = document.createElement('span');
+        spinner.className = 'loading-spinner';
+        botaoEnviar.appendChild(spinner);
 
-                try {
-                    const referenciaProdNota = document.getElementById("refProduto")?.textContent.trim().toUpperCase() || "";
-                    const linkAtual = gerarLinkAtual();
+        try {
+            const referenciaProdNota = document.getElementById("refProduto")?.textContent.trim().toUpperCase() || "";
+            const linkAtual = gerarLinkAtual();
 
-                    const resp = await fetch("/Paginas/SolicitacaoCadastroProduto/SolicitacaoCadastroProduto.php", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                        body: new URLSearchParams({
-                            nome: nomeVal.toUpperCase(),
-                            email: emailVal.toUpperCase(),
-                            referencia_produto: referenciaProdNota,
-                            link: linkAtual
-                        })
-                    });
-                    const respTexto = await resp.text();
+            const resp = await fetch("/Paginas/SolicitacaoCadastroProduto/SolicitacaoCadastroProduto.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({
+                    nome: nomeVal.toUpperCase(),
+                    email: emailVal.toUpperCase(),
+                    referencia_produto: referenciaProdNota,
+                    link: linkAtual
+                })
+            });
+            const respTexto = await resp.text();
 
-                    if (resp.ok) {
-                        fecharFormularioCadastro();
-                        exibirAlerta(respTexto);
-                        await fetch("/Paginas/AreaCliente/Sessao/CadastrosProduto/RegistrarCadastroProduto.php", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                            body: new URLSearchParams({
-                                produto: referenciaProdNota,
-                                oportunidade: (respTexto.match(/\d+/) || [])[0] || ''
-                            })
-                        });
-                        fetch("/Paginas/AreaCliente/Sessao/CadastrosProduto/HistoricoCadastroProduto.php", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                            body: new URLSearchParams({
-                                email: emailVal.toUpperCase(),
-                                produto: referenciaProdNota,
-                                oportunidade: (respTexto.match(/\d+/) || [])[0] || ''
-                            })
-                        }).catch(() => { });
-                    } else {
-                        exibirAlerta(respTexto || "⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
-                    }
-                } catch {
-                    exibirAlerta("⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
-                } finally {
-                    botaoEnviar.disabled = false;
-                    spinner.remove();
-                }
+            if (resp.ok) {
+                fecharFormularioCadastro();
+                exibirAlerta(respTexto);
+                await fetch("/Paginas/AreaCliente/Sessao/CadastrosProduto/RegistrarCadastroProduto.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        produto: referenciaProdNota,
+                        oportunidade: (respTexto.match(/\d+/) || [])[0] || ''
+                    })
+                });
+                fetch("/Paginas/AreaCliente/Sessao/CadastrosProduto/HistoricoCadastroProduto.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        email: emailVal.toUpperCase(),
+                        produto: referenciaProdNota,
+                        oportunidade: (respTexto.match(/\d+/) || [])[0] || ''
+                    })
+                }).catch(() => { });
+            } else {
+                exibirAlerta(respTexto || "⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
             }
+        } catch {
+            exibirAlerta("⚠️ Erro ao enviar solicitação. Tente novamente mais tarde ou entre em contato com nossos consultores de venda.");
+        } finally {
+            botaoEnviar.disabled = false;
+            spinner.remove();
+        }
+    }
 </script>
+
+<script>
+    function gerarLinkAtual() {
+        const params = new URLSearchParams();
+        document.querySelectorAll('select[id], input[id]').forEach(el => {
+            const id = el.id;
+            if (!id || /[^A-Z0-9_]/.test(id)) return;
+            if (el.type === 'checkbox') {
+                if (el.checked) params.append(id, el.value);
+            } else {
+                const val = el.value;
+                if (val) params.set(id, val);
+            }
+        });
+        return location.origin + location.pathname + (params.toString() ? '?' + params.toString() : '');
+    }
+
+    function preencherCamposDaUrl() {
+        const params = new URLSearchParams(location.search);
+        params.forEach((val, key) => {
+            const el = document.getElementById(key);
+            if (!el) return;
+            if (el.type === 'checkbox') {
+                if (el.value === val) el.checked = true;
+            } else {
+                el.value = val;
+            }
+            el.dispatchEvent(new Event('change'));
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        preencherCamposDaUrl();
+
+        document.querySelector('.gerar-produto')?.addEventListener('click', e => {
+            e.preventDefault();
+            if (typeof gerarCodigoProduto === 'function') {
+                gerarCodigoProduto();
+            }
+            const link = gerarLinkAtual();
+            history.replaceState(null, '', link);
+        });
+    });
+</script>
+
 <div style="height:120px;"></div>

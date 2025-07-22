@@ -2,3 +2,7 @@
 [22/07/2025 16:23:46] Desenho do produto HY.36195969 gerada por TRABALHOGUILHERMY@GMAIL.COM
 [22/07/2025 17:10:50] Email de confirmacao de alteração enviado para misael.ferreira@redutoresibr.com.br
 [22/07/2025 17:13:23] Email de confirmacao de alteração enviado para misael.ferreira@redutoresibr.com.br
+[22/07/2025 17:50:51] JS Error: Uncaught ReferenceError: toggleCompartilhar is not defined File:https://configurador.redutoresibr.com.br/ConfiguradorIBRQ?QULN=1.Q Line:1:1 Stack:ReferenceError: toggleCompartilhar is not defined
+    at HTMLAnchorElement.onclick (https://configurador.redutoresibr.com.br/ConfiguradorIBRQ?QULN=1.Q:1:1)
+[22/07/2025 17:50:55] JS Error: Uncaught ReferenceError: toggleCompartilhar is not defined File:https://configurador.redutoresibr.com.br/ConfiguradorIBRQ?QULN=1.Q Line:1:1 Stack:ReferenceError: toggleCompartilhar is not defined
+    at HTMLAnchorElement.onclick (https://configurador.redutoresibr.com.br/ConfiguradorIBRQ?QULN=1.Q:1:1)

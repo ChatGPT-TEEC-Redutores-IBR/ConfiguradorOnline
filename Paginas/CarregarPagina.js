@@ -60,11 +60,9 @@ if (window.scriptSources = window.scriptSources || [], applySavedTheme(document)
     window.fetch = async function (o, n = {}) {
         const url = typeof o === "string" ? o : (o && o.url) || "";
         if (activeFetches >= MAX_CONCURRENT_FETCHES) {
-            console.log("[FETCH QUEUED]", url, "active:", activeFetches, "queue:", fetchQueue.length + 1);
             await new Promise(resolve => fetchQueue.push(resolve));
         }
         activeFetches++;
-        console.log("[FETCH START]", url, "active:", activeFetches, "queue:", fetchQueue.length);
         if (n && (n.method || "GET").toUpperCase() === "POST") {
             n.headers = n.headers || {};
             if (!window.csrfToken) {
@@ -83,13 +81,11 @@ if (window.scriptSources = window.scriptSources || [], applySavedTheme(document)
         }
         try {
             const resp = await t(o, n);
-            console.log("[FETCH RESPONSE]", url, resp.status);
             return resp;
         } catch (err) {
             redirecionarSeOffline();
             throw err;
         } finally {
-            console.log("[FETCH END]", url, "active:", activeFetches - 1, "queue:", fetchQueue.length);
             dequeue();
         }
     };
