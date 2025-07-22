@@ -695,7 +695,7 @@
                                 select.value = valor;
                                 select.dispatchEvent(new Event("change"));
                                 clearInterval(timer);
-                            } else if (++tentativas > 40) {
+                            } else if (++tentativas > 100) {
                                 clearInterval(timer);
                             }
                         }, 200);
@@ -744,7 +744,7 @@
                 if (!aplicarCheckboxOPC()) {
                     let tentativas = 0;
                     const espera = setInterval(() => {
-                        if (aplicarCheckboxOPC() || ++tentativas > 40) {
+                        if (aplicarCheckboxOPC() || ++tentativas > 100) {
                             clearInterval(espera);
                         }
                     }, 300);
@@ -773,7 +773,7 @@
                                 select.disabled = true;
                                 clearInterval(timer);
                                 resolve();
-                            } else if (++tentativas > 40) {
+                            } else if (++tentativas > 100) {
                                 clearInterval(timer);
                                 resolve();
                             }

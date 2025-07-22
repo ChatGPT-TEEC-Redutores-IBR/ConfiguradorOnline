@@ -5882,3 +5882,5 @@
 [22/07/2025 07:42:08] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
     at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.2.0.43:1:1278)
     at https://configurador.redutoresibr.com.br/Layout/Estrutura/Layout.min.js?versao=versao.2.0.43:1:32468
+[22/07/2025 09:22:23] Desenho do produto QU.26501012 gerada por MINERACAO@GRAMARC.COM
+[22/07/2025 09:31:28] Desenho do produto MO.12175100 gerada por RAFAEL.FERREIRA@VIBRA.COM.BR
