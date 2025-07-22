@@ -347,6 +347,8 @@
 </section>
 
 <script>
+    const veioDeLink = new URLSearchParams(window.location.search).toString() !== "";
+
     document.addEventListener("DOMContentLoaded", () => {
         ["Produto", "Estoque"].forEach(grupo => {
             const toggle = document.getElementById(`toggle${grupo}`);
