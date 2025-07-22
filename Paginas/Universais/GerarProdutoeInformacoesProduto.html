@@ -754,10 +754,15 @@
                                 select.disabled = true;
                                 clearInterval(timer);
                                 resolve();
-                            } else if (++tentativas > 1200) {
-                                console.warn(`[prefill] Timeout definitivo para ${id}`);
-                                clearInterval(timer);
-                                resolve();
+                            } else {
+                                if (tentativas === 0) {
+                                    console.debug(`[prefill] Aguardando ${id}=${valor}. Opcoes: [${opcoes.join(', ')}], visivel=${visivel}`);
+                                }
+                                if (++tentativas > 1200) {
+                                    console.warn(`[prefill] Timeout definitivo para ${id}`);
+                                    clearInterval(timer);
+                                    resolve();
+                                }
                             }
                         }, 200);
                     });
