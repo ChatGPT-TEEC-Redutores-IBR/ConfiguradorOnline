@@ -1538,10 +1538,6 @@
         const botao = document.getElementById('btnCompartilhar');
         if (!menu || !botao) return;
 
-        if (typeof gerarCodigoProduto === 'function') {
-            gerarCodigoProduto();
-        }
-
         const ativo = !menu.classList.contains('ativo');
         menu.classList.toggle('ativo', ativo);
         botao.setAttribute('aria-expanded', ativo.toString());
