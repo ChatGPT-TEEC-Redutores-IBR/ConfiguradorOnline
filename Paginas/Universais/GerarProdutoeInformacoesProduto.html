@@ -1328,7 +1328,14 @@
         const params = new URLSearchParams();
 
         function visivel(el) {
-            if (el.type === 'hidden') return false;
+            if (el.type === 'hidden') {
+                const name = el.name;
+                if (name) {
+                    return Array.from(document.querySelectorAll(`[name="${name}"]`))
+                        .some(o => o !== el && o.type !== 'hidden' && o.offsetParent !== null);
+                }
+                return false;
+            }
             return el.offsetParent !== null;
         }
 
@@ -1346,8 +1353,10 @@
         return location.origin + location.pathname + (params.toString() ? '?' + params.toString() : '');
     }
 
-    function preencherCamposDaUrl() {
+    function preencherCamposDaUrl(tentativas = 15) {
         const params = new URLSearchParams(location.search);
+        let pendentes = false;
+
         params.forEach((val, key) => {
             const el = document.getElementById(key);
             if (!el) return;
@@ -1355,9 +1364,19 @@
                 if (el.value === val) el.checked = true;
             } else {
                 el.value = val;
+                if (el.tagName === 'SELECT' && el.value !== val) {
+                    pendentes = true;
+                }
             }
             el.dispatchEvent(new Event('change'));
         });
+
+        if (pendentes && tentativas > 0) {
+            setTimeout(() => preencherCamposDaUrl(tentativas - 1), 300);
+        } else if (!pendentes && [...params.keys()].length &&
+            typeof gerarCodigoProduto === 'function') {
+            gerarCodigoProduto();
+        }
     }
 
     function copiarLink(event) {
@@ -1374,11 +1393,6 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         preencherCamposDaUrl();
-
-        const params = new URLSearchParams(location.search);
-        if ([...params.keys()].length && typeof gerarCodigoProduto === 'function') {
-            gerarCodigoProduto();
-        }
 
         document.getElementById('btnCopiarLink')?.addEventListener('click', copiarLink);
 
