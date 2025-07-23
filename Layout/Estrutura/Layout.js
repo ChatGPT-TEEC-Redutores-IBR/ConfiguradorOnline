@@ -39,6 +39,88 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const codigoRegex = /^[A-Z]{2,4}\.[0-9]{8}$/;
+    const referenciaRegex = /^[0-9A-Z]{1,5}(\.[0-9A-Z]{1,5}){2,}$/;
+
+    function validarPesquisaProduto(valor) {
+        if (codigoRegex.test(valor)) return "codigo";
+        if (referenciaRegex.test(valor)) return "referencia";
+        return null;
+    }
+
+    function tratarBuscaProduto(input) {
+        const valor = input.value.trim();
+        const somentePermitidosRegex = /^[A-Z0-9.]+$/i;
+        if (valor && !somentePermitidosRegex.test(valor)) {
+            input.classList.add("campo-invalido");
+            exibirAlerta(
+                "❌ Não use espaços ou caracteres especiais. Use apenas letras,números e pontos.",
+            );
+            return false;
+        }
+        const tipo = validarPesquisaProduto(valor);
+        if (!tipo) {
+            input.classList.add("campo-invalido");
+            exibirAlerta(
+                "❌ Digite um Código de Produto válido (ex:QU.12345678) ou uma Referência válida (ex:1.Q.050.50.71B14.N.N.N)",
+            );
+            return false;
+        }
+        input.classList.remove("campo-invalido");
+        console.log(`🔍 Tipo reconhecido:${tipo.toUpperCase()}→ ${valor}`);
+        return true;
+    }
+    async function buscarProduto(valor) {
+        valor = (valor || "").trim();
+        if (!valor) return;
+        try {
+            const r = await fetch(
+                "/Paginas/Seletores/Produto/EstruturaProduto.php",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({ valor }),
+                },
+            );
+            const d = await r.json();
+            if (d.url) {
+                location.href = d.url;
+            } else if (d.erro) {
+                alert(d.erro);
+                if (d.erro === "Produto não encontrado.") {
+                    exibirAlerta(
+                        "Ops! \ud83d\ude14 N\u00e3o encontramos esse produto ou o c\u00f3digo est\u00e1 inativo.<br>" +
+                        "Mas n\u00e3o se preocupe! Voc\u00ea pode configurar um novo produto aqui mesmo e solicitar o cadastro, " +
+                        "ou ent\u00e3o gerar um novo c\u00f3digo rapidinho. Se precisar de ajuda, estamos \u00e0 disposi\u00e7\u00e3o! \ud83d\ude0a"
+                    );
+                } else {
+                    exibirAlerta(d.erro);
+                }
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    document.querySelectorAll("#btnBuscarDesktopFiltro").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const inp = btn.closest("form")?.querySelector("#termo");
+            if (inp && tratarBuscaProduto(inp)) buscarProduto(inp.value);
+        });
+    });
+
+    document.querySelectorAll("#termo").forEach((input) => {
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                if (tratarBuscaProduto(input)) buscarProduto(input.value);
+            }
+        });
+    });
+});
+
 
 document.addEventListener("DOMContentLoaded", () => {
     document
@@ -257,38 +339,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     handleScroll();
 });
-document.addEventListener("DOMContentLoaded", () => {
-    const codigoRegex = /^[A-Z]{2,4}\.[0-9]{8}$/;
-    const referenciaRegex = /^[0-9A-Z]{1,5}(\.[0-9A-Z]{1,5}){2,}$/;
-    const isMobile = window.matchMedia("(max-width:768px)").matches;
-    function validarPesquisaProduto(valor) {
-        if (codigoRegex.test(valor)) return "codigo";
-        if (referenciaRegex.test(valor)) return "referencia";
-        return null;
-    }
-    function tratarBuscaProduto(input) {
-        const valor = input.value.trim();
-        const somentePermitidosRegex = /^[A-Z0-9.]+$/i;
-        if (valor && !somentePermitidosRegex.test(valor)) {
-            input.classList.add("campo-invalido");
-            exibirAlerta(
-                "❌ Não use espaços ou caracteres especiais. Use apenas letras,números e pontos.",
-            );
-            return false;
-        }
-        const tipo = validarPesquisaProduto(valor);
-        if (!tipo) {
-            input.classList.add("campo-invalido");
-            exibirAlerta(
-                "❌ Digite um Código de Produto válido (ex:QU.12345678) ou uma Referência válida (ex:1.Q.050.50.71B14.N.N.N)",
-            );
-            return false;
-        }
-        input.classList.remove("campo-invalido");
-        console.log(`🔍 Tipo reconhecido:${tipo.toUpperCase()}→ ${valor}`);
-        return true;
-    }
-});
+
 document.addEventListener("DOMContentLoaded", () => {
     const isMobile = window.matchMedia("(max-width:768px)").matches;
     if (isMobile) {
