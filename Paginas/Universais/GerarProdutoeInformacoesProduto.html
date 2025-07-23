@@ -1070,6 +1070,13 @@
             return;
         }
 
+        if (emailVal.includes("redutoresibr")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ Este recurso é destinado a solicitações externas. Para uso interno, acesse o ERP.");
+            email.focus();
+            return;
+        }
+
         const docDigits = cnpjVal.replace(/\D/g, "");
         let docValido = false;
         if (docDigits.length === 11) docValido = validarCPF(docDigits);
@@ -1207,6 +1214,13 @@
             return;
         }
 
+        if (emailVal.includes("redutoresibr")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ Este recurso é destinado a solicitações externas. Para uso interno, acesse o ERP.");
+            email.focus();
+            return;
+        }
+
         const docDigits = cnpjVal.replace(/\D/g, "");
         let docValido = false;
         if (docDigits.length === 11) docValido = validarCPF(docDigits);
@@ -1305,6 +1319,13 @@
         if (emailVal.includes(";")) {
             animarErroCampo(email);
             exibirAlerta("⚠️ Aceitamos apenas um email por vez.");
+            email.focus();
+            return;
+        }
+
+        if (emailVal.includes("redutoresibr")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ Este recurso é destinado a solicitações externas. Para uso interno, acesse o ERP.");
             email.focus();
             return;
         }

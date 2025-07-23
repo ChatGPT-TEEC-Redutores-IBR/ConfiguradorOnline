@@ -49,7 +49,7 @@ try {
 $sqlUpdate = "UPDATE _USR_CONF_SITE_HISTORICO_CADASTROS
                      SET DS_LINK = ?
                    WHERE DS_EMAIL = ? AND DS_REFERENCIA = ? AND CD_OPORTUNIDADE = ?
-                     AND (DS_LINK IS NULL OR DS_LINK = '')";
+                     AND (DS_LINK IS NULL OR DATALENGTH(DS_LINK) = 0)";
     $stmt = $pdo->prepare($sqlUpdate);
     $stmt->execute([
         $link,
@@ -57,7 +57,7 @@ $sqlUpdate = "UPDATE _USR_CONF_SITE_HISTORICO_CADASTROS
         $produto,
         $oportunidade
     ]);
-    
+
     $sqlInsert = "INSERT INTO _USR_CONF_SITE_HISTORICO_CADASTROS (DS_EMAIL, DS_REFERENCIA, CD_OPORTUNIDADE, DS_LINK, DT_DATA)
             SELECT ?, ?, ?, ?, CONVERT(VARCHAR(19), GETDATE(), 120)
              WHERE NOT EXISTS (
