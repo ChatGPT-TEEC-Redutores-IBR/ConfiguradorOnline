@@ -130,3 +130,109 @@
     at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
 [23/07/2025 11:00:09] Cadastro do produto 1.Q.050.50.N.N.N.1.V.1.80B5.B5.V6 solicitado por BRAIAN.PERUZZO@REDUTORESIBR.COM.BR
 [23/07/2025 11:00:09] RegistrarCadastro: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The data types text and varchar are incompatible in the equal to operator.
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOTP (<anonymous>:540:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOFQ (<anonymous>:600:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOFQ (<anonymous>:600:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOFQ (<anonymous>:600:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOFQ (<anonymous>:600:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOCP (<anonymous>:689:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOCP (<anonymous>:689:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOCP (<anonymous>:689:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOCP (<anonymous>:689:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOCP (<anonymous>:689:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOCP (<anonymous>:689:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOCP (<anonymous>:689:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOCP (<anonymous>:689:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOCP (<anonymous>:689:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOPT (<anonymous>:622:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOPT (<anonymous>:622:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOPT (<anonymous>:622:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOPT (<anonymous>:622:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOPT (<anonymous>:622:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOPT (<anonymous>:622:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOPT (<anonymous>:622:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOFQ (<anonymous>:600:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOCP (<anonymous>:689:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOPT (<anonymous>:622:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOPT (<anonymous>:622:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOPT (<anonymous>:622:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOPT (<anonymous>:622:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOPT (<anonymous>:622:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOPT (<anonymous>:622:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOFQ (<anonymous>:600:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOPT (<anonymous>:622:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOPT (<anonymous>:622:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOPT (<anonymous>:622:26)
+[23/07/2025 11:05:18] JS Error: Failed to fetch File: Line:0:0 Stack:TypeError: Failed to fetch
+    at window.fetch (https://configurador.redutoresibr.com.br/Paginas/CarregarPagina.min.js?versao=versao.3.0.1:1:1427)
+    at async carregarMOFQ (<anonymous>:600:26)
+[23/07/2025 11:10:03] Cadastro do produto 1.Q.050.50.N.N.N.1.V.1.80B5.B5.V6 solicitado por BRAIAN.PERUZZO@REDUTORESIBR.COM.BR
+[23/07/2025 11:10:03] RegistrarCadastro: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The data types text and varchar are incompatible in the equal to operator.

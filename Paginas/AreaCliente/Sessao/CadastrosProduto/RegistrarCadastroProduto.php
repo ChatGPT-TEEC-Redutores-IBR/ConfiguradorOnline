@@ -57,25 +57,24 @@ $sqlUpdate = "UPDATE _USR_CONF_SITE_HISTORICO_CADASTROS
         $produto,
         $oportunidade
     ]);
-
-    if ($stmt->rowCount() === 0) {
-        $sqlInsert = "INSERT INTO _USR_CONF_SITE_HISTORICO_CADASTROS (DS_EMAIL, DS_REFERENCIA, CD_OPORTUNIDADE, DS_LINK, DT_DATA)
-                SELECT ?, ?, ?, ?, CONVERT(VARCHAR(19), GETDATE(), 120)
-                 WHERE NOT EXISTS (
-                     SELECT 1 FROM _USR_CONF_SITE_HISTORICO_CADASTROS
-                      WHERE DS_EMAIL = ? AND DS_REFERENCIA = ? AND CD_OPORTUNIDADE = ?
-                 )";
-        $stmt = $pdo->prepare($sqlInsert);
-        $stmt->execute([
-            strtolower($dados['email']),
-            $produto,
-            $oportunidade,
-            $link,
-            strtolower($dados['email']),
-            $produto,
-            $oportunidade
-        ]);
-    }
+    
+    $sqlInsert = "INSERT INTO _USR_CONF_SITE_HISTORICO_CADASTROS (DS_EMAIL, DS_REFERENCIA, CD_OPORTUNIDADE, DS_LINK, DT_DATA)
+            SELECT ?, ?, ?, ?, CONVERT(VARCHAR(19), GETDATE(), 120)
+             WHERE NOT EXISTS (
+                 SELECT 1 FROM _USR_CONF_SITE_HISTORICO_CADASTROS
+                  WHERE DS_EMAIL = ? AND DS_REFERENCIA = ? AND CD_OPORTUNIDADE = ? AND CONVERT(VARCHAR(MAX), DS_LINK) = ?
+             )";
+    $stmt = $pdo->prepare($sqlInsert);
+    $stmt->execute([
+        strtolower($dados['email']),
+        $produto,
+        $oportunidade,
+        $link,
+        strtolower($dados['email']),
+        $produto,
+        $oportunidade,
+        $link
+    ]);
 
     echo json_encode(['sucesso' => true]);
     $pdo = null;
