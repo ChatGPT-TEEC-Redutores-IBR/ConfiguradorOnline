@@ -1323,6 +1323,12 @@
             return;
         }
 
+        if (emailVal.includes("redutoresibr")) {
+            animarErroCampo(email);
+            exibirAlerta("⚠️ Este recurso é destinado a solicitações externas. Para uso interno, acesse o ERP.");
+            email.focus();
+            return;
+        }
 
         botaoEnviar.disabled = true;
         const spinner = document.createElement('span');
