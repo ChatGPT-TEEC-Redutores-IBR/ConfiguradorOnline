@@ -28,10 +28,15 @@ try {
 
     $sql = "INSERT INTO _USR_CONF_SITE_HISTORICO_PRODUTO (
                 DS_EMAIL, DS_REFERENCIA, DS_LINK, DT_DATA
-            ) VALUES (?, ?, ?, GETDATE())";
+            ) SELECT ?, ?, ?, GETDATE()
+              WHERE NOT EXISTS (
+                  SELECT 1 FROM _USR_CONF_SITE_HISTORICO_PRODUTO
+                   WHERE DS_EMAIL = ?
+                     AND DS_REFERENCIA = ?
+              )";
 
     $stm = $pdo->prepare($sql);
-    $stm->execute([$email, $produto, $link]);
+    $stm->execute([$email, $produto, $link, $email, $produto]);
 
     echo '✅ Histórico Salvo.';
     $pdo = null;
