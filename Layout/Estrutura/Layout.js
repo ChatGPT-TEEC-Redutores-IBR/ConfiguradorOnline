@@ -86,15 +86,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const d = await r.json();
             if (d.url) {
                 location.href = d.url;
-            } else if (d.erro) {
-                alert(d.erro);
-                if (d.erro === "Produto não encontrado.") {
+            } else if (d.notFound || d.erro) {
+                const texto = (d.erro || "").trim().toLowerCase();
+                const ehNaoEncontrado = d.notFound || (texto.includes("produto") && texto.includes("n\u00e3o encontrado"));
+                if (ehNaoEncontrado) {
                     exibirAlerta(
                         "Ops! \ud83d\ude14 N\u00e3o encontramos esse produto ou o c\u00f3digo est\u00e1 inativo.<br>" +
                         "Mas n\u00e3o se preocupe! Voc\u00ea pode configurar um novo produto aqui mesmo e solicitar o cadastro, " +
                         "ou ent\u00e3o gerar um novo c\u00f3digo rapidinho. Se precisar de ajuda, estamos \u00e0 disposi\u00e7\u00e3o! \ud83d\ude0a"
                     );
-                } else {
+                } else if (d.erro) {
                     exibirAlerta(d.erro);
                 }
             }

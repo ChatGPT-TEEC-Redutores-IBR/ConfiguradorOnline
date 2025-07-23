@@ -57,7 +57,7 @@ try {
     $rows = $query->fetchAll(PDO::FETCH_ASSOC);
 
     if (!$rows) {
-        echo json_encode(['erro' => 'Produto não encontrado.']);
+        echo json_encode(['notFound' => true]);
         exit;
     }
 
