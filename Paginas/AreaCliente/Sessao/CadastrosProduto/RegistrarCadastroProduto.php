@@ -75,7 +75,7 @@ $sqlUpdate = "UPDATE _USR_CONF_SITE_HISTORICO_CADASTROS
         $oportunidade,
         $link
     ]);
-
+    
     echo json_encode(['sucesso' => true]);
     $pdo = null;
 } catch (PDOException $e) {
