@@ -48,21 +48,24 @@ try {
         PDO::SQLSRV_ATTR_ENCODING => PDO::SQLSRV_ENCODING_UTF8
     ]);
 
-    $sql = "INSERT INTO _USR_CONF_SITE_HISTORICO_PRODUTO (DS_EMAIL, DS_REFERENCIA, DT_DATA)
-            SELECT ?, ?, CONVERT(VARCHAR(19), GETDATE(), 120)
+    $sql = "INSERT INTO _USR_CONF_SITE_HISTORICO_PRODUTO (DS_EMAIL, DS_REFERENCIA, DS_LINK, DT_DATA)
+            SELECT ?, ?, ?, CONVERT(VARCHAR(19), GETDATE(), 120)
              WHERE NOT EXISTS (
                  SELECT 1 FROM _USR_CONF_SITE_HISTORICO_PRODUTO
                   WHERE DS_EMAIL = ?
                     AND DS_REFERENCIA = ?
+                    AND DS_LINK = ?
                     AND DATEDIFF(MINUTE, DT_DATA, GETDATE()) = 0
              )";
 
     $stmt = $pdo->prepare($sql);
-$stmt->execute([
-         strtolower($dados['email']),
-        $produto,
+    $stmt->execute([
         strtolower($dados['email']),
-        $produto
+        $produto,
+        $link,
+        strtolower($dados['email']),
+        $produto,
+        $link
     ]);
 
     echo json_encode(['sucesso' => true]);

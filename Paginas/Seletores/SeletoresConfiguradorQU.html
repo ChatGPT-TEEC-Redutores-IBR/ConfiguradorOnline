@@ -2658,10 +2658,11 @@
       .catch(err => console.error('Erro ao obter dados do produto', err));
 
     if (window.ultimoHistoricoProduto !== COMPOSICAOCODIGO) {
+      const linkAtual = gerarLinkAtual();
       fetch("/Paginas/AreaCliente/Sessao/Produtos/RegistrarProduto.php", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `produto=${encodeURIComponent(COMPOSICAOCODIGO)}`
+        body: `produto=${encodeURIComponent(COMPOSICAOCODIGO)}&link=${encodeURIComponent(linkAtual)}`
       });
       window.ultimoHistoricoProduto = COMPOSICAOCODIGO;
     }

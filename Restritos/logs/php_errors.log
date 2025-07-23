@@ -4,3 +4,6 @@
 [22-Jul-2025 17:13:23 America/Sao_Paulo] [22/07/2025 17:13:23] Email de confirmacao de alteração enviado para misael.ferreira@redutoresibr.com.br
 [22-Jul-2025 18:45:47 America/Sao_Paulo] [22/07/2025 18:45:47] Desenho do produto QU.40086502 gerada por BPERUZZO96@HOTMAIL.COM
 [22-Jul-2025 18:46:11 America/Sao_Paulo] [22/07/2025 18:46:11] Cotacao do produto 1.Q.050.50.80B14.N.N.N gerada por BPERUZZO96@HOTMAIL.COM
+[23-Jul-2025 10:00:57 America/Sao_Paulo] PHP Warning:  preg_match(): No ending delimiter '/' found in C:\AvantIBR\web\ConfiguradorOnline\Paginas\AreaCliente\Sessao\Produtos\RegistrarProduto.php on line 35
+[23-Jul-2025 10:01:02 America/Sao_Paulo] PHP Warning:  preg_match(): No ending delimiter '/' found in C:\AvantIBR\web\ConfiguradorOnline\Paginas\AreaCliente\Sessao\Produtos\RegistrarProduto.php on line 35
+[23-Jul-2025 10:02:25 America/Sao_Paulo] PHP Warning:  preg_match(): No ending delimiter '/' found in C:\AvantIBR\web\ConfiguradorOnline\Paginas\AreaCliente\Sessao\Produtos\RegistrarProduto.php on line 35

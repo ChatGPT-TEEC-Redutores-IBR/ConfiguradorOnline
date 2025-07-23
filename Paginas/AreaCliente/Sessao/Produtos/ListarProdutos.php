@@ -163,7 +163,7 @@ try {
     $total = (int)$stmtTot->fetchColumn();
 
     $stmt = $pdo->prepare(
-        "SELECT DS_REFERENCIA AS produto, DT_DATA AS data
+        "SELECT DS_REFERENCIA AS produto, DS_LINK AS link, DT_DATA AS data
            FROM _USR_CONF_SITE_HISTORICO_PRODUTO
           WHERE DS_EMAIL = ?
           ORDER BY DT_DATA DESC
@@ -182,7 +182,8 @@ try {
         $item['codigo'] = $info['codigo'] ?? '';
         $item['descricao'] = $info['descricao'] ?? '';
         $item['referencia'] = $info['referencia'] ?? $item['produto'];
-        $item['link'] = gerarLink($pdo, $item['referencia']) ?: '';
+        $linkBd = $item['link'] ?? '';
+        $item['link'] = $linkBd ?: gerarLink($pdo, $item['referencia']) ?: '';
         $item['produto'] = $item['referencia'];
     }
     unset($item);
