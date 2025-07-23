@@ -144,8 +144,8 @@ try {
     $total = (int)$stmtTot->fetchColumn();
 
     $stmt = $pdo->prepare(
-        "SELECT DS_REFERENCIA AS produto, DS_FORMATO AS formato, DRVW_IDFIELD AS idfield, DT_DATA AS data
-           FROM _USR_CONF_SITE_HISTORICO_DESENHO
+        "SELECT DS_REFERENCIA AS produto, DS_FORMATO AS formato, DRVW_IDFIELD AS idfield, DS_LINK AS link, DT_DATA AS data
+                   FROM _USR_CONF_SITE_HISTORICO_DESENHO
           WHERE DS_EMAIL = ?
           ORDER BY DT_DATA DESC
           OFFSET ? ROWS FETCH NEXT ? ROWS ONLY"
@@ -167,7 +167,8 @@ try {
         $item['codigo'] = $info['codigo'] ?? '';
         $item['descricao'] = $info['descricao'] ?? '';
         $item['referencia'] = $info['referencia'] ?? $item['produto'];
-        $item['link'] = gerarLink($pdo, $item['referencia']) ?: '';
+        $linkBd = $item['link'] ?? '';
+        $item['link'] = $linkBd ?: gerarLink($pdo, $item['referencia']) ?: '';
         $item['produto'] = $item['referencia'];
 
         $empDocCompl = array_pad(

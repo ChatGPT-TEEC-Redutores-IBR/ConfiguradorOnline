@@ -29,6 +29,12 @@ if (!$dados) {
 
 $produto = strtoupper(trim(filter_input(INPUT_POST, 'produto', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? ''));
 $oportunidade = trim(filter_input(INPUT_POST, 'oportunidade', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? '');
+$link = trim(filter_input(INPUT_POST, 'link', FILTER_SANITIZE_URL) ?? '');
+
+if ($link && (!filter_var($link, FILTER_VALIDATE_URL) || !preg_match('/^https?:\\/\\//i', $link))) {
+    echo json_encode(['erro' => 'Link invalido']);
+    exit;
+}
 if (!$produto) {
     echo json_encode(['erro' => 'Codigo invalido']);
     exit;
@@ -40,20 +46,22 @@ try {
         PDO::SQLSRV_ATTR_ENCODING => PDO::SQLSRV_ENCODING_UTF8
     ]);
 
-    $sql = "INSERT INTO _USR_CONF_SITE_HISTORICO_CADASTROS (DS_EMAIL, DS_REFERENCIA, CD_OPORTUNIDADE, DT_DATA)
-            SELECT ?, ?, ?, CONVERT(VARCHAR(19), GETDATE(), 120)
+    $sql = "INSERT INTO _USR_CONF_SITE_HISTORICO_CADASTROS (DS_EMAIL, DS_REFERENCIA, CD_OPORTUNIDADE, DS_LINK, DT_DATA)
+            SELECT ?, ?, ?, ?, CONVERT(VARCHAR(19), GETDATE(), 120)
              WHERE NOT EXISTS (
                  SELECT 1 FROM _USR_CONF_SITE_HISTORICO_CADASTROS
-                  WHERE DS_EMAIL = ? AND DS_REFERENCIA = ? AND CD_OPORTUNIDADE = ?
+                  WHERE DS_EMAIL = ? AND DS_REFERENCIA = ? AND CD_OPORTUNIDADE = ? AND DS_LINK = ?
              )";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
         strtolower($dados['email']),
         $produto,
         $oportunidade,
+        $link,
         strtolower($dados['email']),
         $produto,
-        $oportunidade
+        $oportunidade,
+        $link
     ]);
 
     echo json_encode(['sucesso' => true]);

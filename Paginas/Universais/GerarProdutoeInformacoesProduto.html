@@ -1131,13 +1131,15 @@
 
             if (resp.ok) {
                 const referenciaHistorico = document.getElementById("refProduto")?.textContent.trim().toUpperCase() || cdProduto || "";
+                const linkAtual = gerarLinkAtual();
                 fetch("/Paginas/AreaCliente/Sessao/Desenhos/RegistrarDesenho.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
                     body: new URLSearchParams({
                         produto: referenciaHistorico,
                         formato: formatosSelecionados.toUpperCase(),
-                        drvw_idfield: drvwIdField
+                        drvw_idfield: drvwIdField,
+                        link: linkAtual
                     })
                 }).catch(() => { });
                 fetch("/Paginas/AreaCliente/Sessao/Desenhos/HistoricoDesenho.php", {
@@ -1238,6 +1240,7 @@
         try {
             const cdProdNota = document.getElementById("cdProduto")?.textContent.trim().toUpperCase() || "";
             const referenciaProdNota = document.getElementById("refProduto")?.textContent.trim().toUpperCase() || "";
+            const linkAtual = gerarLinkAtual();
 
             const resp = await fetch("/Paginas/SolicitacaoCotacao/SolicitacaoCotacao.php", {
 
@@ -1265,7 +1268,8 @@
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
                     body: new URLSearchParams({
                         produto: referenciaProdNota,
-                        oportunidade: (respTexto.match(/\d+/) || [])[0] || ''
+                        oportunidade: (respTexto.match(/\d+/) || [])[0] || '',
+                        link: linkAtual
                     })
                 });
                 fetch("/Paginas/AreaCliente/Sessao/Cotacoes/HistoricoCotacao.php", {
@@ -1355,7 +1359,8 @@
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
                     body: new URLSearchParams({
                         produto: referenciaProdNota,
-                        oportunidade: (respTexto.match(/\d+/) || [])[0] || ''
+                        oportunidade: (respTexto.match(/\d+/) || [])[0] || '',
+                        link: linkAtual
                     })
                 });
                 fetch("/Paginas/AreaCliente/Sessao/CadastrosProduto/HistoricoCadastroProduto.php", {

@@ -32,6 +32,12 @@ if (!$dados) {
 $produto = strtoupper(trim(filter_input(INPUT_POST, 'produto', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? ''));
 $formato = strtoupper(trim(filter_input(INPUT_POST, 'formato', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? ''));
 $drvwIdField = trim(filter_input(INPUT_POST, 'drvw_idfield', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? '');
+$link = trim(filter_input(INPUT_POST, 'link', FILTER_SANITIZE_URL) ?? '');
+
+if ($link && (!filter_var($link, FILTER_VALIDATE_URL) || !preg_match('/^https?:\\/\\//i', $link))) {
+    echo json_encode(['erro' => 'Link invalido']);
+    exit;
+}
 
 if (!$produto || !$formato) {
     echo json_encode(['erro' => 'Dados invalidos']);
@@ -56,11 +62,11 @@ try {
         }
     }
 
-    $sql = "INSERT INTO _USR_CONF_SITE_HISTORICO_DESENHO (DS_EMAIL, DS_REFERENCIA, DS_FORMATO, DRVW_IDFIELD, DT_DATA)
-            SELECT ?, ?, ?, ?, CONVERT(VARCHAR(19), GETDATE(), 120)
+    $sql = "INSERT INTO _USR_CONF_SITE_HISTORICO_DESENHO (DS_EMAIL, DS_REFERENCIA, DS_FORMATO, DRVW_IDFIELD, DS_LINK, DT_DATA)
+            SELECT ?, ?, ?, ?, ?, CONVERT(VARCHAR(19), GETDATE(), 120)
              WHERE NOT EXISTS (
                  SELECT 1 FROM _USR_CONF_SITE_HISTORICO_DESENHO
-                  WHERE DS_EMAIL = ? AND DS_REFERENCIA = ? AND DS_FORMATO = ? AND DRVW_IDFIELD = ?
+                  WHERE DS_EMAIL = ? AND DS_REFERENCIA = ? AND DS_FORMATO = ? AND DRVW_IDFIELD = ? AND DS_LINK = ?
              )";
 
     $stmt = $pdo->prepare($sql);
@@ -69,10 +75,12 @@ try {
         $produto,
         $formato,
         $drvwIdField,
+        $link,
         strtolower($dados['email']),
         $produto,
         $formato,
-        $drvwIdField
+        $drvwIdField,
+        $link
     ]);
 
     echo json_encode(['sucesso' => true]);

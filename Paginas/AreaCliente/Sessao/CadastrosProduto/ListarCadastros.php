@@ -223,8 +223,8 @@ try {
     $total = (int)$stmtTot->fetchColumn();
 
     $stmt = $pdo->prepare(
-        "SELECT DS_REFERENCIA AS produto, CD_OPORTUNIDADE AS oportunidade, DT_DATA AS data
-           FROM _USR_CONF_SITE_HISTORICO_CADASTROS
+        "SELECT DS_REFERENCIA AS produto, CD_OPORTUNIDADE AS oportunidade, DS_LINK AS link, DT_DATA AS data
+        FROM _USR_CONF_SITE_HISTORICO_CADASTROS
           WHERE DS_EMAIL = ?
           ORDER BY DT_DATA DESC
           OFFSET ? ROWS FETCH NEXT ? ROWS ONLY"
@@ -243,6 +243,8 @@ try {
         $item['descricao'] = $info['descricao'] ?? '';
         $item['referencia'] = $info['referencia'] ?? $item['produto'];
         $item['link'] = gerarLink($pdo, $item['referencia']) ?: '';
+        $linkBd = $item['link'] ?? '';
+        $item['link'] = $linkBd ?: gerarLink($pdo, $item['referencia']) ?: '';
         $item['produto'] = $item['referencia'];
         if (!empty($item['oportunidade'])) {
             $dealInfo = obterDealInfo($item['oportunidade'], $tokenPipe);

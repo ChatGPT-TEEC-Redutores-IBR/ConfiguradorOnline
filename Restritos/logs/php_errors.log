@@ -7,3 +7,11 @@
 [23-Jul-2025 10:00:57 America/Sao_Paulo] PHP Warning:  preg_match(): No ending delimiter '/' found in C:\AvantIBR\web\ConfiguradorOnline\Paginas\AreaCliente\Sessao\Produtos\RegistrarProduto.php on line 35
 [23-Jul-2025 10:01:02 America/Sao_Paulo] PHP Warning:  preg_match(): No ending delimiter '/' found in C:\AvantIBR\web\ConfiguradorOnline\Paginas\AreaCliente\Sessao\Produtos\RegistrarProduto.php on line 35
 [23-Jul-2025 10:02:25 America/Sao_Paulo] PHP Warning:  preg_match(): No ending delimiter '/' found in C:\AvantIBR\web\ConfiguradorOnline\Paginas\AreaCliente\Sessao\Produtos\RegistrarProduto.php on line 35
+[23-Jul-2025 10:09:12 America/Sao_Paulo] PHP Warning:  preg_match(): No ending delimiter '/' found in C:\AvantIBR\web\ConfiguradorOnline\Paginas\AreaCliente\Sessao\Produtos\RegistrarProduto.php on line 35
+[23-Jul-2025 10:10:44 America/Sao_Paulo] PHP Warning:  preg_match(): No ending delimiter '/' found in C:\AvantIBR\web\ConfiguradorOnline\Paginas\AreaCliente\Sessao\Produtos\RegistrarProduto.php on line 35
+[23-Jul-2025 10:10:47 America/Sao_Paulo] PHP Warning:  preg_match(): No ending delimiter '/' found in C:\AvantIBR\web\ConfiguradorOnline\Paginas\AreaCliente\Sessao\Produtos\RegistrarProduto.php on line 35
+[23-Jul-2025 10:11:32 America/Sao_Paulo] PHP Warning:  preg_match(): No ending delimiter '/' found in C:\AvantIBR\web\ConfiguradorOnline\Paginas\AreaCliente\Sessao\Produtos\RegistrarProduto.php on line 35
+[23-Jul-2025 10:15:25 America/Sao_Paulo] PHP Warning:  preg_match(): No ending delimiter '/' found in C:\AvantIBR\web\ConfiguradorOnline\Paginas\AreaCliente\Sessao\Produtos\RegistrarProduto.php on line 35
+[23-Jul-2025 10:24:47 America/Sao_Paulo] [23/07/2025 10:24:47] RegistrarProduto: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The data types text and nvarchar are incompatible in the equal to operator.
+[23-Jul-2025 10:26:11 America/Sao_Paulo] [23/07/2025 10:26:11] RegistrarProduto: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The data types text and nvarchar are incompatible in the equal to operator.
+[23-Jul-2025 10:26:24 America/Sao_Paulo] [23/07/2025 10:26:24] RegistrarProduto: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The data types text and nvarchar are incompatible in the equal to operator.

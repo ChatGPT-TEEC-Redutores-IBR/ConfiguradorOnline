@@ -25,3 +25,6 @@
     at HTMLAnchorElement.<anonymous> (<anonymous>:88:17)
 [22/07/2025 18:45:47] Desenho do produto QU.40086502 gerada por BPERUZZO96@HOTMAIL.COM
 [22/07/2025 18:46:11] Cotacao do produto 1.Q.050.50.80B14.N.N.N gerada por BPERUZZO96@HOTMAIL.COM
+[23/07/2025 10:24:47] RegistrarProduto: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The data types text and nvarchar are incompatible in the equal to operator.
+[23/07/2025 10:26:11] RegistrarProduto: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The data types text and nvarchar are incompatible in the equal to operator.
+[23/07/2025 10:26:24] RegistrarProduto: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The data types text and nvarchar are incompatible in the equal to operator.
