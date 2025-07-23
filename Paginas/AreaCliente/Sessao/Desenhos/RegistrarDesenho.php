@@ -66,7 +66,7 @@ try {
             SELECT ?, ?, ?, ?, ?, CONVERT(VARCHAR(19), GETDATE(), 120)
              WHERE NOT EXISTS (
                  SELECT 1 FROM _USR_CONF_SITE_HISTORICO_DESENHO
-                  WHERE DS_EMAIL = ? AND DS_REFERENCIA = ? AND DS_FORMATO = ? AND DRVW_IDFIELD = ? AND DS_LINK = ?
+                  WHERE DS_EMAIL = ? AND DS_REFERENCIA = ? AND DS_FORMATO = ? AND DRVW_IDFIELD = ? AND CONVERT(VARCHAR(MAX), DS_LINK) = ?
              )";
 
     $stmt = $pdo->prepare($sql);

@@ -54,7 +54,7 @@ $sql = "INSERT INTO _USR_CONF_SITE_HISTORICO_COTACAO (DS_EMAIL, DS_REFERENCIA, C
             SELECT ?, ?, ?, ?, CONVERT(VARCHAR(19), GETDATE(), 120)
              WHERE NOT EXISTS (
                  SELECT 1 FROM _USR_CONF_SITE_HISTORICO_COTACAO
-                  WHERE DS_EMAIL = ? AND DS_REFERENCIA = ? AND CD_OPORTUNIDADE = ? AND DS_LINK = ?
+                  WHERE DS_EMAIL = ? AND DS_REFERENCIA = ? AND CD_OPORTUNIDADE = ? AND CONVERT(VARCHAR(MAX), DS_LINK) = ?
              )";
 
     $stmt = $pdo->prepare($sql);

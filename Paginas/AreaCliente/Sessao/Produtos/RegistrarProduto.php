@@ -54,7 +54,7 @@ try {
                  SELECT 1 FROM _USR_CONF_SITE_HISTORICO_PRODUTO
                   WHERE DS_EMAIL = ?
                     AND DS_REFERENCIA = ?
-                    AND DS_LINK = ?
+                    AND CONVERT(VARCHAR(MAX), DS_LINK) = ?
                     AND DATEDIFF(MINUTE, DT_DATA, GETDATE()) = 0
              )";
 
