@@ -1493,7 +1493,7 @@
 
     function definirValorCampo(id, valor) {
         const el = document.getElementById(id);
-        if (!el) return false;
+        if (!el) return null;
 
         if (el.type === 'checkbox') {
             if (el.value === valor && !el.checked) {
@@ -1532,12 +1532,58 @@
         return el.value === valor;
     }
 
-    function preencherCamposDaUrl() {
-        const origParams = new URLSearchParams(location.search);
-        if (!origParams.toString()) return;
+    function preencherCampoSequencial(paramEntries, index = 0, tentativas = 30) {
+        if (index >= paramEntries.length) {
+            if (paramEntries.length && typeof gerarCodigoProduto === 'function') {
+                const generated = gerarLinkAtual();
+                const search = generated.split('?')[1] || '';
+                const genParams = new URLSearchParams(search);
+                const origParams = new URLSearchParams(location.search);
 
-        const params = Array.from(origParams.entries());
+                let allMatch = true;
+                for (const [k, v] of genParams.entries()) {
+                    if (origParams.get(k) !== v) {
+                        allMatch = false;
+                        break;
+                    }
+                }
+
+                if (allMatch && genParams.size === origParams.size && formularioCompleto()) {
+                    gerarCodigoProduto();
+                    if (window._paramCount > 1) {
+                        const botao = document.querySelector('.gerar-produto-wrapper');
+                        if (botao) {
+                            if (typeof smoothScrollParaCentro === 'function') {
+                                smoothScrollParaCentro(botao, 500);
+                            } else if (typeof scrollParaCentro === 'function') {
+                                scrollParaCentro(botao);
+                            }
+                        }
+                        if (typeof window.finishLoading === 'function') window.finishLoading();
+                    }
+                }
+            }
+            return;
+        }
+
+        const [key, val] = paramEntries[index];
+        const result = definirValorCampo(key, val);
+        if (result === null) {
+            setTimeout(() => preencherCampoSequencial(paramEntries, index, tentativas - 1), 500);
+        } else if (result) {
+            setTimeout(() => preencherCampoSequencial(paramEntries, index + 1), 50);
+        } else if (tentativas > 0) {
+            setTimeout(() => preencherCampoSequencial(paramEntries, index, tentativas - 1), 500);
+        } else {
+            setTimeout(() => preencherCampoSequencial(paramEntries, index + 1), 50);
+        }
+    }
+
+    function preencherCamposDaUrl() {
+        const params = Array.from(new URLSearchParams(location.search).entries());
+        if (!params.length) return;
         const order = { PL: 0, MO: 1, VA: 2, MH: 3 };
+
         params.sort(([aKey], [bKey]) => {
             const sa = aKey.slice(-2).toUpperCase();
             const sb = bKey.slice(-2).toUpperCase();
@@ -1548,41 +1594,7 @@
             }
             return 0;
         });
-
-        let attempts = 0;
-        const MAX_ATTEMPTS = 600;
-
-        const verificar = () => {
-            let todos = true;
-            for (const [k, v] of params) {
-                if (!definirValorCampo(k, v)) todos = false;
-            }
-
-            const cur = new URLSearchParams((gerarLinkAtual().split('?')[1]) || '');
-            let mismatch = false;
-            for (const [k, v] of origParams.entries()) {
-                if (cur.get(k) !== v) { mismatch = true; break; }
-            }
-
-            if (!mismatch && cur.size === origParams.size && formularioCompleto()) {
-                gerarCodigoProduto();
-                if (window._paramCount > 1) {
-                    const botao = document.querySelector('.gerar-produto-wrapper');
-                    if (botao) {
-                        if (typeof smoothScrollParaCentro === 'function') smoothScrollParaCentro(botao, 1000);
-                        else if (typeof scrollParaCentro === 'function') scrollParaCentro(botao);
-                    }
-                }
-                if (typeof window.finishLoading === 'function') window.finishLoading();
-                clearInterval(timer);
-            } else if (++attempts > MAX_ATTEMPTS) {
-                if (typeof window.finishLoading === 'function') window.finishLoading();
-                clearInterval(timer);
-            }
-        };
-
-        const timer = setInterval(verificar, 500);
-        verificar();
+        preencherCampoSequencial(params, 0);
     }
 
     function copiarLink(event) {
