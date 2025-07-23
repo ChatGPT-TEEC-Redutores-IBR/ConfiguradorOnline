@@ -34,7 +34,7 @@ $formato = strtoupper(trim(filter_input(INPUT_POST, 'formato', FILTER_SANITIZE_F
 $drvwIdField = trim(filter_input(INPUT_POST, 'drvw_idfield', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? '');
 $link = trim(filter_input(INPUT_POST, 'link', FILTER_SANITIZE_URL) ?? '');
 
-if ($link && (!filter_var($link, FILTER_VALIDATE_URL) || !preg_match('/^https?:\\/\\//i', $link))) {
+if ($link && (!filter_var($link, FILTER_VALIDATE_URL) || !preg_match('/^https?:\/\//i', $link))) {
     echo json_encode(['erro' => 'Link invalido']);
     exit;
 }

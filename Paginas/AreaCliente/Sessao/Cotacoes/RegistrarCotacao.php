@@ -34,7 +34,7 @@ $oportunidade = trim(filter_input(INPUT_POST, 'oportunidade', FILTER_SANITIZE_FU
 
 $link = trim(filter_input(INPUT_POST, 'link', FILTER_SANITIZE_URL) ?? '');
 
-if ($link && (!filter_var($link, FILTER_VALIDATE_URL) || !preg_match('/^https?:\\/\\//i', $link))) {
+if ($link && (!filter_var($link, FILTER_VALIDATE_URL) || !preg_match('/^https?:\/\//i', $link))) {
     echo json_encode(['erro' => 'Link invalido']);
     exit;
 }
