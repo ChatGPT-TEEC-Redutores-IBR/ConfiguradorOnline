@@ -119,6 +119,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    document.querySelectorAll("#formBusca").forEach((form) => {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const inp = form.querySelector("#termo");
+            if (inp && tratarBuscaProduto(inp)) buscarProduto(inp.value);
+        });
+    });
 });
 
 
@@ -521,7 +529,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
     window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/Service-Worker.min.js?versao=versao.3.0.1", { updateViaCache: 'none' })
+        navigator.serviceWorker.register("/Service-Worker.min.js?versao=versao.3.0.2", { updateViaCache: 'none' })
             .catch(err => console.warn('Service worker registration failed:', err));
     });
 } else {
