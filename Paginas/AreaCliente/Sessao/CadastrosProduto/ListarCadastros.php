@@ -242,9 +242,11 @@ try {
         $item['codigo'] = $info['codigo'] ?? '';
         $item['descricao'] = $info['descricao'] ?? '';
         $item['referencia'] = $info['referencia'] ?? $item['produto'];
-        $item['link'] = gerarLink($pdo, $item['referencia']) ?: '';
-        $linkBd = $item['link'] ?? '';
-        $item['link'] = $linkBd ?: gerarLink($pdo, $item['referencia']) ?: '';
+        $linkBd = trim($item['link'] ?? '');
+        if (!$linkBd) {
+            $linkBd = gerarLink($pdo, $item['referencia']) ?: '';
+        }
+        $item['link'] = $linkBd;
         $item['produto'] = $item['referencia'];
         if (!empty($item['oportunidade'])) {
             $dealInfo = obterDealInfo($item['oportunidade'], $tokenPipe);

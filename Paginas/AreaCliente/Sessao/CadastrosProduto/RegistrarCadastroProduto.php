@@ -46,23 +46,36 @@ try {
         PDO::SQLSRV_ATTR_ENCODING => PDO::SQLSRV_ENCODING_UTF8
     ]);
 
-    $sql = "INSERT INTO _USR_CONF_SITE_HISTORICO_CADASTROS (DS_EMAIL, DS_REFERENCIA, CD_OPORTUNIDADE, DS_LINK, DT_DATA)
-            SELECT ?, ?, ?, ?, CONVERT(VARCHAR(19), GETDATE(), 120)
-             WHERE NOT EXISTS (
-                 SELECT 1 FROM _USR_CONF_SITE_HISTORICO_CADASTROS
-                  WHERE DS_EMAIL = ? AND DS_REFERENCIA = ? AND CD_OPORTUNIDADE = ? AND CONVERT(VARCHAR(MAX), DS_LINK) = ?
-             )";
-    $stmt = $pdo->prepare($sql);
+$sqlUpdate = "UPDATE _USR_CONF_SITE_HISTORICO_CADASTROS
+                     SET DS_LINK = ?
+                   WHERE DS_EMAIL = ? AND DS_REFERENCIA = ? AND CD_OPORTUNIDADE = ?
+                     AND (DS_LINK IS NULL OR DS_LINK = '')";
+    $stmt = $pdo->prepare($sqlUpdate);
     $stmt->execute([
-        strtolower($dados['email']),
-        $produto,
-        $oportunidade,
         $link,
         strtolower($dados['email']),
         $produto,
-        $oportunidade,
-        $link
+        $oportunidade
     ]);
+
+    if ($stmt->rowCount() === 0) {
+        $sqlInsert = "INSERT INTO _USR_CONF_SITE_HISTORICO_CADASTROS (DS_EMAIL, DS_REFERENCIA, CD_OPORTUNIDADE, DS_LINK, DT_DATA)
+                SELECT ?, ?, ?, ?, CONVERT(VARCHAR(19), GETDATE(), 120)
+                 WHERE NOT EXISTS (
+                     SELECT 1 FROM _USR_CONF_SITE_HISTORICO_CADASTROS
+                      WHERE DS_EMAIL = ? AND DS_REFERENCIA = ? AND CD_OPORTUNIDADE = ?
+                 )";
+        $stmt = $pdo->prepare($sqlInsert);
+        $stmt->execute([
+            strtolower($dados['email']),
+            $produto,
+            $oportunidade,
+            $link,
+            strtolower($dados['email']),
+            $produto,
+            $oportunidade
+        ]);
+    }
 
     echo json_encode(['sucesso' => true]);
     $pdo = null;

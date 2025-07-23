@@ -35,3 +35,6 @@
 [23-Jul-2025 10:43:00 America/Sao_Paulo] [23/07/2025 10:43:00] Cadastro do produto 1.Q.050.50.N.N.N.1.V.1.80B5.B5.V6 solicitado por BRAIAN.PERUZZO@REDUTORESIBR.COM.BR
 [23-Jul-2025 10:43:06 America/Sao_Paulo] [23/07/2025 10:43:06] Cotacao do produto 1.Q.050.50.N.N.N.1.V.1.80B5.B5.V6 gerada por BRAIAN.PERUZZO@REDUTORESIBR.COM.BR
 [23-Jul-2025 10:43:17 America/Sao_Paulo] [23/07/2025 10:43:17] Desenho do produto QU.39320117 gerada por BRAIAN.PERUZZO@REDUTORESIBR.COM.BR
+[23-Jul-2025 10:50:57 America/Sao_Paulo] [23/07/2025 10:50:57] Cadastro do produto 1.Q.050.50.N.N.N.1.V.1.80B5.B5.V6 solicitado por BRAIAN.PERUZZO@REDUTORESIBR.COM.BR
+[23-Jul-2025 11:00:09 America/Sao_Paulo] [23/07/2025 11:00:09] Cadastro do produto 1.Q.050.50.N.N.N.1.V.1.80B5.B5.V6 solicitado por BRAIAN.PERUZZO@REDUTORESIBR.COM.BR
+[23-Jul-2025 11:00:09 America/Sao_Paulo] [23/07/2025 11:00:09] RegistrarCadastro: SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The data types text and varchar are incompatible in the equal to operator.

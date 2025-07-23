@@ -2405,7 +2405,7 @@
             });
 
 
-        if (window.ultimoHistoricoProduto !== COMPOSICAOCODIGO) {
+        if (window.manualHistoricoProduto && window.ultimoHistoricoProduto !== COMPOSICAOCODIGO) {
             const linkAtual = gerarLinkAtual();
             fetch("/Paginas/AreaCliente/Sessao/Produtos/RegistrarProduto.php", {
                 method: "POST",
@@ -2413,6 +2413,7 @@
                 body: `produto=${encodeURIComponent(COMPOSICAOCODIGO)}&link=${encodeURIComponent(linkAtual)}`
             });
             window.ultimoHistoricoProduto = COMPOSICAOCODIGO;
+            window.manualHistoricoProduto = false;
         }
 
         exibirBotaoCompartilhar();
