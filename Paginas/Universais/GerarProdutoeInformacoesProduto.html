@@ -1323,12 +1323,6 @@
             return;
         }
 
-        if (emailVal.includes("redutoresibr")) {
-            animarErroCampo(email);
-            exibirAlerta("⚠️ Este recurso é destinado a solicitações externas. Para uso interno, acesse o ERP.");
-            email.focus();
-            return;
-        }
 
         botaoEnviar.disabled = true;
         const spinner = document.createElement('span');
@@ -1385,6 +1379,8 @@
 </script>
 
 <script>
+    window.manualHistoricoProduto = false;
+    window.ultimoHistoricoProduto = '';
     function obterParametroLinha() {
         const params = new URLSearchParams(location.search);
         let nome = [...params.keys()].find(k => k.toUpperCase().endsWith('LN'));
@@ -1651,11 +1647,13 @@
 
         document.querySelector('.gerar-produto')?.addEventListener('click', e => {
             e.preventDefault();
+            window.manualHistoricoProduto = true;
             const completo = formularioCompleto(true);
             if (typeof gerarCodigoProduto === 'function' && completo) {
                 gerarCodigoProduto();
             } else if (!completo && typeof exibirAlerta === 'function') {
                 exibirAlerta('⚠️ Por favor, preencha todos os campos obrigatórios antes de continuar.');
+                window.manualHistoricoProduto = false;
             }
             const link = gerarLinkAtual();
             history.pushState(null, '', link);

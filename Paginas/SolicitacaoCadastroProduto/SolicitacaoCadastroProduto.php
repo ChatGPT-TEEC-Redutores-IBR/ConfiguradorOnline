@@ -202,6 +202,34 @@ try {
         $referencia,
         $dealId
     ]);
+
+        $stmtLink = $pdo->prepare(
+        "SELECT DS_LINK FROM _USR_CONF_SITE_HISTORICO_CADASTROS
+          WHERE DS_EMAIL = ? AND DS_REFERENCIA = ? AND CD_OPORTUNIDADE = ?"
+    );
+    $stmtLink->execute([
+        strtolower($email),
+        $referencia,
+        $dealId
+    ]);
+    $linkBanco = trim($stmtLink->fetchColumn() ?: '');
+
+    if ($linkBanco) {
+        $dealUpdate = [
+            'custom_fields' => [
+                ['id' => 259977, 'value' => $linkBanco]
+            ]
+        ];
+        $contextUpdate = stream_context_create([
+            'http' => [
+                'method'  => 'PUT',
+                'header'  => "Accept: application/json\r\nContent-Type: application/json\r\nToken: $tokenPipe\r\n",
+                'content' => json_encode($dealUpdate)
+            ]
+        ]);
+        @file_get_contents("https://api.pipe.run/v1/deals/$dealId", false, $contextUpdate);
+    }
+    
     $pdo = null;
     log_event("Cadastro do produto $referencia solicitado por $email");
 } catch (Exception $e) {
