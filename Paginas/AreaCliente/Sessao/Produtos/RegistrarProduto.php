@@ -48,6 +48,17 @@ try {
         PDO::SQLSRV_ATTR_ENCODING => PDO::SQLSRV_ENCODING_UTF8
     ]);
 
+        $sqlUpdate = "UPDATE _USR_CONF_SITE_HISTORICO_PRODUTO
+                     SET DS_LINK = ?
+                   WHERE DS_EMAIL = ? AND DS_REFERENCIA = ?
+                     AND (DS_LINK IS NULL OR CONVERT(VARCHAR(MAX), DS_LINK) = '')";
+    $stmt = $pdo->prepare($sqlUpdate);
+    $stmt->execute([
+        $link,
+        strtolower($dados['email']),
+        $produto
+    ]);
+    
     $sql = "INSERT INTO _USR_CONF_SITE_HISTORICO_PRODUTO (DS_EMAIL, DS_REFERENCIA, DS_LINK, DT_DATA)
             SELECT ?, ?, ?, CONVERT(VARCHAR(19), GETDATE(), 120)
              WHERE NOT EXISTS (
