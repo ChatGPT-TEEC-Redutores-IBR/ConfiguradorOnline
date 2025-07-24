@@ -1143,3 +1143,11 @@ window.addEventListener('unhandledrejection', (e) => {
         }
     } catch { }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const banner = document.getElementById('app-banner');
+    if (!banner) return;
+    if (/Android/i.test(navigator.userAgent)) {
+        banner.style.display = 'block';
+    }
+});
