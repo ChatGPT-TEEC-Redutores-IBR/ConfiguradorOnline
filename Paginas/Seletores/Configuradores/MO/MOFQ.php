@@ -16,7 +16,8 @@ $mott = isset($_GET['MOTT']) ? $_GET['MOTT'] : '';
 
 $sql = "SELECT 
     CASE
-    WHEN MOFQ IS NOT NULL THEN MOFQ + 'HZ'
+    WHEN MOFQ = 'DE' THEN 'DE (DESIGN EUROPEU - 50/60HZ)'
+    ELSE CONCAT(MOFQ, 'HZ')
     END AS DESCRIÇÃO,
     MOFQ
 FROM (

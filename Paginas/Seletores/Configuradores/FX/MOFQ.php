@@ -16,9 +16,10 @@ $mott = isset($_GET['MOTT']) ? $_GET['MOTT'] : '';
 $fxcm = isset($_GET['FXCM']) ? $_GET['FXCM'] : '';
 $fxcp = isset($_GET['FXCP']) ? $_GET['FXCP'] : '';
 
-$sql = "SELECT DISTINCT
+$sql = "SELECT 
     CASE
-    WHEN MOFQ IS NOT NULL THEN CONCAT(MOFQ, 'HZ')
+    WHEN MOFQ = 'DE' THEN 'DE (DESIGN EUROPEU - 50/60HZ)'
+    ELSE CONCAT(MOFQ, 'HZ')
     END AS DESCRIÇÃO,
     MOFQ
 FROM (SELECT DISTINCT A.MOFQ AS MOFQ

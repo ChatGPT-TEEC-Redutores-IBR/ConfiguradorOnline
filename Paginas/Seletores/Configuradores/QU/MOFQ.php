@@ -18,7 +18,8 @@ $qucp = isset($_GET['QUCP']) ? $_GET['QUCP'] : '';
 
 $sql = "SELECT 
     CASE
-    WHEN MOFQ IS NOT NULL THEN CONCAT(MOFQ, 'HZ')
+    WHEN MOFQ = 'DE' THEN 'DE (DESIGN EUROPEU - 50/60HZ)'
+    ELSE CONCAT(MOFQ, 'HZ')
     END AS DESCRIÇÃO,
     MOFQ
 FROM (
