@@ -97,38 +97,16 @@ try {
         log_event('EditarPerfil consulta codigo/permissao: ' . $e->getMessage());
     }
     
-    unlink($arquivo);
+ unlink($arquivo);
 
-    $segredo = getenv('JWT_SECRET');
-    if ($segredo === false) {
-        $segredo = trim(file_get_contents(__DIR__ . '/../../../../Restritos/Credenciais/Segredo.jwt'));
+    $tokenCookie = $_COOKIE['auth_token'] ?? '';
+    if ($tokenCookie) {
+        blacklist_token($tokenCookie);
     }
-    $ttl = getenv('JWT_TTL');
-    if ($ttl === false) {
-        $ttl = 86400; // 24 horas por inatividade
-    } else {
-        $ttl = (int)$ttl;
-    }
-    $payload = [
-        'email' => $novoEmail,
-        'grupo' => $grupo,
-        'nome' => $nome,
-        'cpfcnpj' => $cpfcnpj,
-        'empresa' => $empresa,
-        'codigo' => $codigo,
-        'exp' => time() + $ttl
-    ];
-    $tokenJWT = JWTHelper::encode($payload, $segredo);
-    setcookie('auth_token', $tokenJWT, [
-        'expires' => time() + $ttl,
-        'path' => '/',
-        'domain' => 'configurador.redutoresibr.com.br',
-        'secure' => true,
-        'httponly' => true,
-        'samesite' => 'Lax'
-    ]);
+    setcookie('auth_token', '', time() - 3600, '/', 'configurador.redutoresibr.com.br', true, true);
+
     log_event('Email atualizado para ' . $novoEmail);
-    header('Location: /AreaCliente/Sessao');
+    header('Location: /AreaCliente?atualizacao=sucesso');
     exit;
 } catch (PDOException $e) {
     log_event('ConfirmarEmail: ' . $e->getMessage());

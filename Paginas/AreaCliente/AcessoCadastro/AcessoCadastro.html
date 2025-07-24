@@ -18,7 +18,7 @@
     <meta property="og:title" content="Área do Cliente - Redutores IBR" />
     <meta property="og:description" content="Acesse a área do cliente para o Configurador Online da Redutores IBR" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/Layout/Imagens/Logotipos/Logotipo.svg" />
+    <meta property="og:image" content="/Layout/Imagens/Logotipos/LogotipoAplicativo512512" />
 
     <script>
         (function () {
@@ -606,6 +606,7 @@
             const cadastro = params.get("cadastro");
             const exclusao = params.get("exclusao");
             const senhaAlt = params.get("senha");
+            const atualizacao = params.get("atualizacao");
             const tab = params.get("tab");
             const mensagem = document.getElementById("mensagemRetorno");
 
@@ -662,6 +663,9 @@
                 }
                 else if (senhaAlt === 'sucesso') {
                     exibirMensagem('✅ Senha alterada com sucesso. Faça login.', 'green');
+                }
+                else if (atualizacao === 'sucesso') {
+                    exibirMensagem('✅ Dados atualizados com sucesso. Faça login novamente.', 'green');
                 }
                 history.replaceState({}, document.title, window.location.pathname);
             }
@@ -732,11 +736,12 @@
             const params = new URLSearchParams(window.location.search);
             const exclusao = params.get('exclusao');
             const senhaAlt = params.get('senha');
+            const atualizacao = params.get('atualizacao');
 
             const loading = document.getElementById('loading-area');
             const main = document.getElementById('main-content');
 
-            if (exclusao === 'sucesso' || senhaAlt === 'sucesso') {
+            if (exclusao === 'sucesso' || senhaAlt === 'sucesso' || atualizacao === 'sucesso') {
                 if (loading) loading.remove();
                 if (main) main.style.display = '';
                 return;
