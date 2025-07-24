@@ -530,7 +530,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
     window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/Service-Worker.min.js?versao=versao.3.0.2", { updateViaCache: 'none' })
+        navigator.serviceWorker.register("/Service-Worker.min.js?versao=versao.3.0.3", { updateViaCache: 'none' })
             .catch(err => console.warn('Service worker registration failed:', err));
     });
 } else {
