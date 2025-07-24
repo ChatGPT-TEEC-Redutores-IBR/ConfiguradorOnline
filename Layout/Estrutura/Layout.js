@@ -1147,7 +1147,43 @@ window.addEventListener('unhandledrejection', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
     const banner = document.getElementById('app-banner');
     if (!banner) return;
-    if (/Android/i.test(navigator.userAgent)) {
-        banner.style.display = 'block';
+    try {
+        if (localStorage.getItem('appBannerDismissed') === '1') {
+            banner.remove();
+            return;
+        }
+    } catch { }
+
+    banner.style.display = 'block';
+
+    const close = banner.querySelector('.banner-close');
+    if (close) {
+        close.addEventListener('click', () => {
+            banner.style.display = 'none';
+            try {
+                localStorage.setItem('appBannerDismissed', '1');
+            } catch { }
+        });
     }
+});
+
+// Abre links da Google Play diretamente no aplicativo quando em um dispositivo Android
+document.addEventListener('DOMContentLoaded', () => {
+    if (!/Android/i.test(navigator.userAgent)) return;
+
+    document
+        .querySelectorAll('a[href*="play.google.com/store/apps/details?id="]')
+        .forEach((link) => {
+            link.addEventListener('click', (e) => {
+                const appId = new URL(link.href).searchParams.get('id');
+                if (!appId) return;
+                e.preventDefault();
+                const marketUrl = `market://details?id=${appId}`;
+                // se o esquema falhar, voltar para o link padrão
+                setTimeout(() => {
+                    window.location.href = link.href;
+                }, 1000);
+                window.location.href = marketUrl;
+            });
+        });
 });
